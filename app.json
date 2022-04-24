@@ -1,0 +1,27 @@
+{
+  "name": "Hori-Beta",
+  "description": "Multi Device Whatsapp Bot By Sachu And Saran",
+  "repository": "https://github.com/Sachu-Settan/Hori-Beta",
+  "logo": "https://i.imgur.com/cLTJ9Iq.jpg",
+  "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    },
+    {
+      "url": "https://github.com/DuckyTeam/heroku-buildpack-imagemagick"
+    },
+    {
+      "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+    }
+  ],
+   "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
