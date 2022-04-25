@@ -139,7 +139,15 @@ I'm not sure if it was a goodbye charm, but it was fun while it lasted 😌✨` 
 	for (let i of kon) {
 	    list.push({
 	    	displayName: await Hori.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Hori.getName(i + '@s.whatsapp.net')}\nFN:${await Hori.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.EMAIL;type=INTERNET:GitHub: DGXeon\nitem2.X-ABLabel:Follow Me On Github\nitem3.URL:YouTube: Xeon\nitem3.X-ABLabel:Youtube\nitem4.ADR:;;India, Mizoram;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Hori.getName(i + '@s.whatsapp.net')}\nFN:${await Hori.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.ADR;CHARSET=UTF-8;TYPE=HOME:;;;Kottayam;Kerala
+            \nitem3.URL;CHARSET=UTF-8:https://Saran-Kuttan.github.io
+            \nitem4.URL;CHARSET=UTF-8:https://Sachu-Settan.github.io
+            \nitem5.X-SOCIALPROFILE;TYPE=Instagram:https://instagram.com/_saran_ff_
+            \nitem6.X-SOCIALPROFILE;TYPE=Instagram:https://instagram.com/sachu.modder
+            \nitem7.X-SOCIALPROFILE;TYPE=Youtube:shorturl.at/jsCJS
+            \nitem8.X-SOCIALPROFILE;TYPE=Github:https://github.com/Sachu-Settan
+            \nitem9.X-SOCIALPROFILE;TYPE=Github:https://github.com/Saran-Kuttan
+            \nEND:VCARD`
 	    })
 	}
 	Hori.sendMessage(jid, { contacts: { displayName: `${list.length} Contact`, contacts: list }, ...opts }, { quoted })

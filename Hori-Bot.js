@@ -1926,9 +1926,6 @@ ${id}`)
 		reply(txt)
 		}
 		break
-/*case 'alkitab':  if(!text) throw `Masukan Search Yang Anda Cari`
-epep = await.fetchJson(`https://melcanz.com/alkitabsearch?q=${text}&apikey=melcantik`)
-break*/
 
 		   case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel':
                 try {
@@ -1956,7 +1953,7 @@ break*/
                 Hori.sendMessage(m.chat, { audio: buff, mimetype: 'audio/mpeg' }, { quoted : m })
                 fs.unlinkSync(ran)
                 })
-                } else reply(`Reply to the audio you want to change with caption *${prefix + command}*`)
+                } else reply(`Reply To The Audio You Want To Change With Caption *${prefix + command}*`)
                 } catch (e) {
                 reply(e)
                 }
@@ -2239,7 +2236,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
             break
             case 'owner': case 'creator': {
             Hori.sendContact(m.chat, global.owner2, m)
-           const devsound = fs.readFileSync('./Media/Dev.mp3') //u can change the music in XeonMedia folder
+           const devsound = fs.readFileSync('./Media/Dev.mp3') 
            Hori.sendMessage(m.chat, { audio: devsound, mimetype: 'audio/mp3', ptt: true, quoted: m })
             }
             break
@@ -3130,8 +3127,7 @@ break
 break
 case 'tqtt': 
 reply(`Thanks to
-LORD BUDDHA
-Xeon (Me)
+Sachu-Settan (Me)
 My family
 And all friends who helped assemble this sexy script !!!`)
 break
