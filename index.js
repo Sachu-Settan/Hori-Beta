@@ -62,25 +62,26 @@ async function startHori() {
             let metadata = await Hori.groupMetadata(anu.id)
             let participants = anu.participants
             for (let num of participants) {
-//═[get profile pic]══\\
                 try {
                     ppuser = await Hori.profilePictureUrl(num, 'image')
                 } catch {
-                    ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                /* User Profile Pic */
+                    ppuser = 'https://telegra.ph/file/d66ba35314f3a8adf57e6.jpg'
                 }
-
-//═[get group dp]══\\
                 try {
                     ppgroup = await Hori.profilePictureUrl(anu.id, 'image')
                 } catch {
-                    ppgroup = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                /* Group Profile Pic */
+                    ppgroup = 'https://telegra.ph/file/d66ba35314f3a8adf57e6.jpg'
                 }
                 
-//═[welcome]══\\
+/* Welcome */
 let nama = await Hori.getName(num)
 memb = metadata.participants.length
 
 Kon = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+
+/* BYE */
 
 Tol = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
                 if (anu.action == 'add') {
@@ -88,11 +89,16 @@ Tol = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURICom
 
 Description: ${metadata.desc}
 
-Welcome To Our Comfortable Happy😋, Sometimes Loud😜, Usually Messy🤥, Full Of Love🥰, HOME😌!!`} )
+Welcome To Our Home !`} )
                 } else if (anu.action == 'remove') {
-                    Hori.sendMessage(anu.id, { image: Tol, contextInfo: { mentionedJid: [num] }, caption: `@${num.split("@")[0]} Left ${metadata.subject}
-
-I'm not sure if it was a goodbye charm, but it was fun while it lasted 😌✨` })
+                    Hori.sendMessage(anu.id, { image: Tol, contextInfo: { mentionedJid: [num] }, caption: `
+╔═══════➢ 《 *Bye* 》══════════➢
+║
+╟➢ *Left ${metadata.subject}*
+╟➢ *Bye @${num.split("@")[0]} *
+╟➢ *Bot Creator : Sachu Settan *  
+║
+╚══════════════════════════════➢` })
                 }
             }
         } catch (err) {
@@ -100,7 +106,7 @@ I'm not sure if it was a goodbye charm, but it was fun while it lasted 😌✨` 
         }
     })
 	
-//═[setting]══\\
+/* Settings */
     Hori.decodeJid = (jid) => {
         if (!jid) return jid
         if (/:\d+@/gi.test(jid)) {
@@ -133,20 +139,20 @@ I'm not sure if it was a goodbye charm, but it was fun while it lasted 😌✨` 
             (store.contacts[id] || {})
             return (withoutContact ? '' : v.name) || v.subject || v.verifiedName || PhoneNumber('+' + jid.replace('@s.whatsapp.net', '')).getNumber('international')
     }
-    
+    /* Owner Contact Info */
     Hori.sendContact = async (jid, kon, quoted = '', opts = {}) => {
 	let list = []
 	for (let i of kon) {
 	    list.push({
 	    	displayName: await Hori.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Hori.getName(i + '@s.whatsapp.net')}\nFN:${await Hori.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.ADR;CHARSET=UTF-8;TYPE=HOME:;;;Kottayam;Kerala
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Hori.getName(i + '@s.whatsapp.net')}\nFN:${await Hori.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.ADR;CHARSET=UTF-8;TYPE=REGION:;;;Kerala,India
             \nitem3.URL;CHARSET=UTF-8:https://Saran-Kuttan.github.io
             \nitem4.URL;CHARSET=UTF-8:https://Sachu-Settan.github.io
-            \nitem5.X-SOCIALPROFILE;TYPE=Instagram:https://instagram.com/_saran_ff_
-            \nitem6.X-SOCIALPROFILE;TYPE=Instagram:https://instagram.com/sachu.modder
-            \nitem7.X-SOCIALPROFILE;TYPE=Youtube:shorturl.at/jsCJS
-            \nitem8.X-SOCIALPROFILE;TYPE=Github:https://github.com/Sachu-Settan
-            \nitem9.X-SOCIALPROFILE;TYPE=Github:https://github.com/Saran-Kuttan
+            \nitem5.URL;CHARSET=UTF-8:https://instagram.com/_saran_ff_
+            \nitem6.URL;CHARSET=UTF-8:https://instagram.com/sachu.modder
+            \nitem7.URL;CHARSET=UTF-8:shorturl.at/jsCJS
+            \nitem8.URL;CHARSET=UTF-8:https://github.com/Sachu-Settan
+            \nitem9.URL;CHARSET=UTF-8:https://github.com/Saran-Kuttan
             \nEND:VCARD`
 	    })
 	}
@@ -189,21 +195,21 @@ I'm not sure if it was a goodbye charm, but it was fun while it lasted 😌✨` 
         const { connection, lastDisconnect } = update	    
         if (connection === 'close') {
         let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
-            if (reason === DisconnectReason.badSession) { console.log(`🦄Bad Session File, Please Delete Session and Scan Again`); process.exit(); }
-            else if (reason === DisconnectReason.connectionClosed) { console.log("🦄Connection closed, Reconnecting...."); startHori(); }
-            else if (reason === DisconnectReason.connectionLost) { console.log("🦄Connection Lost from Server, Reconnecting..."); startHori(); }
-            else if (reason === DisconnectReason.connectionReplaced) { console.log("🦄Connection Replaced, Another New Session Opened, Please Close Current Session First"); process.exit(); }
-            else if (reason === DisconnectReason.loggedOut) { console.log(`🦄Device Logged Out, Please Delete Session And Scan Again.`); process.exit(); }
-            else if (reason === DisconnectReason.restartRequired) { console.log("🦄Restart Required, Restarting..."); startHori(); }
-            else if (reason === DisconnectReason.timedOut) { console.log("🦄Connection TimedOut, Reconnecting..."); startHori(); }
+            if (reason === DisconnectReason.badSession) { console.log(`🤖 Bad Session File, Please Delete Session and Scan Again`); process.exit(); }
+            else if (reason === DisconnectReason.connectionClosed) { console.log("🤖 Connection closed, Reconnecting...."); startHori(); }
+            else if (reason === DisconnectReason.connectionLost) { console.log("🤖 Connection Lost from Server, Reconnecting..."); startHori(); }
+            else if (reason === DisconnectReason.connectionReplaced) { console.log("🤖 Connection Replaced, Another New Session Opened, Please Close Current Session First"); process.exit(); }
+            else if (reason === DisconnectReason.loggedOut) { console.log(`🤖 Device Logged Out, Please Delete Session And Scan Again.`); process.exit(); }
+            else if (reason === DisconnectReason.restartRequired) { console.log("🤖 Restart Required, Restarting..."); startHori(); }
+            else if (reason === DisconnectReason.timedOut) { console.log("🤖 Connection TimedOut, Reconnecting..."); startHori(); }
             else { console.log(`Unknown DisconnectReason: ${reason}|${connection}`) }
         }
-        console.log('🦄Connected...', update)
+        console.log('🤖 Connected...', update)
     })
     
     Hori.ev.on('creds.update', saveState)
 
-    // Add Other
+    /* Add Other */
     /** Send Button 5 Image
      *
      * @param {*} jid

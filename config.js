@@ -13,7 +13,6 @@ global.APIKeys = {
 * You Can Multiply Owner Number By Seperating It With Comma [ , ] And Single Quotes [ ' ]
 * Eg : global.owner = ['[Country Code]**********','[Country Code]**********']
 */
-
 global.owner = ['919744933034','918547978854'] /* Owner Number */
 global.owner2 = ['919744933034','918547978854'] /* Owner Number */
 global.premium = ['919744933034','918547978854'] /* Premium Number */
@@ -23,7 +22,7 @@ global.ownername = 'Sachu-Settan & Saran' /* Owner Name */
 global.packname = 'Hori-Bot' /* Sticker Package Name */
 global.author = 'Sachu-Settan & Saran' /* Sticker Pack Author Name */
 global.sessionName = 'session' /* Session File Name */
-global.prefix = ['#','!','/',''] /* Prefix */
+global.prefix = ['.'] /* Prefix */
 global.sp = '⭔' /* Design */
 global.mess = {
     success: 'Done ✓',

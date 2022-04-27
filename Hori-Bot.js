@@ -160,18 +160,19 @@ const levelRole = getLevelingLevel(m.sender)
 	  }
 	
 //[Antilink]
+
 	if (isAntiLink) 
 if (budy.includes('https://chat.whatsapp.com/')) {
                if (!m.key.fromMe) {
-               reply('*LINK DETECTED*\nWow, how naughty, this group has been installed with Antilink, OK?..,\nGood Bye To You..👋🏻')
+               reply('*LINK DETECTED*\nSorry You Cant Send Another Group Link Here\nGood Bye To You..👋🏻')
                let sianj = m.sender
                await Hori.groupParticipantsUpdate(m.chat, [sianj], 'remove').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
                }
 	  }
 	if (db.chats[m.chat].wame) {
         if (budy.match(`wa.me/`)) {
-        m.reply(`「 WA.ME DETECTED 」\n\nYou have been detected sending a wa.me link, sorry you will be kicked !`)
-          if (!isBotAdmins) return m.reply(`Bot must be admin first`)
+        m.reply(`「 WA.ME DETECTED 」\n\nYou have been Detected Sending a wa.me Link, sorry you will be kicked !`)
+          if (!isBotAdmins) return m.reply(`Bot Must be Admin First`)
         let gclink = (`https://wa.me/`)
         let isLinkThisGc = new RegExp(gclink, 'i')
         let isgclink = isLinkThisGc.test(m.text)
@@ -317,7 +318,7 @@ ${Array.from(room.jawaban, (jawaban, index) => {
                 delete tebaktebakan[m.sender.split('@')[0]]
             } else reply('*Wrong Answer!*')
         }
-        
+
 //[tictactoe]
 	    this.game = this.game ? this.game : {}
 	    let room = Object.values(this.game).find(room => room.id && room.game && room.state && room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender) && room.state == 'PLAYING')
@@ -543,7 +544,7 @@ Type *give up* to surrender and admit defeat`
             try {
             if (this.game) {
             delete this.game
-            Hori.sendText(m.chat, `Successfully delete the TicTacToe session`, m)
+            Hori.sendText(m.chat, `Successfully Deleted the TicTacToe session`, m)
             } else if (!this.game) {
             reply(`TicTacToe Session🎮 there is not any`)
             } else throw '?'
@@ -581,12 +582,45 @@ Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
             }
             break
 	    case 'donasi': case 'donate': case 'sewabot': case 'sewa': case 'buypremium': case 'donate': {
-                Hori.sendMessage(m.chat, { image: { url: 'https://telegra.ph/file/6ba2aed566865a068e91f.jpg' }, caption: `*Hi bro ${m.pushName}*\n\n Bot Rental Price\n⭔ 250 INR Per Group via Gpay 1 Month\n\nFor more details, you can chat with the owner\nhttps://wa.me/919744933034 (Owner)\n\nDonate Me : \n\n⭔ GPay :919744933034` }, { quoted: m })
+                Hori.sendMessage(m.chat, { image: { url: 'https://telegra.ph/file/6a02cf1b00855ff80febb.jpg' }, caption: `*Hi bro ${m.pushName}*\n\n Bot Rental Price\n⭔ 250 INR Per Group via Gpay For 1 Month\n\nFor more details, You Can Chat With The Owner\nhttps://wa.me/919744933034 (Owner)\n\nDonate Me : \n\nGPay :919744933034` }, { quoted: m })
             }
             break
-            case 'sc': case 'script': {
-                reply('Script : https://github.com/Sachu-Settan/Hori-Beta\n Dont Forget To Give Star\n\nYoutube : https://youtu.be/imFIX-Wrt3s\n Dont Forget To Subscribe')
-            }
+            case 'gitlink': case 'git': case 'script': case 'sc': {
+                anu = ``
+            const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+                    templateMessage: {
+                        hydratedTemplate: {
+                            hydratedContentText: anu,
+                            locationMessage: {
+                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+                            hydratedFooterText: `Hori Bot-MD By Sachu-Settan & Saran\n\╔╗╔╗╔══╗╔══╗\n\║╚╝║║╔╗║╚║║╝\n\║╔╗║║╠╣║╔║║╗\n\╚╝╚╝╚╝╚╝╚══╝ \n\n\ © Hori Bot-Md\n\n
+            Please Select Button Below
+            `,
+                            hydratedButtons: [{
+                                urlButton: {
+                                displayText: 'GitHub',
+                                    url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                                    },
+                                    urlButton: {
+                                        displayText: '🌏 Bot Web 🌏',
+                                            url: 'https://Hori-Bot.gthub.io'
+                                            }
+                            }, {
+                                quickReplyButton: {
+                                    displayText: '💖',
+                                    buttonId: '❤️'
+                                    }
+                                }, {
+                                quickReplyButton: {
+                                    displayText: '🙂',
+                                    buttonId: '❤️'
+                                }
+                            }]
+                        }
+                    }
+                }), { userJid: m.chat })
+                Hori.relayMessage(m.chat, template.message, { messageId: template.key.id })
+                }
             break
             case 'chat': {
                 if (!isCreator) throw mess.owner
@@ -648,7 +682,7 @@ Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
 Ciee Whats Going On💖👀`
             let menst = [orang, jodoh]
             let buttons = [
-                        { buttonId: '❤️congrats', buttonText: { displayText: '❤️congrats' }, type: 1 }
+                        { buttonId: '❤️ Congrats', buttonText: { displayText: '❤️ Congrats' }, type: 1 }
                     ]
                     await Hori.sendButtonText(m.chat, buttons, jawab, Hori.user.name, m, {mentions: menst})
             }
@@ -777,11 +811,11 @@ let teks = `══✪〘 *👥 Tag All* 〙✪══
             Hori.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
             }
             break
-	    case 'style': case 'styletext': {
+	        case 'style': case 'styletext': {
 	        if (!isPremium && global.db.users[m.sender].limit < 1) return reply(mess.endLimit) // response when limit runs out
-		db.users[m.sender].limit -= 1 // -1 limit
-		let { styletext } = require('./lib/scraper')
-		if (!text) throw 'Enter Query text!'
+	    	db.users[m.sender].limit -= 1 // -1 limit
+		    let { styletext } = require('./lib/scraper')
+		    if (!text) throw 'Enter Query text!'
                 let anu = await styletext(text)
                 let teks = `Entered Text:  ${text}\n\n`
                 for (let i of anu) {
@@ -790,7 +824,7 @@ let teks = `══✪〘 *👥 Tag All* 〙✪══
                 reply(teks)
 	    }
 	    break
-               case 'vote': {
+        case 'vote': {
             if (!m.isGroup) throw mess.group
             if (m.chat in vote) throw `_There are still votes in this chat!_\n\n*${prefix}deletevote* - to delete votes`
             if (!text) throw `Enter Reason for Vote, Example: *${prefix + command} Owner is handsome*`
@@ -1028,8 +1062,8 @@ case 'antilink':
                     await Hori.sendButtonText(m.chat, buttons, `Mode Anti Wa.me`, Hori.user.name, m)
                 }
              }
-             break
-					   case 'mute': {
+            break
+			case 'mute': {
                 if (!m.isGroup) throw mess.group
                 if (!isAdmins) throw mess.admin
                 if (args[0] === "on") {
@@ -1070,7 +1104,7 @@ case 'antilink':
             case 'delete': case 'del': {
                 if (!m.quoted) throw false
                 let { chat, fromMe, id, isBaileys } = m.quoted
-                if (!isBaileys) throw 'The message was not sent by a bot!'
+                if (!isBaileys) throw 'The message Was Not Sent by  Mee !'
                 Hori.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender } })
             }
             break
@@ -1085,13 +1119,13 @@ case 'antilink':
                     await sleep(1500)
                     let btn = [{
                                 urlButton: {
-                                    displayText: 'YouTube📍',
+                                    displayText: '📜 Script 📜',
                                     url: 'https://github.com/Sachu-Settan/Hori-Beta'
                                 }
                             }, {
                                 callButton: {
                                     displayText: 'Owner Number👤',
-                                    phoneNumber: '+91 690-9137-213'
+                                    phoneNumber: '+91 9744933034'
                                 }
                             }, {
                                 quickReplyButton: {
@@ -1417,12 +1451,12 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                                 }
                             }, {
                                 quickReplyButton: {
-                                    displayText: '🎵Audio🎵',
+                                    displayText: '🎵 Audio 🎵',
                                     id: `ytmp3 ${anu.url} 320kbps`
                                     }
                                 },{quickReplyButton: {
-                                    displayText: '🎥VIdeo🎥',
-                                    id: `ytmp4 ${anu.url} 360p`
+                                    displayText: '🎥 Video 🎥',
+                                    id: `ytmp4 ${anu.url} 720p`
                                 }
                             }]
                         }
@@ -1433,7 +1467,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
             break
 	    case 'ytmp3': case 'ytaudio': {
                 let { yta } = require('./lib/y2mate')
-                if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 320kbps`
+                if (!text) throw `Example : ${prefix + command} https://youtube.com/320kbps`
                 let quality = args[1] ? args[1] : '320kbps'
                 let media = await yta(text, quality)
                 if (media.filesize >= 999999) return reply('Audio size is too big '+util.format(media))
@@ -1443,11 +1477,11 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
             break
             case 'ytmp4': case 'ytvideo': {
                 let { ytv } = require('./lib/y2mate')
-                if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 360p`
-                let quality = args[1] ? args[1] : '360p'
+                if (!text) throw `Example : ${prefix + command} https://youtube.com/ 720p`
+                let quality = args[1] ? args[1] : '720p'
                 let media = await ytv(text, quality)
                 if (media.filesize >= 999999) return reply('Video size is too big '+util.format(media))
-                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resololution : ${args[1] || '360p'}` }, { quoted: m })
+                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resololution : ${args[1] || '720p'}` }, { quoted: m })
             }
             break
 	    case 'getmusic': {
@@ -1471,10 +1505,10 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 if (!m.quoted.isBaileys) throw `Hanya Bisa Membalas Pesan Dari Bot`
                 let urls = quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))
                 if (!urls) throw `Maybe the message you replied does not contain the ytsearch result`
-                let quality = args[1] ? args[1] : '360p'
+                let quality = args[1] ? args[1] : '720p'
                 let media = await ytv(urls[text - 1], quality)
                 if (media.filesize >= 100000) return reply('File Over Limit '+util.format(media))
-                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resolution : ${args[1] || '360p'}` }, { quoted: m })
+                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resolution : ${args[1] || '720p'}` }, { quoted: m })
             }
             break
             case 'pinterest': {
@@ -1504,7 +1538,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 ]
                 let buttonMessage = {
                     image: { url: 'https://coffee.alexflipnote.dev/random' },
-                    caption: `☕Random Coffee☕`,
+                    caption: `☕ Random Coffee ☕`,
                     footer: Hori.user.name,
                     buttons: buttons,
                     headerType: 4
@@ -1548,7 +1582,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 Hori.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
-            case 'quotesanimekdksksksksk': case 'quoteanimexllzlzkl': {
+            case 'quotesanime': case 'quoteanime': {
 		let { quotesAnime } = require('./lib/scraper')
                 let anu = await quotesAnime()
                 result = anu[Math.floor(Math.random() * anu.length)]
@@ -1596,79 +1630,13 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 Hori.sendMessage(m.chat, { image: { url: api('zenz', '/ephoto/' + command, { text: text }, 'apikey') }, caption: `Ephoto ${command}` }, { quoted: m })
             }
             break
-            case 'keberuntungan11111': case 'luck211111': {
-                if (!text) throw `Example : ${prefix + command} Dika, 7, 7, 2005`
-                let [nama, tgl, bln, thn] = text.split`,`
-                let anu = await primbon.potensi_keberuntungan(nama, tgl, bln, thn)
-                if (anu.status == false) return reply(anu.message)
-                Hori.sendText(m.chat, `⭔ *Name :* ${anu.message.nama}\n⭔ *Born :* ${anu.message.tgl_lahir}\n⭔ *Results :* ${anu.message.result}`, m)
-            }
-            break
-            case 'memancing1111': case 'fishing1111': {
-                if (!text) throw `Example : ${prefix + command} 12, 1, 2022`
-                let [tgl, bln, thn] = text.split`,`
-                let anu = await primbon.primbon_memancing_ikan(tgl, bln, thn)
-                if (anu.status == false) return reply(anu.message)
-                Hori.sendText(m.chat, `⭔ *Date :* ${anu.message.tgl_memancing}\n⭔ *Results :* ${anu.message.result}\n⭔ *Notes :* ${anu.message.catatan}`, m)
-            }
-            break
-            case 'masasubur111111': case 'fertiletimekekskdk': {
-                if (!text) throw `Example : ${prefix + command} 12, 1, 2022, 28\n\nNote : ${prefix + command} first day of menstruation, cycle`
-                let [tgl, bln, thn, siklus] = text.split`,`
-                let anu = await primbon.masa_subur(tgl, bln, thn, siklus)
-                if (anu.status == false) return reply(anu.message)
-                Hori.sendText(m.chat, `⭔ *Hasil :* ${anu.message.result}\n⭔ *Notes :* ${anu.message.catatan}`, m)
-            }
-            break
-            case 'zodiakjfjdkkd': case 'zodiackckdkdk': {
-                if (!text) throw `Example : ${prefix+ command} 7 7 2005`
-                let zodiak = [
-                    ["capricorn", new Date(1970, 0, 1)],
-                    ["aquarius", new Date(1970, 0, 20)],
-                    ["pisces", new Date(1970, 1, 19)],
-                    ["aries", new Date(1970, 2, 21)],
-                    ["taurus", new Date(1970, 3, 21)],
-                    ["gemini", new Date(1970, 4, 21)],
-                    ["cancer", new Date(1970, 5, 22)],
-                    ["leo", new Date(1970, 6, 23)],
-                    ["virgo", new Date(1970, 7, 23)],
-                    ["libra", new Date(1970, 8, 23)],
-                    ["scorpio", new Date(1970, 9, 23)],
-                    ["sagittarius", new Date(1970, 10, 22)],
-                    ["capricorn", new Date(1970, 11, 22)]
-                ].reverse()
-
-                function getZodiac(month, day) {
-                    let d = new Date(1970, month - 1, day)
-                    return zodiak.find(([_,_d]) => d >= _d)[0]
-                }
-                let date = new Date(text)
-                if (date == 'Invalid Date') throw date
-                let d = new Date()
-                let [tahun, bulan, tanggal] = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
-                let birth = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
-
-                let zodiac = await getZodiac(birth[1], birth[2])
-                
-                let anu = await primbon.zodiak(zodiac)
-                if (anu.status == false) return reply(anu.message)
-                Hori.sendText(m.chat, `⭔ *Zodiac :* ${anu.message.zodiak}\n⭔ *Number :* ${anu.message.nomor_keberuntungan}\n⭔ *Aroma :* ${anu.message.aroma_keberuntungan}\n⭔ *Planet :* ${anu.message.planet_yang_mengitari}\n⭔ *Flower :* ${anu.message.bunga_keberuntungan}\n⭔ *Color :* ${anu.message.warna_keberuntungan}\n⭔ *Rock :* ${anu.message.batu_keberuntungan}\n⭔ *Element :* ${anu.message.elemen_keberuntungan}\n⭔ *Zodiac Couple :* ${anu.message.pasangan_zodiak}\n⭔ *Notes :* ${anu.message.catatan}`, m)
-            }
-            break
-            case 'shiondkskskso': {
-                if (!text) throw `Example : ${prefix + command} tikus\n\nNote : For Detail https://primbon.com/shio.htm`
-                let anu = await primbon.shio(text)
-                if (anu.status == false) return reply(anu.message)
-                Hori.sendText(m.chat, `⭔ *Results :* ${anu.message}`, m)
-            }
-            break
 	        case 'tiktok': case 'tiktoknowm': {
                 if (!text) throw 'Enter Query Link!'
                 replay(mess.wait)
                 let anu = await fetchJson(api('zenz', '/downloader/tiktok', { url: text }, 'apikey'))
                 let buttons = [
-                    {buttonId: `tiktokwm ${text}`, buttonText: {displayText: '💁🏻‍♂️With Watermark🤔'}, type: 1},
-                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '🎵Audio🎵'}, type: 1}
+                    {buttonId: `tiktokwm ${text}`, buttonText: {displayText: '💁🏻‍♂️ With Watermark 🤔'}, type: 1},
+                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '🎵 Audio 🎵'}, type: 1}
                 ]
                 let buttonMessage = {
                     video: { url: anu.result.nowatermark },
@@ -1685,8 +1653,8 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 replay(mess.wait)
                 let anu = await fetchJson(api('zenz', '/downloader/tiktok', { url: text }, 'apikey'))
                 let buttons = [
-                    {buttonId: `tiktoknowm ${text}`, buttonText: {displayText: '🎥Video🎥'}, type: 1},
-                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '🎵Audio🎵'}, type: 1}
+                    {buttonId: `tiktoknowm ${text}`, buttonText: {displayText: '🎥 Video 🎥'}, type: 1},
+                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '🎵 Audio 🎵'}, type: 1}
                 ]
                 let buttonMessage = {
                     video: { url: anu.result.watermark },
@@ -1782,14 +1750,14 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 Hori.sendMessage(m.chat, { audio: { url: anu.result.audio } }, { quoted: msg })
             }
             break
-	        case 'fbdlkxkxkx': case 'fbkckxkxk': case 'facebookjfkddkk': {
+	        case 'fbdl': case 'fb': case 'facebook': {
                 if (!text) throw 'Enter Query Link!'
                 replay(mess.wait)
                 let anu = await fetchJson(api('zenz', '/api/downloader/facebook', { url: text }, 'apikey'))
                 Hori.sendMessage(m.chat, { video: { url: anu.result.url }, caption: `⭔ Title : ${anu.result.title}`}, { quoted: m })
             }
             break
-	        case 'pindlkxkdksk': case 'pinterestdlksksks': {
+	        case 'pindl': case 'pinterest': {
                 if (!text) throw 'Enter Query Link!'
                 replay(mess.wait)
                 let anu = await fetchJson(api('zenz', '/api/downloader/pinterestdl', { url: text }, 'apikey'))
@@ -1798,13 +1766,13 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
             break
 
             case 'umma': case 'ummadl': {
-	        if (!text) throw `Example : ${prefix + command} https://umma.id/channel/video/post/gus-arafat-sumber-kecewa-84464612933698`
+	        if (!text) throw `Example : ${prefix + command} https://umma.id/`
                 let { umma } = require('./lib) scraper')
 		let anu = await umma(isUrl(text)[0])
 		if (anu.type == 'video') {
 		    let buttons = [
                         {buttonId: `ytmp3 ${anu.media[0]} 128kbps`, buttonText: {displayText: '🎵Audio🎵'}, type: 1},
-                        {buttonId: `ytmp4 ${anu.media[0]} 360p`, buttonText: {displayText: '🎥Video🎥'}, type: 1}
+                        {buttonId: `ytmp4 ${anu.media[0]} 720p`, buttonText: {displayText: '🎥Video🎥'}, type: 1}
                     ]
 		    let buttonMessage = {
 		        image: { url: anu.author.profilePic },
@@ -1836,6 +1804,7 @@ To download media, please click one of the buttons below or enter the ytmp3/ytmp
 		Hori.sendMessage(m.chat, { audio: { url: result.audio }, fileName: result.title+'.mp3', mimetype: 'audio/mpeg' }, { quoted: m })
 	    }
 	    break
+/* Islamic Features */
 		case 'iqra': {
 		oh = `Example : ${prefix + command} 3\n\Available IQRA : 1,2,3,4,5,6`
 		if (!text) throw oh
@@ -2295,38 +2264,49 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                             hydratedContentText: anu,
                             locationMessage: {
                             jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hi 🤚 ${pushname}
-How Are You? 😊
+                            hydratedFooterText: `╔══➢ 《 *User Info* 》 ══➢
+║
+╟➢ *Reqested By, ${pushname} !*
+╟➢ *Lib : Baileys ^4.0.1* 
+╟➢ *Total Features : 200+* 
+║
+╚═══➢《*© Rose-Mwol* 》═══➢
 
-
-❏「 BOT INFO 」
-
-𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
-𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}
-𝗕𝗼𝘁 𝗡𝗮𝗺𝗲 : ${global.botname}
-𝗢𝘄𝗻𝗲𝗿 𝗡𝗮𝗺𝗲 : ${global.ownername}
-𝗢𝘄𝗻𝗲𝗿 𝗡𝘂𝗺𝗯𝗲𝗿 : ${global.owner}
-𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
-𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
-
-
+╔══➢ 《 *Hori Bot Info* 》 ══➢
+║
+╟➢ *Bot Name : ${global.botname}*
+╟➢ *Run Time: ${runtime(process.uptime())}*
+╟➢ *Owner Name : ${global.ownername}*
+╟➢ *Onwer Number : ${global.owner}*
+╟➢ *Host Name : ${os.hostname()}*
+╟➢ *Platform : ${os.platform()}*
+╟➢ *Reply Speed : ${latensie.toFixed(4)} miliseconds*
+╟➢ *Lib : Baileys ^4.0.1* 
+╟➢ *Prefix : 「 ${prefix} 」* 
+╟➢ *Creator : Sachu Settan & Saran* 
+║
+╚═══➢《*© Rose-Mwol* 》═══➢\n\n
 Please Select Button Below
 `,
                             hydratedButtons: [{
                                 urlButton: {
+                                    displayText: '🌏 Bot Web 🌏',
+                                    url: 'https://Hori-Bot.github.io'
+                                        },
+                                urlButton: {
                                 displayText: 'Bot Script',
                                     url: 'https://github.com/Sachu-Settan/Hori-Beta'
-                                }
+                                    }
                             }, {
                                 quickReplyButton: {
                                     displayText: 'All Menu',
                                     id: `${prefix}allmenu`
-                                }
+                                    }
                                 }, {
                                 quickReplyButton: {
                                     displayText: 'List Menu',
                                     id: `${prefix}command`
-                                }
+                                    }
                                 }, {
                                 quickReplyButton: {
                                     displayText: 'Owner',
@@ -2342,12 +2322,30 @@ break
 case 'command':{
 let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 listMessage :{
-                    title: `Hi ${pushname}`,
-                    description: `Please Choose The Menu\n\n`,
-                    buttonText: "Menu",
-                    footerText: "_Hori-Bot-MD_",
+                    title: `╔══➢ 《 *Menu* 》 ══➢
+                    ║
+                    ╟➢ *Hai, ${pushname} !*
+                    ╟➢ *Creator : Sachu Settan & Saran * 
+                    ╟➢ *Lib : Baileys ^4.0.1* 
+                    ╟➢ *Prefix : 「 ${prefix} 」* 
+                    ╟➢ *Total Features : 200+* `,
+                    description: `
+                    ║
+                    ╚═══➢《*© Hori-Beta* 》═══➢\n`,
+                    buttonText: "Select Menu",
+                    footerText: "*Hori Bot-MD*",
                     listType: "SINGLE_SELECT",
                     sections: [{
+                                "title": "Bot Web",
+                                "rows": [
+									{
+										"title": "🌏 Bot Web 🌏",
+										"description": "Gives Link Of Bot Official Web",
+										"rowId": `${prefix}botweb`
+									}
+								]
+                            },
+                            {
 								"title": "Group Features",
 								"rows": [
 									{
@@ -2408,7 +2406,7 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 								]
 							},
 							{
-								"title": "Chat with fellow users",
+								"title": "Chat with Other Users",
 								"rows": [
 									{
 										"title": "Anonymous Chat Menu",
@@ -2456,37 +2454,42 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
             break
 case 'grupmenu': {
 	            anu = `
-  *Group Menu*
-  
-  ➙ ${prefix}grouplink
-  ➙ ${prefix}ephemeral [option]
-  ➙ ${prefix}setgrouppp
-  ➙ ${prefix}setname [text]
-  ➙ ${prefix}group [option]
-  ➙ ${prefix}editinfo [option]
-  ➙ ${prefix}grupinfo
-  ➙ ${prefix}add @user
-  ➙ ${prefix}kick @user
-  ➙ ${prefix}promote @user
-  ➙ ${prefix}demote @user
+  ╔═══➢《 *Group Menu* 》═══➢
+  ╟➢ *${prefix}grouplink
+  ╟➢ *${prefix}ephemeral [option]
+  ╟➢ *${prefix}setgrouppp
+  ╟➢ *${prefix}setname [text]
+  ╟➢ *${prefix}group [option]
+  ╟➢ *${prefix}editinfo [option]
+  ╟➢ *${prefix}grupinfo
+  ╟➢ *${prefix}add @user
+  ╟➢ *${prefix}kick @user
+  ╟➢ *${prefix}promote @user
+  ╟➢ *${prefix}demote @user
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2496,39 +2499,44 @@ case 'grupmenu': {
 break
 case 'downloadmenu': {
 	okemenu = `
-	*Downloader Menu*
-  
-  ➙ ${prefix}tiktoknowm [url]
-  ➙ ${prefix}tiktokwm [url]
-  ➙ ${prefix}tiktokmp3 [url]
-  ➙ ${prefix}instagram [url]
-  ➙ ${prefix}ig2 [url]
-  ➙ ${prefix}igreels [url]
-  ➙ ${prefix}igtv [url]
-  ➙ ${prefix}twitter [url]
-  ➙ ${prefix}twittermp3 [url]
-  ➙ ${prefix}ytmp3 [url]
-  ➙ ${prefix}ytmp4 [url]
-  ➙ ${prefix}getmusic [query]
-  ➙ ${prefix}getvideo [query
+  ╔═══➢《 *Downloader Menu* 》═══➢
+  ╟➢ *${prefix}tiktoknowm [url]
+  ╟➢ *${prefix}tiktokwm [url]
+  ╟➢ *${prefix}tiktokmp3 [url]
+  ╟➢ *${prefix}instagram [url]
+  ╟➢ *${prefix}ig2 [url]
+  ╟➢ *${prefix}igreels [url]
+  ╟➢ *${prefix}igtv [url]
+  ╟➢ *${prefix}twitter [url]
+  ╟➢ *${prefix}twittermp3 [url]
+  ╟➢ *${prefix}ytmp3 [url]
+  ╟➢ *${prefix}ytmp4 [url]
+  ╟➢ *${prefix}getmusic [query]
+  ╟➢ *${prefix}getvideo [query]
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: okemenu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2537,35 +2545,40 @@ case 'downloadmenu': {
             }
             break 
             case 'searchmenu': {
-            	anu = `
-              *Search Menu*
-  
-  ➙ ${prefix}play [query]
-  ➙ ${prefix}yts [query]
-  ➙ ${prefix}google [query]
-  ➙ ${prefix}gimage [query]
-  ➙ ${prefix}pinterest [query]
-  ➙ ${prefix}wallpaper [query]
-  ➙ ${prefix}wikimedia [query]
-  ➙ ${prefix}ytsearch [query]
+            	anu =`
+  ╔═══➢《 *Search Menu* 》═══➢
+  ╟➢ *${prefix}play [query]
+  ╟➢ *${prefix}yts [query]
+  ╟➢ *${prefix}google [query]
+  ╟➢ *${prefix}gimage [query]
+  ╟➢ *${prefix}pinterest [query]
+  ╟➢ *${prefix}wallpaper [query]
+  ╟➢ *${prefix}wikimedia [query]
+  ╟➢ *${prefix}ytsearch [query]
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2575,28 +2588,33 @@ case 'downloadmenu': {
 break
 case 'randommenu': {
 	anu = `
-	*Random Menu*
-  
-  ➙ ${prefix}coffee
-  ➙ ${prefix}couplepp
+  ╔═══➢《 *Random Menu* 》═══➢
+  ╟➢ *${prefix}coffee
+  ╟➢ *${prefix}couplepp
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2606,29 +2624,34 @@ case 'randommenu': {
 break
 case 'funmenu': {
 	anu = `
-	*Fun Menu*
-  
-  ➙ ${prefix}couple
-  ➙ ${prefix}mysoulmate
-  ➙ ${prefix}math [mode] 
+  ╔═══➢《 *Fun Menu* 》═══➢
+  ╟➢ *${prefix}couple
+  ╟➢ *${prefix}mysoulmate
+  ╟➢ *${prefix}math [mode] 
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2638,71 +2661,42 @@ case 'funmenu': {
 break
 case 'voicemenu': {
 	anu = `
-	*Voice Changer Menu*
-	
-  ➙ ${prefix}bass
-  ➙ ${prefix}blown
-  ➙ ${prefix}deep
-  ➙ ${prefix}earrape
-  ➙ ${prefix}fast
-  ➙ ${prefix}fat
-  ➙ ${prefix}nightcore
-  ➙ ${prefix}reverse
-  ➙ ${prefix}robot
-  ➙ ${prefix}slow
-  ➙ ${prefix}squirrel
+  ╔═══➢《 *Voice Changer Menu* 》═══➢
+  ╟➢ *${prefix}bass
+  ╟➢ *${prefix}blown
+  ╟➢ *${prefix}deep
+  ╟➢ *${prefix}earrape
+  ╟➢ *${prefix}fast
+  ╟➢ *${prefix}fat
+  ╟➢ *${prefix}nightcore
+  ╟➢ *${prefix}reverse
+  ╟➢ *${prefix}robot
+  ╟➢ *${prefix}slow
+  ╟➢ *${prefix}squirrel
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
 `
 const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
-                            }]
-                        }
-                    }
-                }), { userJid: m.chat })
-                Hori.relayMessage(m.chat, template.message, { messageId: template.key.id })
-            }
-break
-case 'religionmenukdksoejdjj': {
-	anu = `
-	*Religion Menu*
-	
-     (Islamic)
-  ➙ ${prefix}iqra
-  ➙ ${prefix}hadith
-  ➙ ${prefix}alquran
-  ➙ ${prefix}juzamma
-  ➙ ${prefix}tafsirsurah`
-const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-                    templateMessage: {
-                        hydratedTemplate: {
-                            hydratedContentText: anu,
-                            locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2712,55 +2706,61 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 break
 case 'horoscopemenukcodk': {
 	anu = `
-	*Horoscope Menu*
-  
-  ➙ ${prefix}hockeynumber
-  ➙ ${prefix}dreammeaning
-  ➙ ${prefix}namemeaning
-  ➙ ${prefix}fortunetelling
-  ➙ ${prefix}marriageprediction
-  ➙ ${prefix}wife&husband
-  ➙ ${prefix}fortunetelling2
-  ➙ ${prefix}matchname
-  ➙ ${prefix}couplematch
-  ➙ ${prefix}married
-  ➙ ${prefix}businessnature
-  ➙ ${prefix}sustenance
-  ➙ ${prefix}profession
-  ➙ ${prefix}fate
-  ➙ ${prefix}potentialdisease
-  ➙ ${prefix}tarot
-  ➙ ${prefix}fengshui
-  ➙ ${prefix}goodday
-  ➙ ${prefix}badday
-  ➙ ${prefix}unluckyday
-  ➙ ${prefix}dragonday
-  ➙ ${prefix}sustenance2
-  ➙ ${prefix}luck
-  ➙ ${prefix}weton
-  ➙ ${prefix}character
-  ➙ ${prefix}luck2
-  ➙ ${prefix}fishing
-  ➙ ${prefix}fertiletime
-  ➙ ${prefix}zodiac
-  ➙ ${prefix}shio`
+  ╔═══➢《 *Horoscope Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}hockeynumber
+  ╟➢ *${prefix}dreammeaning
+  ╟➢ *${prefix}namemeaning
+  ╟➢ *${prefix}fortunetelling
+  ╟➢ *${prefix}marriageprediction
+  ╟➢ *${prefix}wife&husband
+  ╟➢ *${prefix}fortunetelling2
+  ╟➢ *${prefix}matchname
+  ╟➢ *${prefix}couplematch
+  ╟➢ *${prefix}married
+  ╟➢ *${prefix}businessnature
+  ╟➢ *${prefix}sustenance
+  ╟➢ *${prefix}profession
+  ╟➢ *${prefix}fate
+  ╟➢ *${prefix}potentialdisease
+  ╟➢ *${prefix}tarot
+  ╟➢ *${prefix}fengshui
+  ╟➢ *${prefix}goodday
+  ╟➢ *${prefix}badday
+  ╟➢ *${prefix}unluckyday
+  ╟➢ *${prefix}dragonday
+  ╟➢ *${prefix}sustenance2
+  ╟➢ *${prefix}luck
+  ╟➢ *${prefix}weton
+  ╟➢ *${prefix}character
+  ╟➢ *${prefix}luck2
+  ╟➢ *${prefix}fishing
+  ╟➢ *${prefix}fertiletime
+  ╟➢ *${prefix}zodiac
+  ╟➢ *${prefix}shio
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢`
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2770,35 +2770,41 @@ case 'horoscopemenukcodk': {
 break
 case 'convertmenu': {
 	anu = `
-	*Convert Menu*
-  
-  ➙ ${prefix}toimage
-  ➙ ${prefix}removebg
-  ➙ ${prefix}sticker
-  ➙ ${prefix}emojimix
-  ➙ ${prefix}tovideo
-  ➙ ${prefix}togif
-  ➙ ${prefix}tourl
-  ➙ ${prefix}ebinary
-  ➙ ${prefix}dbinary
+  ╔═══➢《 *Convert Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}toimage
+  ╟➢ *${prefix}removebg
+  ╟➢ *${prefix}sticker
+  ╟➢ *${prefix}emojimix
+  ╟➢ *${prefix}tovideo
+  ╟➢ *${prefix}togif
+  ╟➢ *${prefix}tourl
+  ╟➢ *${prefix}ebinary
+  ╟➢ *${prefix}dbinary
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2808,37 +2814,43 @@ case 'convertmenu': {
 break
 case 'nocategorymenu': {
 	anu = `
-	*Misc Menu*
-  
-  ➙ ${prefix}ping
-  ➙ ${prefix}owner
-  ➙ ${prefix}donate
-  ➙ ${prefix}menu / ${prefix}help / ${prefix}?
-  ➙ ${prefix}delete
-  ➙ ${prefix}chatinfo
-  ➙ ${prefix}quoted
-  ➙ ${prefix}listpc
-  ➙ ${prefix}listgc
-  ➙ ${prefix}listonline
-  ➙ ${prefix}report (report bug to owner)
+  ╔═══➢《 *Misc Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}ping
+  ╟➢ *${prefix}owner
+  ╟➢ *${prefix}donate
+  ╟➢ *${prefix}menu / ${prefix}help / ${prefix}?
+  ╟➢ *${prefix}delete
+  ╟➢ *${prefix}chatinfo
+  ╟➢ *${prefix}quoted
+  ╟➢ *${prefix}listpc
+  ╟➢ *${prefix}listgc
+  ╟➢ *${prefix}listonline
+  ╟➢ *${prefix}report (report bug to owner)
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2848,34 +2860,40 @@ case 'nocategorymenu': {
 break
 case 'databasemenu': {
 	anu = `
-	*Database Menu*
-  
-  ➙ ${prefix}setcmd
-  ➙ ${prefix}listcmd
-  ➙ ${prefix}delcmd
-  ➙ ${prefix}lockcmd
-  ➙ ${prefix}addmsg
-  ➙ ${prefix}listmsg
-  ➙ ${prefix}getmsg
-  ➙ ${prefix}delmsg
+  ╔═══➢《 *Database Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}setcmd
+  ╟➢ *${prefix}listcmd
+  ╟➢ *${prefix}delcmd
+  ╟➢ *${prefix}lockcmd
+  ╟➢ *${prefix}addmsg
+  ╟➢ *${prefix}listmsg
+  ╟➢ *${prefix}getmsg
+  ╟➢ *${prefix}delmsg
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2885,29 +2903,35 @@ case 'databasemenu': {
 break
 case 'anonymouschatmenu': {
 	anu = `
-	*Anonymous Menu*
-	
-  ➙ ${prefix}start ( Start Chat )
-  ➙ ${prefix}next ( Next user )
-  ➙ ${prefix}stop ( stop Anonymous chat )
+  ╔══➢《 *Anonymous Menu* 》══➢
+  ║
+  ╟➢ *${prefix}start ( Start Chat )
+  ╟➢ *${prefix}next ( Next user )
+  ╟➢ *${prefix}stop ( stop Anonymous chat )
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
 	`
 	  const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2917,29 +2941,35 @@ case 'anonymouschatmenu': {
 break
 case 'sistemmenu': {
 	anu = `
-	*System Menu*
-	
-  ➙ ${prefix}antilink On/Off
-  ➙ ${prefix}mute On/Off
-  ➙ ${prefix}antiwame On/Off
+  ╔═══➢《 *System Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}antilink On/Off
+  ╟➢ *${prefix}mute On/Off
+  ╟➢ *${prefix}antiwame On/Off
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
 `
 const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2949,34 +2979,40 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 break
   case 'ownermenu': {
   	anu = `
-  *Owner Menu*
-  
-  ➙ ${prefix}chat [option]
-  ➙ ${prefix}join [link]
-  ➙ ${prefix}leave
-  ➙ ${prefix}setbotpp
-  ➙ ${prefix}block @user
-  ➙ ${prefix}unblock @user
-  ➙ ${prefix}bcgroup
-  ➙ ${prefix}bcall
+  ╔═══➢《 *Owner Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}chat [option]
+  ╟➢ *${prefix}join [link]
+  ╟➢ *${prefix}leave
+  ╟➢ *${prefix}setbotpp
+  ╟➢ *${prefix}block @user
+  ╟➢ *${prefix}unblock @user
+  ╟➢ *${prefix}bcgroup
+  ╟➢ *${prefix}bcall
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   `
     const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
-                            jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori-Bot-MD`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '👤Owner👤',
-                                    id: `${prefix}owner`
-                                }
+	                        jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
+	                        hydratedFooterText: `Hori-Bot-MD`,
+	                        hydratedButtons: [{
+		                    urlButton: {
+			                displayText: '🌏 Bot Web 🌏',
+                			url: 'https://Hori-Bot.github.io'
+		                        },
+                            urlButton: {
+                                displayText: '📜 Script 📜',
+                                url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                            }
+	                        }, {
+		                    quickReplyButton: {
+                			displayText: 'Code Owners 👥',
+		                	id: `${prefix}owner`
+		                        }
                             }]
                         }
                     }
@@ -2986,121 +3022,207 @@ break
 break
   case 'allmenu': {
   	anu = `
-  *All Menu*
+  ╔══➢ 《 *USER INFO* 》 ══➢
+  ║
+  ╟➢ *Hai, ${pushname} !*
+  ╟➢ *Creator : Sachu Settan * 
+  ╟➢ *Lib : Baileys ^4.0.1* 
+  ╟➢ *Prefix : 「 ${prefix} 」* 
+  ╟➢ *Total Features : 200+* 
+  ║
+  ╚═══➢《*© Rose-Mwol* 》═══➢
   
-  ꪶ🐕Group Menu🐕ꫂ
-  ➙ ${prefix}grouplink
-  ➙ ${prefix}ephemeral [option]
-  ➙ ${prefix}setgrouppp
-  ➙ ${prefix}setname [text]
-  ➙ ${prefix}group [option]
-  ➙ ${prefix}editinfo [option]
-  ➙ ${prefix}grupinfo
-  ➙ ${prefix}add @user
-  ➙ ${prefix}kick @user
-  ➙ ${prefix}promote @user
-  ➙ ${prefix}demote @user
+  ╔═══➢《 *List Menu* 》═══➢
+  ║
+  ╟➢ ${prefix}menu
+  ╟➢ ${prefix}help
+  ╟➢ ${prefix}hori
+  ╟➢ ${prefix}?
+  ║
+  ╚══➢《 *© Rose-Mwol* 》══➢
+      
+  ╔═══➢《 *Group Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}grouplink
+  ╟➢ *${prefix}ephemeral [option]
+  ╟➢ *${prefix}setgrouppp
+  ╟➢ *${prefix}setname [text]
+  ╟➢ *${prefix}group [option]
+  ╟➢ *${prefix}editinfo [option]
+  ╟➢ *${prefix}grupinfo
+  ╟➢ *${prefix}add @user
+  ╟➢ *${prefix}kick @user
+  ╟➢ *${prefix}promote @user
+  ╟➢ *${prefix}demote @user
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Download Menu🐕ꫂ
-  ➙ ${prefix}tiktoknowm [url]
-  ➙ ${prefix}tiktokwm [url]
-  ➙ ${prefix}tiktokmp3 [url]
-  ➙ ${prefix}instagram [url]
-  ➙ ${prefix}ig2 [url]
-  ➙ ${prefix}igreels [url]
-  ➙ ${prefix}igtv [url]
-  ➙ ${prefix}twitter [url]
-  ➙ ${prefix}twittermp3 [url]
-  ➙ ${prefix}ytmp3 [url]
-  ➙ ${prefix}ytmp4 [url]
-  ➙ ${prefix}getmusic [query]
-  ➙ ${prefix}getvideo [query
+  ╔═══➢《 *Download Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}tiktoknowm [url]
+  ╟➢ *${prefix}tiktokwm [url]
+  ╟➢ *${prefix}tiktokmp3 [url]
+  ╟➢ *${prefix}instagram [url]
+  ╟➢ *${prefix}ig2 [url]
+  ╟➢ *${prefix}igreels [url]
+  ╟➢ *${prefix}igtv [url]
+  ╟➢ *${prefix}twitter [url]
+  ╟➢ *${prefix}twittermp3 [url]
+  ╟➢ *${prefix}ytmp3 [url]
+  ╟➢ *${prefix}ytmp4 [url]
+  ╟➢ *${prefix}getmusic [query]
+  ╟➢ *${prefix}getvideo [query
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Search Menu🐕ꫂ
-  ➙ ${prefix}play [query]
-  ➙ ${prefix}yts [query]
-  ➙ ${prefix}google [query]
-  ➙ ${prefix}gimage [query]
-  ➙ ${prefix}pinterest [query]
-  ➙ ${prefix}wallpaper [query]
-  ➙ ${prefix}wikimedia [query]
-  ➙ ${prefix}ytsearch [query]
+  ╔═══➢《 *Search Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}play [query]
+  ╟➢ *${prefix}yts [query]
+  ╟➢ *${prefix}google [query]
+  ╟➢ *${prefix}gimage [query]
+  ╟➢ *${prefix}pinterest [query]
+  ╟➢ *${prefix}wallpaper [query]
+  ╟➢ *${prefix}wikimedia [query]
+  ╟➢ *${prefix}ytsearch [query]
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Random Menu🐕ꫂ
-  ➙ ${prefix}coffee
-  ➙ ${prefix}couplepp
+  ╔═══➢《 *Random Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}coffee
+  ╟➢ *${prefix}couplepp
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Fun Menu🐕ꫂ
-  ➙ ${prefix}couple
-  ➙ ${prefix}mysoulmate
-  ➙ ${prefix}math [mode]  
+  ╔═══➢《 *Fun Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}couple
+  ╟➢ *${prefix}mysoulmate
+  ╟➢ *${prefix}math [mode]  
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Voice Changer Menu🐕ꫂ
-  ➙ ${prefix}bass
-  ➙ ${prefix}blown
-  ➙ ${prefix}deep
-  ➙ ${prefix}earrape
-  ➙ ${prefix}fast
-  ➙ ${prefix}fat
-  ➙ ${prefix}nightcore
-  ➙ ${prefix}reverse
-  ➙ ${prefix}robot
-  ➙ ${prefix}slow
-  ➙ ${prefix}squirrel
+  ╔═══➢《 *Voice Changer Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}bass
+  ╟➢ *${prefix}blown
+  ╟➢ *${prefix}deep
+  ╟➢ *${prefix}earrape
+  ╟➢ *${prefix}fast
+  ╟➢ *${prefix}fat
+  ╟➢ *${prefix}nightcore
+  ╟➢ *${prefix}reverse
+  ╟➢ *${prefix}robot
+  ╟➢ *${prefix}slow
+  ╟➢ *${prefix}squirrel
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
    
-  ꪶ🐕Convert Menu🐕ꫂ
-  ➙ ${prefix}toimage
-  ➙ ${prefix}removebg
-  ➙ ${prefix}sticker
-  ➙ ${prefix}emojimix
-  ➙ ${prefix}tovideo
-  ➙ ${prefix}togif
-  ➙ ${prefix}tourl
-  ➙ ${prefix}ebinary
-  ➙ ${prefix}dbinary
+  ╔═══➢《 *Convert Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}toimage
+  ╟➢ *${prefix}removebg
+  ╟➢ *${prefix}sticker
+  ╟➢ *${prefix}emojimix
+  ╟➢ *${prefix}tovideo
+  ╟➢ *${prefix}togif
+  ╟➢ *${prefix}tourl
+  ╟➢ *${prefix}ebinary
+  ╟➢ *${prefix}dbinary
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
+  ╔═══➢《 *Horoscope Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}hockeynumber
+  ╟➢ *${prefix}dreammeaning
+  ╟➢ *${prefix}namemeaning
+  ╟➢ *${prefix}fortunetelling
+  ╟➢ *${prefix}marriageprediction
+  ╟➢ *${prefix}wife&husband
+  ╟➢ *${prefix}fortunetelling2
+  ╟➢ *${prefix}matchname
+  ╟➢ *${prefix}couplematch
+  ╟➢ *${prefix}married
+  ╟➢ *${prefix}businessnature
+  ╟➢ *${prefix}sustenance
+  ╟➢ *${prefix}profession
+  ╟➢ *${prefix}fate
+  ╟➢ *${prefix}potentialdisease
+  ╟➢ *${prefix}tarot
+  ╟➢ *${prefix}fengshui
+  ╟➢ *${prefix}goodday
+  ╟➢ *${prefix}badday
+  ╟➢ *${prefix}unluckyday
+  ╟➢ *${prefix}dragonday
+  ╟➢ *${prefix}sustenance2
+  ╟➢ *${prefix}luck
+  ╟➢ *${prefix}weton
+  ╟➢ *${prefix}character
+  ╟➢ *${prefix}luck2
+  ╟➢ *${prefix}fishing
+  ╟➢ *${prefix}fertiletime
+  ╟➢ *${prefix}zodiac
+  ╟➢ *${prefix}shio
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Misc Menu🐕ꫂ
-  ➙ ${prefix}ping
-  ➙ ${prefix}owner
-  ➙ ${prefix}donate
-  ➙ ${prefix}menu / ${prefix}help / ${prefix}?
-  ➙ ${prefix}delete
-  ➙ ${prefix}chatinfo
-  ➙ ${prefix}quoted
-  ➙ ${prefix}listpc
-  ➙ ${prefix}listgc
-  ➙ ${prefix}listonline
-  ➙ ${prefix}report (report bug to owner)
+  ╔═══➢《 *Misc Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}ping
+  ╟➢ *${prefix}owner
+  ╟➢ *${prefix}donate
+  ╟➢ *${prefix}delete
+  ╟➢ *${prefix}chatinfo
+  ╟➢ *${prefix}quoted
+  ╟➢ *${prefix}listpc
+  ╟➢ *${prefix}listgc
+  ╟➢ *${prefix}listonline
+  ╟➢ *${prefix}report (report bug to owner)
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Database Menu🐕ꫂ
-  ➙ ${prefix}setcmd
-  ➙ ${prefix}listcmd
-  ➙ ${prefix}delcmd
-  ➙ ${prefix}lockcmd
-  ➙ ${prefix}addmsg
-  ➙ ${prefix}listmsg
-  ➙ ${prefix}getmsg
-  ➙ ${prefix}delmsg
+  ╔═══➢《 *Database Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}setcmd
+  ╟➢ *${prefix}listcmd
+  ╟➢ *${prefix}delcmd
+  ╟➢ *${prefix}lockcmd
+  ╟➢ *${prefix}addmsg
+  ╟➢ *${prefix}listmsg
+  ╟➢ *${prefix}getmsg
+  ╟➢ *${prefix}delmsg
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Anonymous Menu🐕ꫂ
-  ➙ ${prefix}start ( Start Chat )
-  ➙ ${prefix}next ( Next user )
-  ➙ ${prefix}stop ( stop Anonymous chat )
+  ╔═══➢《 *Anonymous Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}start ( Start Chat )
+  ╟➢ *${prefix}next ( Next user )
+  ╟➢ *${prefix}stop ( stop Anonymous chat )
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕System Menu🐕ꫂ
-  ➙ ${prefix}antilink On/Off
-  ➙ ${prefix}mute On/Off
-  ➙ ${prefix}antiwame On/Off
+  ╔═══➢《 *System Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}antilink On/Off
+  ╟➢ *${prefix}mute On/Off
+  ╟➢ *${prefix}antiwame On/Off
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢
   
-  ꪶ🐕Owner Menu🐕ꫂ
-  ➙ ${prefix}chat [option]
-  ➙ ${prefix}join [link]
-  ➙ ${prefix}leave
-  ➙ ${prefix}setbotpp
-  ➙ ${prefix}block @user
-  ➙ ${prefix}unblock @user
-  ➙ ${prefix}bcgroup
-  ➙ ${prefix}bcall`
+  ╔═══➢《 *Owner Menu* 》═══➢
+  ║
+  ╟➢ *${prefix}chat [option]
+  ╟➢ *${prefix}join [link]
+  ╟➢ *${prefix}leave
+  ╟➢ *${prefix}setbotpp
+  ╟➢ *${prefix}block @user
+  ╟➢ *${prefix}unblock @user
+  ╟➢ *${prefix}bcgroup
+  ╟➢ *${prefix}bcall
+  ║
+  ╚═══➢《*© Hori-Beta* 》═══➢`
     const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
@@ -3110,12 +3232,16 @@ break
                             hydratedFooterText: `Hori-Bot-MD`,
                             hydratedButtons: [{
                                 urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: 'https://youtu.be/imFIX-Wrt3s'
+                                    displayText: '📜 Script 📜',
+                                    url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                                },
+                                urlButton: {
+                                    displayText: '🌏 Bot Web 🌏',
+                                    url: 'https://Hori-Bot.github.io'
                                 }
                             }, {
                                 quickReplyButton: {
-                                    displayText: '👤Owner👤',
+                                    displayText: 'Code Owners 👥',
                                     id: `${prefix}owner`
                                 }
                             }]
