@@ -582,10 +582,12 @@ Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
             }
             break
 	    case 'donasi': case 'donate': case 'sewabot': case 'sewa': case 'buypremium': case 'donate': {
-                Hori.sendMessage(m.chat, { image: { url: 'https://telegra.ph/file/6a02cf1b00855ff80febb.jpg' }, caption: `*Hi bro ${m.pushName}*\n\n Bot Rental Price\n⭔ 250 INR Per Group via Gpay For 1 Month\n\nFor more details, You Can Chat With The Owner\nhttps://wa.me/919744933034 (Owner)\n\nDonate Me : \n\nGPay :919744933034` }, { quoted: m })
+                Hori.sendMessage(m.chat, { image: { url: 'https://telegra.ph/file/6a02cf1b00855ff80febb.jpg' }, caption: `\n*Hi bro ${m.pushName}*\n\n *Bot Rental Price*\n*250 INR Per Group via Gpay For 1 Month*\n\n*For more details, You Can Chat With The Owner\nhttps://wa.me/919744933034 (Owner)*\n\n*Donate Me : \n\nGPay : +919744933034*` }, { quoted: m })
             }
             break
             case 'gitlink': case 'git': case 'script': case 'sc': {
+                timestampe = speed();
+latensie = speed() - timestampe
                 anu = ``
             const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -593,19 +595,34 @@ Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
                             hydratedContentText: anu,
                             locationMessage: {
                             jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `Hori Bot-MD By Sachu-Settan & Saran\n\╔╗╔╗╔══╗╔══╗\n\║╚╝║║╔╗║╚║║╝\n\║╔╗║║╠╣║╔║║╗\n\╚╝╚╝╚╝╚╝╚══╝ \n\n\ © Hori Bot-Md\n\n
-            Please Select Button Below
+                            hydratedFooterText: `
+╔══➢ 《  Git Link  》 ══➢
+║
+╟➢ 𝗥𝗲𝗾𝗲𝘀𝘁𝗲𝗱 𝗕𝘆, ${pushname} !
+╟➢ 𝗕𝗼𝘁 𝗡𝗮𝗺𝗲 : ${global.botname}
+╟➢ 𝗥𝘂𝗻 𝗧𝗶𝗺𝗲 : ${runtime(process.uptime())}
+╟➢ 𝗢𝘄𝗻𝗲𝗿 𝗡𝗮𝗺𝗲 : ${global.ownername}
+╟➢ 𝗢𝗻𝘄𝗲𝗿 𝗡𝘂𝗺𝗯𝗲𝗿 : ${global.owner}
+╟➢ 𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
+╟➢ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
+╟➢ 𝗥𝗲𝗽𝗹𝘆 𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
+╟➢ 𝗟𝗶𝗯 : 𝗕𝗮𝗶𝗹𝗲𝘆𝘀 ^𝟰.𝟬.𝟭
+╟➢ 𝗣𝗿𝗲𝗳𝗶𝘅 :「 ${prefix} 」 
+╟➢ 𝗖𝗿𝗲𝗮𝘁𝗼𝗿 : 𝗦𝗮𝗰𝗵𝘂 𝗦𝗲𝘁𝘁𝗮𝗻 & 𝗦𝗮𝗿𝗮𝗻
+╟➢ 𝗧𝗼𝘁𝗮𝗹 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀 : 𝟮𝟬𝟬+
+║
+╚═══➢《 © 𝗛𝗼𝗿𝗶 𝗕𝗲𝘁𝗮 》═══➢\n\n
             `,
                             hydratedButtons: [{
-                                urlButton: {
-                                displayText: 'GitHub',
-                                    url: 'https://github.com/Sachu-Settan/Hori-Beta'
-                                    },
                                     urlButton: {
                                         displayText: '🌏 Bot Web 🌏',
-                                            url: 'https://Hori-Bot.gthub.io'
-                                            }
-                            }, {
+                                        url: 'https://Hori-Bot.gthub.io'
+                                            },
+                                    urlButton: {
+                                        displayText: 'GitHub',
+                                        url: 'https://github.com/Sachu-Settan/Hori-Beta'
+                                    }
+                                }, {
                                 quickReplyButton: {
                                     displayText: '💖',
                                     buttonId: '❤️'
@@ -1104,13 +1121,13 @@ case 'antilink':
             case 'delete': case 'del': {
                 if (!m.quoted) throw false
                 let { chat, fromMe, id, isBaileys } = m.quoted
-                if (!isBaileys) throw 'The message Was Not Sent by  Mee !'
+                if (!isBaileys) throw 'The Message Was Not Sent By Mee !'
                 Hori.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender } })
             }
             break
             case 'bcgc': case 'bcgroup': {
                 if (!isCreator) throw mess.owner
-                if (!text) throw `Where is the text?\n\nExample : ${prefix + command} hello guys, am back`
+                if (!text) throw `Where is the text?\n\nExample : ${prefix + command} Gooys I am back, Suiii`
                 let getGroups = await Hori.groupFetchAllParticipating()
                 let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
                 let anu = groups.map(v => v.id)
@@ -1124,24 +1141,24 @@ case 'antilink':
                                 }
                             }, {
                                 callButton: {
-                                    displayText: 'Owner Number👤',
+                                    displayText: 'Sachu Settan',
                                     phoneNumber: '+91 9744933034'
                                 }
                             }, {
+                                callButton: {
+                                    displayText: 'Saran Kuttan',
+                                    phoneNumber: '+91 8547978854'
+                                }
+                            }, {
                                 quickReplyButton: {
-                                    displayText: '📶Bot Status📶',
+                                    displayText: '📶 Bot Status 📶',
                                     id: 'ping'
                                 }
                             }, {
                                 quickReplyButton: {
-                                    displayText: '👤Owner👤',
+                                    displayText: '💖 ᴡʜᴏ ɪꜱ ʏᴏᴜʀ ᴏᴡɴᴇʀ 💖',
                                     id: 'owner'
                                 }  
-                            }, {
-                                quickReplyButton: {
-                                    displayText: 'Script',
-                                    id: 'sc'
-                                }
                             }]
                       fatihgans = fs.readFileSync('./Media/Hori.jpg')
                       let txt = `「 Hori Bot Broadcast 」\n\n${text}`
@@ -1164,7 +1181,7 @@ case 'antilink':
                                 }
                             }, {
                                 quickReplyButton: {
-                                    displayText: '👤Owner👤',
+                                    displayText: '💖 ᴡʜᴏ ɪꜱ ʏᴏᴜʀ ᴏᴡɴᴇʀ 💖',
                                     id: 'owner'
                                 }
                             }]
@@ -2216,9 +2233,9 @@ Report Message: ${text}` })
 reply(`Successfully Reported To The Owner\n\nPlease Make Sure The Bug Is Valid, If You Play With This, Use This Feature Again And Again For No Reason, You Will Be Blocked For Sure !`)
                     }
                     break 
-case 'tes': case 'test': case 'alive': case 'bot': case 'robot': case 'Hori': case 'doge':{
+case 'tes': case 'test': case 'alive': case 'bot': case 'robot': case 'hori':{
                 anu = `Hi ${pushname}
-Hori Bot With You Forever!! 🐶🤚`
+Hori Bot Will Be With You Forever!! 🤚`
 const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
@@ -2254,62 +2271,65 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 }
 break
 
-            case 'list': case 'menu': case 'help': case '?': {
+            case 'list': case 'menu': case 'help': case '?': case 'listmenu': {
             	timestampe = speed();
-latensie = speed() - timestampe
+                latensie = speed() - timestampe
                 anu = ``
-const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+                const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
                             hydratedContentText: anu,
                             locationMessage: {
                             jpegThumbnail: fs.readFileSync('./Media/Hori.jpg')},
-                            hydratedFooterText: `╔══➢ 《 *User Info* 》 ══➢
-║
-╟➢ *Reqested By, ${pushname} !*
-╟➢ *Lib : Baileys ^4.0.1* 
-╟➢ *Total Features : 200+* 
-║
-╚═══➢《*© Rose-Mwol* 》═══➢
+                            hydratedFooterText: `
 
-╔══➢ 《 *Hori Bot Info* 》 ══➢
+╔══➢ 《  𝗨𝘀𝗲𝗿 𝗜𝗻𝗳𝗼  》 ══➢
 ║
-╟➢ *Bot Name : ${global.botname}*
-╟➢ *Run Time: ${runtime(process.uptime())}*
-╟➢ *Owner Name : ${global.ownername}*
-╟➢ *Onwer Number : ${global.owner}*
-╟➢ *Host Name : ${os.hostname()}*
-╟➢ *Platform : ${os.platform()}*
-╟➢ *Reply Speed : ${latensie.toFixed(4)} miliseconds*
-╟➢ *Lib : Baileys ^4.0.1* 
-╟➢ *Prefix : 「 ${prefix} 」* 
-╟➢ *Creator : Sachu Settan & Saran* 
+╟➢ 𝗥𝗲𝗾𝗲𝘀𝘁𝗲𝗱 𝗕𝘆, ${pushname} !
+╟➢ 𝗟𝗶𝗯 : 𝗕𝗮𝗶𝗹𝗲𝘆𝘀 ^𝟰.𝟬.𝟭
+╟➢ 𝗧𝗼𝘁𝗮𝗹 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀 : 𝟮𝟬𝟬+
 ║
-╚═══➢《*© Rose-Mwol* 》═══➢\n\n
+╚═══➢《 © 𝗛𝗼𝗿𝗶 𝗕𝗲𝘁𝗮 》═══➢
+
+╔══➢ 《 𝗛𝗼𝗿𝗶 𝗕𝗼𝘁 𝗜𝗻𝗳𝗼 》 ══➢
+║
+╟➢ 𝗕𝗼𝘁 𝗡𝗮𝗺𝗲 : ${global.botname}
+╟➢ 𝗥𝘂𝗻 𝗧𝗶𝗺𝗲 : ${runtime(process.uptime())}
+╟➢ 𝗢𝘄𝗻𝗲𝗿 𝗡𝗮𝗺𝗲 : ${global.ownername}
+╟➢ 𝗢𝗻𝘄𝗲𝗿 𝗡𝘂𝗺𝗯𝗲𝗿 : ${global.owner}
+╟➢ 𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
+╟➢ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
+╟➢ 𝗥𝗲𝗽𝗹𝘆 𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
+╟➢ 𝗟𝗶𝗯 : 𝗕𝗮𝗶𝗹𝗲𝘆𝘀 ^𝟰.𝟬.𝟭
+╟➢ 𝗣𝗿𝗲𝗳𝗶𝘅 :「 ${prefix} 」 
+╟➢ 𝗖𝗿𝗲𝗮𝘁𝗼𝗿 : 𝗦𝗮𝗰𝗵𝘂 𝗦𝗲𝘁𝘁𝗮𝗻 & 𝗦𝗮𝗿𝗮𝗻
+║
+╚═══➢《 © 𝗛𝗼𝗿𝗶 𝗕𝗲𝘁𝗮 》═══➢\n\n
 Please Select Button Below
 `,
                             hydratedButtons: [{
                                 urlButton: {
                                     displayText: '🌏 Bot Web 🌏',
                                     url: 'https://Hori-Bot.github.io'
-                                        },
+                                    }
+                                },{
                                 urlButton: {
-                                displayText: 'Bot Script',
+                                    displayText: '📜 Script 📜',
                                     url: 'https://github.com/Sachu-Settan/Hori-Beta'
                                     }
-                            }, {
+                                },{
                                 quickReplyButton: {
                                     displayText: 'All Menu',
                                     id: `${prefix}allmenu`
-                                    }
+                                }
                                 }, {
                                 quickReplyButton: {
                                     displayText: 'List Menu',
                                     id: `${prefix}command`
-                                    }
+                                }
                                 }, {
                                 quickReplyButton: {
-                                    displayText: 'Owner',
+                                    displayText: '💖 ᴡʜᴏ ɪꜱ ʏᴏᴜʀ ᴏᴡɴᴇʀ 💖',
                                     id: `${prefix}owner`
                                 }
                             }]
@@ -2322,18 +2342,23 @@ break
 case 'command':{
 let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 listMessage :{
-                    title: `╔══➢ 《 *Menu* 》 ══➢
-                    ║
-                    ╟➢ *Hai, ${pushname} !*
-                    ╟➢ *Creator : Sachu Settan & Saran * 
-                    ╟➢ *Lib : Baileys ^4.0.1* 
-                    ╟➢ *Prefix : 「 ${prefix} 」* 
-                    ╟➢ *Total Features : 200+* `,
+                    title: `
+        *Menu* 
+
+ *Hai, ${pushname} !*
+
+ *Creator : Sachu Settan & Saran *
+
+ *Lib : Baileys ^4.0.1* 
+
+ *Prefix : 「 ${prefix} 」* 
+
+ *Total Features : 200+* 
+`,
                     description: `
-                    ║
-                    ╚═══➢《*© Hori-Beta* 》═══➢\n`,
+                    \n`,
                     buttonText: "Select Menu",
-                    footerText: "*Hori Bot-MD*",
+                    footerText: "_Hori Bot-MD_",
                     listType: "SINGLE_SELECT",
                     sections: [{
                                 "title": "Bot Web",
@@ -2454,20 +2479,21 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
             break
 case 'grupmenu': {
 	            anu = `
-  ╔═══➢《 *Group Menu* 》═══➢
-  ╟➢ *${prefix}grouplink
-  ╟➢ *${prefix}ephemeral [option]
-  ╟➢ *${prefix}setgrouppp
-  ╟➢ *${prefix}setname [text]
-  ╟➢ *${prefix}group [option]
-  ╟➢ *${prefix}editinfo [option]
-  ╟➢ *${prefix}grupinfo
-  ╟➢ *${prefix}add @user
-  ╟➢ *${prefix}kick @user
-  ╟➢ *${prefix}promote @user
-  ╟➢ *${prefix}demote @user
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Group Menu* 》═══➢
+║
+╟➢ *${prefix}grouplink
+╟➢ *${prefix}ephemeral [option]
+╟➢ *${prefix}setgrouppp
+╟➢ *${prefix}setname [text]
+╟➢ *${prefix}group [option]
+╟➢ *${prefix}editinfo [option]
+╟➢ *${prefix}grupinfo
+╟➢ *${prefix}add @user
+╟➢ *${prefix}kick @user
+╟➢ *${prefix}promote @user
+╟➢ *${prefix}demote @user
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2480,7 +2506,8 @@ case 'grupmenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2499,22 +2526,23 @@ case 'grupmenu': {
 break
 case 'downloadmenu': {
 	okemenu = `
-  ╔═══➢《 *Downloader Menu* 》═══➢
-  ╟➢ *${prefix}tiktoknowm [url]
-  ╟➢ *${prefix}tiktokwm [url]
-  ╟➢ *${prefix}tiktokmp3 [url]
-  ╟➢ *${prefix}instagram [url]
-  ╟➢ *${prefix}ig2 [url]
-  ╟➢ *${prefix}igreels [url]
-  ╟➢ *${prefix}igtv [url]
-  ╟➢ *${prefix}twitter [url]
-  ╟➢ *${prefix}twittermp3 [url]
-  ╟➢ *${prefix}ytmp3 [url]
-  ╟➢ *${prefix}ytmp4 [url]
-  ╟➢ *${prefix}getmusic [query]
-  ╟➢ *${prefix}getvideo [query]
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Downloader Menu* 》═══➢
+║
+╟➢ *${prefix}tiktoknowm [url]
+╟➢ *${prefix}tiktokwm [url]
+╟➢ *${prefix}tiktokmp3 [url]
+╟➢ *${prefix}instagram [url]
+╟➢ *${prefix}ig2 [url]
+╟➢ *${prefix}igreels [url]
+╟➢ *${prefix}igtv [url]
+╟➢ *${prefix}twitter [url]
+╟➢ *${prefix}twittermp3 [url]
+╟➢ *${prefix}ytmp3 [url]
+╟➢ *${prefix}ytmp4 [url]
+╟➢ *${prefix}getmusic [query]
+╟➢ *${prefix}getvideo [query]
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2527,7 +2555,8 @@ case 'downloadmenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2546,17 +2575,18 @@ case 'downloadmenu': {
             break 
             case 'searchmenu': {
             	anu =`
-  ╔═══➢《 *Search Menu* 》═══➢
-  ╟➢ *${prefix}play [query]
-  ╟➢ *${prefix}yts [query]
-  ╟➢ *${prefix}google [query]
-  ╟➢ *${prefix}gimage [query]
-  ╟➢ *${prefix}pinterest [query]
-  ╟➢ *${prefix}wallpaper [query]
-  ╟➢ *${prefix}wikimedia [query]
-  ╟➢ *${prefix}ytsearch [query]
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Search Menu* 》═══➢
+║
+╟➢ *${prefix}play [query]
+╟➢ *${prefix}yts [query]
+╟➢ *${prefix}google [query]
+╟➢ *${prefix}gimage [query]
+╟➢ *${prefix}pinterest [query]
+╟➢ *${prefix}wallpaper [query]
+╟➢ *${prefix}wikimedia [query]
+╟➢ *${prefix}ytsearch [query]
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2569,7 +2599,8 @@ case 'downloadmenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2588,11 +2619,12 @@ case 'downloadmenu': {
 break
 case 'randommenu': {
 	anu = `
-  ╔═══➢《 *Random Menu* 》═══➢
-  ╟➢ *${prefix}coffee
-  ╟➢ *${prefix}couplepp
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Random Menu* 》═══➢
+║
+╟➢ *${prefix}coffee
+╟➢ *${prefix}couplepp
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2605,7 +2637,8 @@ case 'randommenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2624,12 +2657,13 @@ case 'randommenu': {
 break
 case 'funmenu': {
 	anu = `
-  ╔═══➢《 *Fun Menu* 》═══➢
-  ╟➢ *${prefix}couple
-  ╟➢ *${prefix}mysoulmate
-  ╟➢ *${prefix}math [mode] 
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Fun Menu* 》═══➢
+║
+╟➢ *${prefix}couple
+╟➢ *${prefix}mysoulmate
+╟➢ *${prefix}math [mode] 
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2642,7 +2676,8 @@ case 'funmenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2661,20 +2696,21 @@ case 'funmenu': {
 break
 case 'voicemenu': {
 	anu = `
-  ╔═══➢《 *Voice Changer Menu* 》═══➢
-  ╟➢ *${prefix}bass
-  ╟➢ *${prefix}blown
-  ╟➢ *${prefix}deep
-  ╟➢ *${prefix}earrape
-  ╟➢ *${prefix}fast
-  ╟➢ *${prefix}fat
-  ╟➢ *${prefix}nightcore
-  ╟➢ *${prefix}reverse
-  ╟➢ *${prefix}robot
-  ╟➢ *${prefix}slow
-  ╟➢ *${prefix}squirrel
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Voice Changer Menu* 》═══➢
+║
+╟➢ *${prefix}bass
+╟➢ *${prefix}blown
+╟➢ *${prefix}deep
+╟➢ *${prefix}earrape
+╟➢ *${prefix}fast
+╟➢ *${prefix}fat
+╟➢ *${prefix}nightcore
+╟➢ *${prefix}reverse
+╟➢ *${prefix}robot
+╟➢ *${prefix}slow
+╟➢ *${prefix}squirrel
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
 `
 const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2687,7 +2723,8 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2706,40 +2743,40 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 break
 case 'horoscopemenukcodk': {
 	anu = `
-  ╔═══➢《 *Horoscope Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}hockeynumber
-  ╟➢ *${prefix}dreammeaning
-  ╟➢ *${prefix}namemeaning
-  ╟➢ *${prefix}fortunetelling
-  ╟➢ *${prefix}marriageprediction
-  ╟➢ *${prefix}wife&husband
-  ╟➢ *${prefix}fortunetelling2
-  ╟➢ *${prefix}matchname
-  ╟➢ *${prefix}couplematch
-  ╟➢ *${prefix}married
-  ╟➢ *${prefix}businessnature
-  ╟➢ *${prefix}sustenance
-  ╟➢ *${prefix}profession
-  ╟➢ *${prefix}fate
-  ╟➢ *${prefix}potentialdisease
-  ╟➢ *${prefix}tarot
-  ╟➢ *${prefix}fengshui
-  ╟➢ *${prefix}goodday
-  ╟➢ *${prefix}badday
-  ╟➢ *${prefix}unluckyday
-  ╟➢ *${prefix}dragonday
-  ╟➢ *${prefix}sustenance2
-  ╟➢ *${prefix}luck
-  ╟➢ *${prefix}weton
-  ╟➢ *${prefix}character
-  ╟➢ *${prefix}luck2
-  ╟➢ *${prefix}fishing
-  ╟➢ *${prefix}fertiletime
-  ╟➢ *${prefix}zodiac
-  ╟➢ *${prefix}shio
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢`
+╔═══➢《 *Horoscope Menu* 》═══➢
+║
+╟➢ *${prefix}hockeynumber
+╟➢ *${prefix}dreammeaning
+╟➢ *${prefix}namemeaning
+╟➢ *${prefix}fortunetelling
+╟➢ *${prefix}marriageprediction
+╟➢ *${prefix}wife&husband
+╟➢ *${prefix}fortunetelling2
+╟➢ *${prefix}matchname
+╟➢ *${prefix}couplematch
+╟➢ *${prefix}married
+╟➢ *${prefix}businessnature
+╟➢ *${prefix}sustenance
+╟➢ *${prefix}profession
+╟➢ *${prefix}fate
+╟➢ *${prefix}potentialdisease
+╟➢ *${prefix}tarot
+╟➢ *${prefix}fengshui
+╟➢ *${prefix}goodday
+╟➢ *${prefix}badday
+╟➢ *${prefix}unluckyday
+╟➢ *${prefix}dragonday
+╟➢ *${prefix}sustenance2
+╟➢ *${prefix}luck
+╟➢ *${prefix}weton
+╟➢ *${prefix}character
+╟➢ *${prefix}luck2  
+╟➢ *${prefix}fishing
+╟➢ *${prefix}fertiletime
+╟➢ *${prefix}zodiac
+╟➢ *${prefix}shio
+║
+╚═══➢《 *© Hori-Beta* 》═══➢`
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
@@ -2751,7 +2788,8 @@ case 'horoscopemenukcodk': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2770,19 +2808,19 @@ case 'horoscopemenukcodk': {
 break
 case 'convertmenu': {
 	anu = `
-  ╔═══➢《 *Convert Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}toimage
-  ╟➢ *${prefix}removebg
-  ╟➢ *${prefix}sticker
-  ╟➢ *${prefix}emojimix
-  ╟➢ *${prefix}tovideo
-  ╟➢ *${prefix}togif
-  ╟➢ *${prefix}tourl
-  ╟➢ *${prefix}ebinary
-  ╟➢ *${prefix}dbinary
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Convert Menu* 》═══➢
+║
+╟➢ *${prefix}toimage
+╟➢ *${prefix}removebg
+╟➢ *${prefix}sticker
+╟➢ *${prefix}emojimix
+╟➢ *${prefix}tovideo
+╟➢ *${prefix}togif
+╟➢ *${prefix}tourl
+╟➢ *${prefix}ebinary
+╟➢ *${prefix}dbinary
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2795,7 +2833,8 @@ case 'convertmenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2814,21 +2853,21 @@ case 'convertmenu': {
 break
 case 'nocategorymenu': {
 	anu = `
-  ╔═══➢《 *Misc Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}ping
-  ╟➢ *${prefix}owner
-  ╟➢ *${prefix}donate
-  ╟➢ *${prefix}menu / ${prefix}help / ${prefix}?
-  ╟➢ *${prefix}delete
-  ╟➢ *${prefix}chatinfo
-  ╟➢ *${prefix}quoted
-  ╟➢ *${prefix}listpc
-  ╟➢ *${prefix}listgc
-  ╟➢ *${prefix}listonline
-  ╟➢ *${prefix}report (report bug to owner)
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Misc Menu* 》═══➢
+║
+╟➢ *${prefix}ping
+╟➢ *${prefix}owner
+╟➢ *${prefix}donate
+╟➢ *${prefix}menu / ${prefix}help / ${prefix}?
+╟➢ *${prefix}delete
+╟➢ *${prefix}chatinfo
+╟➢ *${prefix}quoted
+╟➢ *${prefix}listpc
+╟➢ *${prefix}listgc
+╟➢ *${prefix}listonline
+╟➢ *${prefix}report (report bug to owner)
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2841,7 +2880,8 @@ case 'nocategorymenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2860,18 +2900,18 @@ case 'nocategorymenu': {
 break
 case 'databasemenu': {
 	anu = `
-  ╔═══➢《 *Database Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}setcmd
-  ╟➢ *${prefix}listcmd
-  ╟➢ *${prefix}delcmd
-  ╟➢ *${prefix}lockcmd
-  ╟➢ *${prefix}addmsg
-  ╟➢ *${prefix}listmsg
-  ╟➢ *${prefix}getmsg
-  ╟➢ *${prefix}delmsg
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Database Menu* 》═══➢
+║
+╟➢ *${prefix}setcmd
+╟➢ *${prefix}listcmd
+╟➢ *${prefix}delcmd
+╟➢ *${prefix}lockcmd
+╟➢ *${prefix}addmsg
+╟➢ *${prefix}listmsg
+╟➢ *${prefix}getmsg
+╟➢ *${prefix}delmsg
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
   const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2884,7 +2924,8 @@ case 'databasemenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2903,13 +2944,13 @@ case 'databasemenu': {
 break
 case 'anonymouschatmenu': {
 	anu = `
-  ╔══➢《 *Anonymous Menu* 》══➢
-  ║
-  ╟➢ *${prefix}start ( Start Chat )
-  ╟➢ *${prefix}next ( Next user )
-  ╟➢ *${prefix}stop ( stop Anonymous chat )
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔══➢《 *Anonymous Menu* 》══➢
+║
+╟➢ *${prefix}start ( Start Chat )
+╟➢ *${prefix}next ( Next user )
+╟➢ *${prefix}stop ( stop Anonymous chat )
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
 	`
 	  const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2922,7 +2963,8 @@ case 'anonymouschatmenu': {
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2941,13 +2983,13 @@ case 'anonymouschatmenu': {
 break
 case 'sistemmenu': {
 	anu = `
-  ╔═══➢《 *System Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}antilink On/Off
-  ╟➢ *${prefix}mute On/Off
-  ╟➢ *${prefix}antiwame On/Off
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *System Menu* 》═══➢
+║
+╟➢ *${prefix}antilink On/Off
+╟➢ *${prefix}mute On/Off
+╟➢ *${prefix}antiwame On/Off
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
 `
 const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -2960,7 +3002,8 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -2979,18 +3022,18 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 break
   case 'ownermenu': {
   	anu = `
-  ╔═══➢《 *Owner Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}chat [option]
-  ╟➢ *${prefix}join [link]
-  ╟➢ *${prefix}leave
-  ╟➢ *${prefix}setbotpp
-  ╟➢ *${prefix}block @user
-  ╟➢ *${prefix}unblock @user
-  ╟➢ *${prefix}bcgroup
-  ╟➢ *${prefix}bcall
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Owner Menu* 》═══➢
+║
+╟➢ *${prefix}chat [option]
+╟➢ *${prefix}join [link]
+╟➢ *${prefix}leave
+╟➢ *${prefix}setbotpp
+╟➢ *${prefix}block @user
+╟➢ *${prefix}unblock @user
+╟➢ *${prefix}bcgroup
+╟➢ *${prefix}bcall
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   `
     const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
@@ -3003,7 +3046,8 @@ break
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
                 			url: 'https://Hori-Bot.github.io'
-		                        },
+                            }
+		                },{
                             urlButton: {
                                 displayText: '📜 Script 📜',
                                 url: 'https://github.com/Sachu-Settan/Hori-Beta'
@@ -3021,208 +3065,224 @@ break
             }
 break
   case 'allmenu': {
+    timestampe = speed();
+    latensie = speed() - timestampe
   	anu = `
-  ╔══➢ 《 *USER INFO* 》 ══➢
-  ║
-  ╟➢ *Hai, ${pushname} !*
-  ╟➢ *Creator : Sachu Settan * 
-  ╟➢ *Lib : Baileys ^4.0.1* 
-  ╟➢ *Prefix : 「 ${prefix} 」* 
-  ╟➢ *Total Features : 200+* 
-  ║
-  ╚═══➢《*© Rose-Mwol* 》═══➢
-  
-  ╔═══➢《 *List Menu* 》═══➢
-  ║
-  ╟➢ ${prefix}menu
-  ╟➢ ${prefix}help
-  ╟➢ ${prefix}hori
-  ╟➢ ${prefix}?
-  ║
-  ╚══➢《 *© Rose-Mwol* 》══➢
+╔══➢ 《 *All Menu* 》 ══➢
+║
+╟➢ *Reqested By ${pushname} !*
+╟➢ *Prefix : 「 ${prefix} 」* 
+╟➢ *Total Features : 200+* 
+║
+╚═══➢《 *© Hori Beta* 》═══➢
+
+╔══➢ 《 *Hori Bot Info* 》 ══➢
+║
+╟➢ *Bot Name* : ${global.botname}
+╟➢ *Run Time* : ${runtime(process.uptime())}
+╟➢ *Owner Name* : ${global.ownername}
+╟➢ *Owner Number* : ${global.owner}
+╟➢ *Host Name* : ${os.hostname()}
+╟➢ *Platform* : ${os.platform()}
+╟➢ *Reply Speed* : ${latensie.toFixed(4)} miliseconds
+╟➢ *Library* : 𝗕𝗮𝗶𝗹𝗲𝘆𝘀 ^𝟰.𝟬.𝟭
+╟➢ *Prefix* :「 ${prefix} 」 
+╟➢ *Creator* : 𝗦𝗮𝗰𝗵𝘂 𝗦𝗲𝘁𝘁𝗮𝗻 & 𝗦𝗮𝗿𝗮𝗻
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
+
+╔═══➢《 *List Menu* 》═══➢
+║
+╟➢ ${prefix}menu
+╟➢ ${prefix}help
+╟➢ ${prefix}hori
+╟➢ ${prefix}?
+║
+╚══➢《 *© Hori Beta* 》══➢
       
-  ╔═══➢《 *Group Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}grouplink
-  ╟➢ *${prefix}ephemeral [option]
-  ╟➢ *${prefix}setgrouppp
-  ╟➢ *${prefix}setname [text]
-  ╟➢ *${prefix}group [option]
-  ╟➢ *${prefix}editinfo [option]
-  ╟➢ *${prefix}grupinfo
-  ╟➢ *${prefix}add @user
-  ╟➢ *${prefix}kick @user
-  ╟➢ *${prefix}promote @user
-  ╟➢ *${prefix}demote @user
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Group Menu* 》═══➢
+║
+╟➢ *${prefix}grouplink
+╟➢ *${prefix}ephemeral [option]
+╟➢ *${prefix}setgrouppp
+╟➢ *${prefix}setname [text]
+╟➢ *${prefix}group [option]
+╟➢ *${prefix}editinfo [option]
+╟➢ *${prefix}grupinfo
+╟➢ *${prefix}add @user
+╟➢ *${prefix}kick @user
+╟➢ *${prefix}promote @user
+╟➢ *${prefix}demote @user
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Download Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}tiktoknowm [url]
-  ╟➢ *${prefix}tiktokwm [url]
-  ╟➢ *${prefix}tiktokmp3 [url]
-  ╟➢ *${prefix}instagram [url]
-  ╟➢ *${prefix}ig2 [url]
-  ╟➢ *${prefix}igreels [url]
-  ╟➢ *${prefix}igtv [url]
-  ╟➢ *${prefix}twitter [url]
-  ╟➢ *${prefix}twittermp3 [url]
-  ╟➢ *${prefix}ytmp3 [url]
-  ╟➢ *${prefix}ytmp4 [url]
-  ╟➢ *${prefix}getmusic [query]
-  ╟➢ *${prefix}getvideo [query
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Download Menu* 》═══➢
+║
+╟➢ *${prefix}tiktoknowm [url]
+╟➢ *${prefix}tiktokwm [url]
+╟➢ *${prefix}tiktokmp3 [url]
+╟➢ *${prefix}instagram [url]
+╟➢ *${prefix}ig2 [url]
+╟➢ *${prefix}igreels [url]
+╟➢ *${prefix}igtv [url]
+╟➢ *${prefix}twitter [url]
+╟➢ *${prefix}twittermp3 [url]
+╟➢ *${prefix}ytmp3 [url]
+╟➢ *${prefix}ytmp4 [url]
+╟➢ *${prefix}getmusic [query]
+╟➢ *${prefix}getvideo [query
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Search Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}play [query]
-  ╟➢ *${prefix}yts [query]
-  ╟➢ *${prefix}google [query]
-  ╟➢ *${prefix}gimage [query]
-  ╟➢ *${prefix}pinterest [query]
-  ╟➢ *${prefix}wallpaper [query]
-  ╟➢ *${prefix}wikimedia [query]
-  ╟➢ *${prefix}ytsearch [query]
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Search Menu* 》═══➢
+║
+╟➢ *${prefix}play [query]
+╟➢ *${prefix}yts [query]
+╟➢ *${prefix}google [query]
+╟➢ *${prefix}gimage [query]
+╟➢ *${prefix}pinterest [query]
+╟➢ *${prefix}wallpaper [query]
+╟➢ *${prefix}wikimedia [query]
+╟➢ *${prefix}ytsearch [query]
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Random Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}coffee
-  ╟➢ *${prefix}couplepp
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Random Menu* 》═══➢
+║
+╟➢ *${prefix}coffee
+╟➢ *${prefix}couplepp
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Fun Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}couple
-  ╟➢ *${prefix}mysoulmate
-  ╟➢ *${prefix}math [mode]  
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Fun Menu* 》═══➢
+║
+╟➢ *${prefix}couple
+╟➢ *${prefix}mysoulmate
+╟➢ *${prefix}math [mode]  
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Voice Changer Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}bass
-  ╟➢ *${prefix}blown
-  ╟➢ *${prefix}deep
-  ╟➢ *${prefix}earrape
-  ╟➢ *${prefix}fast
-  ╟➢ *${prefix}fat
-  ╟➢ *${prefix}nightcore
-  ╟➢ *${prefix}reverse
-  ╟➢ *${prefix}robot
-  ╟➢ *${prefix}slow
-  ╟➢ *${prefix}squirrel
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Voice Changer* 》═══➢
+║
+╟➢ *${prefix}bass
+╟➢ *${prefix}blown
+╟➢ *${prefix}deep
+╟➢ *${prefix}earrape
+╟➢ *${prefix}fast
+╟➢ *${prefix}fat
+╟➢ *${prefix}nightcore
+╟➢ *${prefix}reverse
+╟➢ *${prefix}robot
+╟➢ *${prefix}slow
+╟➢ *${prefix}squirrel
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
    
-  ╔═══➢《 *Convert Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}toimage
-  ╟➢ *${prefix}removebg
-  ╟➢ *${prefix}sticker
-  ╟➢ *${prefix}emojimix
-  ╟➢ *${prefix}tovideo
-  ╟➢ *${prefix}togif
-  ╟➢ *${prefix}tourl
-  ╟➢ *${prefix}ebinary
-  ╟➢ *${prefix}dbinary
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
-  ╔═══➢《 *Horoscope Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}hockeynumber
-  ╟➢ *${prefix}dreammeaning
-  ╟➢ *${prefix}namemeaning
-  ╟➢ *${prefix}fortunetelling
-  ╟➢ *${prefix}marriageprediction
-  ╟➢ *${prefix}wife&husband
-  ╟➢ *${prefix}fortunetelling2
-  ╟➢ *${prefix}matchname
-  ╟➢ *${prefix}couplematch
-  ╟➢ *${prefix}married
-  ╟➢ *${prefix}businessnature
-  ╟➢ *${prefix}sustenance
-  ╟➢ *${prefix}profession
-  ╟➢ *${prefix}fate
-  ╟➢ *${prefix}potentialdisease
-  ╟➢ *${prefix}tarot
-  ╟➢ *${prefix}fengshui
-  ╟➢ *${prefix}goodday
-  ╟➢ *${prefix}badday
-  ╟➢ *${prefix}unluckyday
-  ╟➢ *${prefix}dragonday
-  ╟➢ *${prefix}sustenance2
-  ╟➢ *${prefix}luck
-  ╟➢ *${prefix}weton
-  ╟➢ *${prefix}character
-  ╟➢ *${prefix}luck2
-  ╟➢ *${prefix}fishing
-  ╟➢ *${prefix}fertiletime
-  ╟➢ *${prefix}zodiac
-  ╟➢ *${prefix}shio
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Convert Menu* 》═══➢
+║
+╟➢ *${prefix}toimage
+╟➢ *${prefix}removebg
+╟➢ *${prefix}sticker
+╟➢ *${prefix}emojimix
+╟➢ *${prefix}tovideo
+╟➢ *${prefix}togif
+╟➢ *${prefix}tourl
+╟➢ *${prefix}ebinary
+╟➢ *${prefix}dbinary
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
+
+╔══➢《 *Horoscope Menu* 》═══➢
+║
+╟➢ *${prefix}hockeynumber
+╟➢ *${prefix}dreammeaning
+╟➢ *${prefix}namemeaning
+╟➢ *${prefix}fortunetelling
+╟➢ *${prefix}marriageprediction
+╟➢ *${prefix}wife&husband
+╟➢ *${prefix}fortunetelling2
+╟➢ *${prefix}matchname
+╟➢ *${prefix}couplematch
+╟➢ *${prefix}married
+╟➢ *${prefix}businessnature
+╟➢ *${prefix}sustenance
+╟➢ *${prefix}profession
+╟➢ *${prefix}fate
+╟➢ *${prefix}potentialdisease
+╟➢ *${prefix}tarot
+╟➢ *${prefix}fengshui
+╟➢ *${prefix}goodday
+╟➢ *${prefix}badday
+╟➢ *${prefix}unluckyday
+╟➢ *${prefix}dragonday
+╟➢ *${prefix}sustenance2
+╟➢ *${prefix}luck
+╟➢ *${prefix}weton
+╟➢ *${prefix}character
+╟➢ *${prefix}luck2
+╟➢ *${prefix}fishing
+╟➢ *${prefix}fertiletime
+╟➢ *${prefix}zodiac
+╟➢ *${prefix}shio
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Misc Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}ping
-  ╟➢ *${prefix}owner
-  ╟➢ *${prefix}donate
-  ╟➢ *${prefix}delete
-  ╟➢ *${prefix}chatinfo
-  ╟➢ *${prefix}quoted
-  ╟➢ *${prefix}listpc
-  ╟➢ *${prefix}listgc
-  ╟➢ *${prefix}listonline
-  ╟➢ *${prefix}report (report bug to owner)
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Misc Menu* 》═══➢
+║
+╟➢ *${prefix}ping
+╟➢ *${prefix}owner
+╟➢ *${prefix}donate
+╟➢ *${prefix}delete
+╟➢ *${prefix}chatinfo
+╟➢ *${prefix}quoted
+╟➢ *${prefix}listpc
+╟➢ *${prefix}listgc
+╟➢ *${prefix}listonline
+╟➢ *${prefix}report (report bug to owner)
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Database Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}setcmd
-  ╟➢ *${prefix}listcmd
-  ╟➢ *${prefix}delcmd
-  ╟➢ *${prefix}lockcmd
-  ╟➢ *${prefix}addmsg
-  ╟➢ *${prefix}listmsg
-  ╟➢ *${prefix}getmsg
-  ╟➢ *${prefix}delmsg
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Database Menu* 》═══➢
+║
+╟➢ *${prefix}setcmd
+╟➢ *${prefix}listcmd
+╟➢ *${prefix}delcmd
+╟➢ *${prefix}lockcmd
+╟➢ *${prefix}addmsg
+╟➢ *${prefix}listmsg
+╟➢ *${prefix}getmsg
+╟➢ *${prefix}delmsg
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Anonymous Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}start ( Start Chat )
-  ╟➢ *${prefix}next ( Next user )
-  ╟➢ *${prefix}stop ( stop Anonymous chat )
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *Anonymous Menu* 》═══➢
+║
+╟➢ *${prefix}start ( Start Chat )
+╟➢ *${prefix}next ( Next user )
+╟➢ *${prefix}stop ( stop Anonymous chat )
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *System Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}antilink On/Off
-  ╟➢ *${prefix}mute On/Off
-  ╟➢ *${prefix}antiwame On/Off
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢
+╔═══➢《 *System Menu* 》═══➢
+║
+╟➢ *${prefix}antilink On/Off
+╟➢ *${prefix}mute On/Off
+╟➢ *${prefix}antiwame On/Off
+║
+╚═══➢《 *© Hori-Beta* 》═══➢
   
-  ╔═══➢《 *Owner Menu* 》═══➢
-  ║
-  ╟➢ *${prefix}chat [option]
-  ╟➢ *${prefix}join [link]
-  ╟➢ *${prefix}leave
-  ╟➢ *${prefix}setbotpp
-  ╟➢ *${prefix}block @user
-  ╟➢ *${prefix}unblock @user
-  ╟➢ *${prefix}bcgroup
-  ╟➢ *${prefix}bcall
-  ║
-  ╚═══➢《*© Hori-Beta* 》═══➢`
+╔═══➢《 *Owner Menu* 》═══➢
+║
+╟➢ *${prefix}chat [option]
+╟➢ *${prefix}join [link]
+╟➢ *${prefix}leave
+╟➢ *${prefix}setbotpp
+╟➢ *${prefix}block @user
+╟➢ *${prefix}unblock @user
+╟➢ *${prefix}bcgroup
+╟➢ *${prefix}bcall
+║
+╚═══➢《 *© Hori-Beta* 》═══➢`
     const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {

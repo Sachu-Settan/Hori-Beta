@@ -145,14 +145,10 @@ Welcome To Our Home !`} )
 	for (let i of kon) {
 	    list.push({
 	    	displayName: await Hori.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Hori.getName(i + '@s.whatsapp.net')}\nFN:${await Hori.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.ADR;CHARSET=UTF-8;TYPE=REGION:;;;Kerala,India
-            \nitem3.URL;CHARSET=UTF-8:https://Saran-Kuttan.github.io
-            \nitem4.URL;CHARSET=UTF-8:https://Sachu-Settan.github.io
-            \nitem5.URL;CHARSET=UTF-8:https://instagram.com/_saran_ff_
-            \nitem6.URL;CHARSET=UTF-8:https://instagram.com/sachu.modder
-            \nitem7.URL;CHARSET=UTF-8:shorturl.at/jsCJS
-            \nitem8.URL;CHARSET=UTF-8:https://github.com/Sachu-Settan
-            \nitem9.URL;CHARSET=UTF-8:https://github.com/Saran-Kuttan
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Hori.getName(i + '@s.whatsapp.net')}\nFN:${await Hori.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.ADR;CHARSET=UTF-8;TYPE=HOME:;;;;Kerala;;India
+            \nitem3.URL;CHARSET=UTF-8:https://Sachu-Settan.github.io
+            \nitem4.URL;CHARSET=UTF-8:https://Saran-Kuttan.github.io
+            \nitem5.URL;CHARSET=UTF-8:https://Sachu-Settan.github.io
             \nEND:VCARD`
 	    })
 	}
