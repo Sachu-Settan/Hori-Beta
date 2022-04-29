@@ -21,7 +21,7 @@
   "author": "Sachu-Settan",
   "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "^4.0.1",
+    "@adiwajshing/baileys": "^4.1.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "all": "^0.0.0",
     "awesome-phonenumber": "^2.64.0",
@@ -38,6 +38,7 @@
     "google-it": "^1.6.2",
     "got": "^11.8.3",
     "human-readable": "^0.2.1",
+    "hxz-api": "^1.0.1",
     "jimp": "^0.16.1",
     "jsdom": "^16.4.0",
     "moment-timezone": "^0.5.34",

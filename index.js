@@ -197,7 +197,7 @@ Welcome To Our Home !`} )
             else if (reason === DisconnectReason.connectionReplaced) { console.log("🤖 Connection Replaced, Another New Session Opened, Please Close Current Session First"); process.exit(); }
             else if (reason === DisconnectReason.loggedOut) { console.log(`🤖 Device Logged Out, Please Delete Session And Scan Again.`); process.exit(); }
             else if (reason === DisconnectReason.restartRequired) { console.log("🤖 Restart Required, Restarting..."); startHori(); }
-            else if (reason === DisconnectReason.timedOut) { console.log("🤖 Connection TimedOut, Reconnecting..."); startHori(); }
+            else if (reason === DisconnectReason.timedOut) { console.log("🤖 Connection Timed Out, Reconnecting..."); startHori(); }
             else { console.log(`Unknown DisconnectReason: ${reason}|${connection}`) }
         }
         console.log('🤖 Connected...', update)

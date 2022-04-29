@@ -1,3 +1,10 @@
+/* 
+* NOTE 
+* You Can Multiply Owner Number By Seperating It With Comma [ , ] And Single Quotes [ ' ]
+* Eg : global.owner = ['[Country Code]**********','[Country Code]**********']
+* 
+*/
+
 const fs = require('fs')
 const chalk = require('chalk')
 
@@ -8,19 +15,15 @@ global.APIs = {
 global.APIKeys = {
 	'https://zenzapi.xyz': '805a6c3fa9', 
 }
-/* 
-* NOTE 
-* You Can Multiply Owner Number By Seperating It With Comma [ , ] And Single Quotes [ ' ]
-* Eg : global.owner = ['[Country Code]**********','[Country Code]**********']
-*/
+
 global.owner = ['919744933034','918547978854'] /* Owner Number */
 global.owner2 = ['919744933034','918547978854'] /* Owner Number */
 global.premium = ['919744933034','918547978854'] /* Premium Number */
 global.botuser = 'Sachu-Settan' /* Bot Username */
 global.botname = 'Hori-Bot-MD' /* Bot Name */
-global.ownername = 'Sachu-Settan & Saran' /* Owner Name */
+global.ownername = 'Sachu-Settan' /* Owner Name */
 global.packname = 'Hori-Bot' /* Sticker Package Name */
-global.author = 'Sachu-Settan & Saran' /* Sticker Pack Author Name */
+global.author = 'Sachu-Settan' /* Sticker Pack Author Name */
 global.sessionName = 'session' /* Session File Name */
 global.prefix = ['.'] /* Prefix */
 global.sp = '⭔' /* Design */
@@ -37,7 +40,7 @@ global.mess = {
 }
 global.limitawal = {
     premium: "Infinity", /* Premium User Limit */
-    free: 100 /* Free User Limit */
+    free: 20 /* Free User Limit */
 }
 global.thumb = fs.readFileSync('./Media/Hori.jpg')
 
