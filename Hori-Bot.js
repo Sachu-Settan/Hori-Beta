@@ -1474,7 +1474,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                                     }
                                 },{quickReplyButton: {
                                     displayText: '🎥 Video 🎥',
-                                    id: `ytmp4 ${anu.url} 720p`
+                                    id: `ytmp4 ${anu.url} 480p`
                                 }
                             }]
                         }
@@ -1495,11 +1495,11 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
             break
             case 'ytmp4': case 'ytvideo': {
                 let { ytv } = require('./lib/y2mate')
-                if (!text) throw `Example : ${prefix + command} https://youtube.com/ 720p`
-                let quality = args[1] ? args[1] : '720p'
+                if (!text) throw `Example : ${prefix + command} https://youtube.com/ 480p`
+                let quality = args[1] ? args[1] : '480p'
                 let media = await ytv(text, quality)
                 if (media.filesize >= 999999) return reply('Video size is too big '+util.format(media))
-                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resololution : ${args[1] || '720p'}` }, { quoted: m })
+                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resololution : ${args[1] || '480p'}` }, { quoted: m })
             }
             break
 	    case 'getmusic': {
@@ -1523,10 +1523,10 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 if (!m.quoted.isBaileys) throw `Hanya Bisa Membalas Pesan Dari Bot`
                 let urls = quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))
                 if (!urls) throw `Maybe the message you replied does not contain the ytsearch result`
-                let quality = args[1] ? args[1] : '720p'
+                let quality = args[1] ? args[1] : '480p'
                 let media = await ytv(urls[text - 1], quality)
                 if (media.filesize >= 100000) return reply('File Over Limit '+util.format(media))
-                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resolution : ${args[1] || '720p'}` }, { quoted: m })
+                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resolution : ${args[1] || '480p'}` }, { quoted: m })
             }
             break
             case 'pinterest': {
@@ -1792,7 +1792,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
 		if (anu.type == 'video') {
 		    let buttons = [
                         {buttonId: `ytmp3 ${anu.media[0]} 128kbps`, buttonText: {displayText: '🎵Audio🎵'}, type: 1},
-                        {buttonId: `ytmp4 ${anu.media[0]} 720p`, buttonText: {displayText: '🎥Video🎥'}, type: 1}
+                        {buttonId: `ytmp4 ${anu.media[0]} 480p`, buttonText: {displayText: '🎥Video🎥'}, type: 1}
                     ]
 		    let buttonMessage = {
 		        image: { url: anu.author.profilePic },

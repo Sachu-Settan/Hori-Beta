@@ -1025,8 +1025,8 @@
             "_chains": {
               "Ben4hFf79jaXRM+BifpaUkgYQBvJ/9KwN4RcH7DssmkT": {
                 "chainKey": {
-                  "counter": 0,
-                  "key": "Prz1HyN73UU75GcSZrEZFUjBVs30z/UGIZTWJLN5EXg="
+                  "counter": 1,
+                  "key": "RPZm+02Qwyb+IssFC4STAyGyy2IfoSq3d3La/UBMXgw="
                 },
                 "chainType": 2,
                 "messageKeys": {}
@@ -5060,6 +5060,17 @@
           },
           "senderSigningKey": {
             "public": "BchyTrjpKalFVl7bJi4JNRM28xU4xJKs9eCHg0rcHR5k"
+          },
+          "senderMessageKeys": []
+        },
+        {
+          "senderKeyId": 2028919852,
+          "senderChainKey": {
+            "iteration": 0,
+            "seed": "QuGg/fLwlX3mS+B+Q70XMIjI543nr+8zkmu705gJJGA="
+          },
+          "senderSigningKey": {
+            "public": "BRRlKZgYEuL7JcRVZt0eHVdBCwAdY2KvYRNfAhyYk5Ed"
           }
         }
       ],
