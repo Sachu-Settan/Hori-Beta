@@ -1439,7 +1439,7 @@ case 'antilink':
         })
         }
         break
-	    case 'song': case 'play': case 'ytplay': {
+	    case 'play': case 'ytplay': case 'song':{
                 if (!text) throw `Example : ${prefix + command} Here Lucian Remix`
                 let yts = require("yt-search")
                 let search = await yts(text)
