@@ -26,6 +26,11 @@
       "afkTime": -1,
       "afkReason": "",
       "limit": 100
+    },
+    "12365001659@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": "Infinity"
     }
   },
   "chats": {
@@ -34,6 +39,10 @@
       "wame": false
     },
     "917907804579@s.whatsapp.net": {
+      "mute": false,
+      "wame": false
+    },
+    "12365001659@s.whatsapp.net": {
       "mute": false,
       "wame": false
     }
