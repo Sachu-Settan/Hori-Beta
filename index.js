@@ -22,7 +22,7 @@ async function startHori() {
     const Hori = HoriConnect({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
-        browser: [ 'Rose-Bot', 'Chrome', '3.0' ],
+        browser: [ '${browsername}', 'Chrome', '3.0' ],
         auth: state,
         version
     })
@@ -79,19 +79,15 @@ async function startHori() {
 let nama = await Hori.getName(num)
 memb = metadata.participants.length
 
-Kon = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+ Welcome = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
 
 /* BYE */
 
-Tol = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+Bye = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
                 if (anu.action == 'add') {
-                    Hori.sendMessage(anu.id, { image: Kon, contextInfo: { mentionedJid: [num] }, caption: `Welcome To ${metadata.subject} @${num.split("@")[0]}
-
-Description: ${metadata.desc}
-
-Welcome To Our Home !`} )
+                    Hori.sendMessage(anu.id, { image: Welcome, contextInfo: { mentionedJid: [num] }, caption: `Welcome To ${metadata.subject} @${num.split("@")[0]} \nDescription: ${metadata.desc} \nWelcome To Our Home !`} )
                 } else if (anu.action == 'remove') {
-                    Hori.sendMessage(anu.id, { image: Tol, contextInfo: { mentionedJid: [num] }, caption: `
+                    Hori.sendMessage(anu.id, { image: Bye, contextInfo: { mentionedJid: [num] }, caption: `
 ╔═══════➢ 《 *Bye* 》══════════➢
 ║
 ╟➢ *Left ${metadata.subject}*

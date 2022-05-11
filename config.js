@@ -21,6 +21,7 @@ global.owner2 = ['919744933034','918547978854'] /* Owner Number */
 global.premium = ['919744933034','918547978854'] /* Premium Number */
 global.botuser = 'Sachu-Settan' /* Bot Username */
 global.botname = 'Hori-Bot-MD' /* Bot Name */
+global.browsername = 'Hori-Beta'
 global.ownername = 'Sachu-Settan' /* Owner Name */
 global.packname = 'Hori-Bot' /* Sticker Package Name */
 global.author = 'Sachu-Settan' /* Sticker Pack Author Name */
