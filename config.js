@@ -21,10 +21,9 @@ global.owner2 = ['919744933034','918547978854'] /* Owner Number */
 global.premium = ['919744933034','918547978854'] /* Premium Number */
 global.botuser = 'Sachu-Settan' /* Bot Username */
 global.botname = 'Hori-Bot-MD' /* Bot Name */
-global.browsername = 'Hori-Beta'
-global.ownername = 'Sachu-Settan' /* Owner Name */
+global.ownername = 'Sachu-Settan & Saran' /* Owner Name */
 global.packname = 'Hori-Bot' /* Sticker Package Name */
-global.author = 'Sachu-Settan' /* Sticker Pack Author Name */
+global.author = 'Sachu-Settan & Saran' /* Sticker Pack Author Name */
 global.sessionName = 'session' /* Session File Name */
 global.prefix = ['.'] /* Prefix */
 global.sp = '⭔' /* Design */
@@ -41,7 +40,7 @@ global.mess = {
 }
 global.limitawal = {
     premium: "Infinity", /* Premium User Limit */
-    free: 20 /* Free User Limit */
+    free: 100 /* Free User Limit */
 }
 global.thumb = fs.readFileSync('./Media/Hori.jpg')
 

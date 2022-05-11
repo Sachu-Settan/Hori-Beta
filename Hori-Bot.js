@@ -23,10 +23,10 @@ const speedofbot = require("performance-now")
 /* thumbnail */
 let hori = fs.readFileSync('./Media/Hori.jpg')
 
-/* database */
+//[database]
 const antilink = JSON.parse(fs.readFileSync('./database/antilink.json'))
 
-/* database reader */
+//[database reader]
 global.db = JSON.parse(fs.readFileSync('./src/database.json'))
 if (global.db) global.db = {
     sticker: {},
@@ -77,7 +77,7 @@ module.exports = Hori = async (Hori, m, chatUpdate, store) => {
     	const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 	const isPremium = isCreator || global.premium.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender) || false
 	
-/* runtime */ 
+//[runtime]
 const runtime = function (seconds) {
 seconds = Number(seconds);
 var d = Math.floor(seconds / (3600 * 24));
@@ -91,7 +91,7 @@ var sDisplay = s > 0 ? s + (s == 1 ? " second" : " Second") : "";
 return dDisplay + hDisplay + mDisplay + sDisplay;
 }
 	
-/* target */
+//[target]
 	const reply = (teks) => {
             Hori.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": ` Join Bot's Official Whatsapp Group`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./Media/Hori.jpg`),"sourceUrl": "https://chat.whatsapp.com/KtTwL2BB11OFWfhca04lAg"}}}, { quoted: m})
         }
@@ -178,8 +178,8 @@ if (budy.includes('https://chat.whatsapp.com/')) {
         let isLinkThisGc = new RegExp(gclink, 'i')
         let isgclink = isLinkThisGc.test(m.text)
         if (isgclink) return m.reply(`Eh sorry it didn't happen, because you sent this wa.me link`)
-        if (isAdmins) return m.reply(`Ehh Sorry You're Admin`)
-        if (isCreator) return m.reply(`Ehh Sorry you are the owner of me`)
+        if (isAdmins) return m.reply(`Ehh sorry you admin`)
+        if (isCreator) return m.reply(`Ehh sorry you are the owner of me`)
         Hori.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
         }
         }
@@ -818,7 +818,7 @@ let teks = `══✪〘 *👥 Tag All* 〙✪══
  
  ➲ *Message : ${q ? q : 'blank'}*\n\n`
                 for (let mem of participants) {
-                teks += `${sp} @${mem.id.split('@')[0]}\n`
+                teks += `⭔ @${mem.id.split('@')[0]}\n`
                 }
                 Hori.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
                 }
@@ -837,7 +837,7 @@ let teks = `══✪〘 *👥 Tag All* 〙✪══
                 let anu = await styletext(text)
                 let teks = `Entered Text:  ${text}\n\n`
                 for (let i of anu) {
-                    teks += `${sp} *${i.name}* : ${i.result}\n\n`
+                    teks += `⭔ *${i.name}* : ${i.result}\n\n`
                 }
                 reply(teks)
 	    }
@@ -1202,8 +1202,8 @@ case 'antilink':
                     let read = i.readTimestamp
                     let unread = i.receiptTimestamp
                     let waktu = read ? read : unread
-                    teks += `${sp} @${i.userJid.split('@')[0]}\n`
-                    teks += ` ┗━${sp} *Time :* ${moment(waktu * 1000).format('DD/MM/YY HH:mm:ss')} ${sp} *Status :* ${read ? 'Read' : 'Unread'}\n\n`
+                    teks += `⭔ @${i.userJid.split('@')[0]}\n`
+                    teks += ` ┗━⭔ *Time :* ${moment(waktu * 1000).format('DD/MM/YY HH:mm:ss')} ⭔ *Status :* ${read ? 'Read' : 'Unread'}\n\n`
                 }
                 Hori.sendTextWithMentions(m.chat, teks, m)
             }
@@ -1238,7 +1238,7 @@ case 'antilink':
              case 'listonline': case 'onlinelist': case 'liston': {
                     let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
                     let online = [...Object.keys(store.presences[id]), botNumber]
-                    Hori.sendText(m.chat, 'Online List:\n\n' + online.map(v => '${sp} @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })
+                    Hori.sendText(m.chat, 'Online List:\n\n' + online.map(v => '⭔ @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })
              }
              break
             case 'sticker': case 's': case 'stickergif': case 'sgif': {
@@ -1398,7 +1398,7 @@ case 'antilink':
                 let teks = 'YouTube Search\n\n Result From '+text+'\n\n'
                 let no = 1
                 for (let i of search.all) {
-                    teks += `${sp} No : ${no++}\n${sp} Type : ${i.type}\n${sp} Video ID : ${i.videoId}\n${sp} Title : ${i.title}\n${sp} Views : ${i.views}\n${sp} Duration : ${i.timestamp}\n${sp} Upload At : ${i.ago}\n${sp} Author : ${i.author.name}\n${sp} Url : ${i.url}\n\n─────────────────\n\n`
+                    teks += `⭔ No : ${no++}\n⭔ Type : ${i.type}\n⭔ Video ID : ${i.videoId}\n⭔ Title : ${i.title}\n⭔ Views : ${i.views}\n⭔ Duration : ${i.timestamp}\n⭔ Upload At : ${i.ago}\n⭔ Author : ${i.author.name}\n⭔ Url : ${i.url}\n\n─────────────────\n\n`
                 }
                 Hori.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: m })
             }
@@ -1409,9 +1409,9 @@ case 'antilink':
                 google({'query': text}).then(res => {
                 let teks = `Google Search From : ${text}\n\n`
                 for (let g of res) {
-                teks += `${sp} *Title* : ${g.title}\n`
-                teks += `${sp} *Description* : ${g.snippet}\n`
-                teks += `${sp} *Link* : ${g.link}\n\n────────────────────────\n\n`
+                teks += `⭔ *Title* : ${g.title}\n`
+                teks += `⭔ *Description* : ${g.snippet}\n`
+                teks += `⭔ *Link* : ${g.link}\n\n────────────────────────\n\n`
                 } 
                 reply(teks)
                 })
@@ -1439,21 +1439,21 @@ case 'antilink':
         })
         }
         break
-	    case 'play': case 'ytplay': case 'song':{
-                if (!text) throw `Example : ${prefix + command} Here Lucian Remix`
+	    case 'play': case 'ytplay': {
+                if (!text) throw `Example : ${prefix + command} bts boy with luv`
                 let yts = require("yt-search")
                 let search = await yts(text)
                 let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
                     ngen = `
-${sp} Title : ${anu.title}
-${sp} Ext : Search
-${sp} ID : ${anu.videoId}
-${sp} Duration : ${anu.timestamp}
-${sp} Viewers : ${anu.views}
-${sp} Uploaded : ${anu.ago}
-${sp} Author : ${anu.author.name}
-${sp} Channel : ${anu.author.url}
-${sp} Description : ${anu.description}
+⭔ Title : ${anu.title}
+⭔ Ext : Search
+⭔ ID : ${anu.videoId}
+⭔ Duration : ${anu.timestamp}
+⭔ Viewers : ${anu.views}
+⭔ Uploaded : ${anu.ago}
+⭔ Author : ${anu.author.name}
+⭔ Channel : ${anu.author.url}
+⭔ Description : ${anu.description}
 `
 message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { upload:   Hori.waUploadToServer })
                 template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
@@ -1474,7 +1474,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                                     }
                                 },{quickReplyButton: {
                                     displayText: '🎥 Video 🎥',
-                                    id: `ytmp4 ${anu.url} 480p`
+                                    id: `ytmp4 ${anu.url} 720p`
                                 }
                             }]
                         }
@@ -1489,17 +1489,17 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 let quality = args[1] ? args[1] : '320kbps'
                 let media = await yta(text, quality)
                 if (media.filesize >= 999999) return reply('Audio size is too big '+util.format(media))
-                Hori.sendImage(m.chat, media.thumb, `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resolution : ${args[1] || '320kbps'}`, m)
+                Hori.sendImage(m.chat, media.thumb, `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resolution : ${args[1] || '320kbps'}`, m)
                 Hori.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: m })
             }
             break
             case 'ytmp4': case 'ytvideo': {
                 let { ytv } = require('./lib/y2mate')
-                if (!text) throw `Example : ${prefix + command} https://youtube.com/ 480p`
-                let quality = args[1] ? args[1] : '480p'
+                if (!text) throw `Example : ${prefix + command} https://youtube.com/ 720p`
+                let quality = args[1] ? args[1] : '720p'
                 let media = await ytv(text, quality)
                 if (media.filesize >= 999999) return reply('Video size is too big '+util.format(media))
-                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resololution : ${args[1] || '480p'}` }, { quoted: m })
+                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resololution : ${args[1] || '720p'}` }, { quoted: m })
             }
             break
 	    case 'getmusic': {
@@ -1512,7 +1512,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 let quality = args[1] ? args[1] : '320kbps'
                 let media = await yta(urls[text - 1], quality)
                 if (media.filesize >= 999999) return reply('Audio size is too big '+util.format(media))
-                Hori.sendImage(m.chat, media.thumb, `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resolution : ${args[1] || '320kbps'}`, m)
+                Hori.sendImage(m.chat, media.thumb, `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resolution : ${args[1] || '320kbps'}`, m)
                 Hori.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: m })
             }
             break
@@ -1523,10 +1523,10 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 if (!m.quoted.isBaileys) throw `Hanya Bisa Membalas Pesan Dari Bot`
                 let urls = quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))
                 if (!urls) throw `Maybe the message you replied does not contain the ytsearch result`
-                let quality = args[1] ? args[1] : '480p'
+                let quality = args[1] ? args[1] : '720p'
                 let media = await ytv(urls[text - 1], quality)
                 if (media.filesize >= 100000) return reply('File Over Limit '+util.format(media))
-                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `${sp} Title : ${media.title}\n${sp} File Size : ${media.filesizeF}\n${sp} Url : ${isUrl(text)}\n${sp} Ext : MP3\n${sp} Resolution : ${args[1] || '480p'}` }, { quoted: m })
+                Hori.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭔ Title : ${media.title}\n⭔ File Size : ${media.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resolution : ${args[1] || '720p'}` }, { quoted: m })
             }
             break
             case 'pinterest': {
@@ -1534,7 +1534,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
 		let { pinterest } = require('./lib/scraper')
                 anu = await pinterest(text)
                 result = anu[Math.floor(Math.random() * anu.length)]
-                Hori.sendMessage(m.chat, { image: { url: result }, caption: '${sp} Media Url : '+result }, { quoted: m })
+                Hori.sendMessage(m.chat, { image: { url: result }, caption: '⭔ Media Url : '+result }, { quoted: m })
             }
             break
             case 'anime': case 'waifu': case 'husbu': case 'neko': case 'shinobu': case 'megumin': {
@@ -1574,7 +1574,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 ]
                 let buttonMessage = {
                     image: { url: result.image[0] },
-                    caption: `${sp} Title : ${result.title}\n${sp} Category : ${result.type}\n${sp} Detail : ${result.source}\n${sp} Media Url : ${result.image[2] || result.image[1] || result.image[0]}`,
+                    caption: `⭔ Title : ${result.title}\n⭔ Category : ${result.type}\n⭔ Detail : ${result.source}\n⭔ Media Url : ${result.image[2] || result.image[1] || result.image[0]}`,
                     footer: Hori.user.name,
                     buttons: buttons,
                     headerType: 4
@@ -1592,7 +1592,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 ]
                 let buttonMessage = {
                     image: { url: result.image },
-                    caption: `${sp} Title : ${result.title}\n${sp} Source : ${result.source}\n${sp} Media Url : ${result.image}`,
+                    caption: `⭔ Title : ${result.title}\n⭔ Source : ${result.source}\n⭔ Media Url : ${result.image}`,
                     footer: Hori.user.name,
                     buttons: buttons,
                     headerType: 4
@@ -1723,7 +1723,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 if (!text) throw 'No Query Title'
                 replay(mess.wait)
                 let anu = await fetchJson(api('zenz', '/downloader/joox', { query: text }, 'apikey'))
-                let msg = await Hori.sendImage(m.chat, anu.result.img, `${sp} Title : ${anu.result.lagu}\n${sp} Album : ${anu.result.album}\n${sp} Singer : ${anu.result.penyanyi}\n${sp} Publish : ${anu.result.publish}\n${sp} Lyrics :\n${anu.result.lirik.result}`, m)
+                let msg = await Hori.sendImage(m.chat, anu.result.img, `⭔ Title : ${anu.result.lagu}\n⭔ Album : ${anu.result.album}\n⭔ Singer : ${anu.result.penyanyi}\n⭔ Publish : ${anu.result.publish}\n⭔ Lyrics :\n${anu.result.lirik.result}`, m)
                 Hori.sendMessage(m.chat, { audio: { url: anu.result.mp4aLink }, mimetype: 'audio/mpeg', fileName: anu.result.lagu+'.m4a' }, { quoted: msg })
             }
             break
@@ -1731,7 +1731,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 if (!text) throw 'No Query Title'
                 replay(mess.wait)
                 let anu = await fetchJson(api('zenz', '/downloader/soundcloud', { url: isUrl(text)[0] }, 'apikey'))
-                let msg = await Hori.sendImage(m.chat, anu.result.thumb, `${sp} Title : ${anu.result.title}\n${sp} Url : ${isUrl(text)[0]}`)
+                let msg = await Hori.sendImage(m.chat, anu.result.thumb, `⭔ Title : ${anu.result.title}\n⭔ Url : ${isUrl(text)[0]}`)
                 Hori.sendMessage(m.chat, { audio: { url: anu.result.url }, mimetype: 'audio/mpeg', fileName: anu.result.title+'.m4a' }, { quoted: msg })
             }
             break
@@ -1774,7 +1774,7 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
                 if (!text) throw 'Enter Query Link!'
                 replay(mess.wait)
                 let anu = await fetchJson(api('zenz', '/api/downloader/facebook', { url: text }, 'apikey'))
-                Hori.sendMessage(m.chat, { video: { url: anu.result.url }, caption: `${sp} Title : ${anu.result.title}`}, { quoted: m })
+                Hori.sendMessage(m.chat, { video: { url: anu.result.url }, caption: `⭔ Title : ${anu.result.title}`}, { quoted: m })
             }
             break
 	        case 'pindl': case 'pinterest': {
@@ -1792,16 +1792,16 @@ message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { uplo
 		if (anu.type == 'video') {
 		    let buttons = [
                         {buttonId: `ytmp3 ${anu.media[0]} 128kbps`, buttonText: {displayText: '🎵Audio🎵'}, type: 1},
-                        {buttonId: `ytmp4 ${anu.media[0]} 480p`, buttonText: {displayText: '🎥Video🎥'}, type: 1}
+                        {buttonId: `ytmp4 ${anu.media[0]} 720p`, buttonText: {displayText: '🎥Video🎥'}, type: 1}
                     ]
 		    let buttonMessage = {
 		        image: { url: anu.author.profilePic },
 			caption: `
-${sp} Title : ${anu.title}
-${sp} Author : ${anu.author.name}
-${sp} Like : ${anu.like}
-${sp} Caption : ${anu.caption}
-${sp} Url : ${anu.media[0]}
+⭔ Title : ${anu.title}
+⭔ Author : ${anu.author.name}
+⭔ Like : ${anu.like}
+⭔ Caption : ${anu.caption}
+⭔ Url : ${anu.media[0]}
 To download media, please click one of the buttons below or enter the ytmp3/ytmp4 command with the url above
 `,
 			footer: Hori.user.name,
@@ -1811,7 +1811,7 @@ To download media, please click one of the buttons below or enter the ytmp3/ytmp
 		    Hori.sendMessage(m.chat, buttonMessage, { quoted: m })
 		} else if (anu.type == 'image') {
 		    anu.media.map(async (url) => {
-		        Hori.sendMessage(m.chat, { image: { url }, caption: `${sp} Title : ${anu.title}\n${sp} Author : ${anu.author.name}\n${sp} Like : ${anu.like}\n${sp} Caption : ${anu.caption}` }, { quoted: m })
+		        Hori.sendMessage(m.chat, { image: { url }, caption: `⭔ Title : ${anu.title}\n⭔ Author : ${anu.author.name}\n⭔ Like : ${anu.like}\n⭔ Caption : ${anu.caption}` }, { quoted: m })
 		    })
 		}
 	    }
@@ -1824,7 +1824,99 @@ To download media, please click one of the buttons below or enter the ytmp3/ytmp
 		Hori.sendMessage(m.chat, { audio: { url: result.audio }, fileName: result.title+'.mp3', mimetype: 'audio/mpeg' }, { quoted: m })
 	    }
 	    break
-        case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel': case 'supereq': case 'integral': case'whisper': case'vib2': case 'okbye': case 'vibra': case 'tupai':
+/* Islamic Features */
+		case 'iqra': {
+		oh = `Example : ${prefix + command} 3\n\Available IQRA : 1,2,3,4,5,6`
+		if (!text) throw oh
+		yy = await getBuffer(`https://islamic-api-indonesia.herokuapp.com/api/data/pdf/iqra${text}`)
+		Hori.sendMessage(m.chat, {document: yy, mimetype: 'application/pdf', fileName: `iqra${text}.pdf`}, {quoted:m}).catch ((err) => reply(oh))
+		}
+		break
+		case 'juzamma': {
+		if (args[0] === 'pdf') {
+		replay(mess.wait)
+		Hori.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.pdf'}, mimetype: 'application/pdf', fileName: 'juz-amma-arab-latin-indonesia.pdf'}, {quoted:m})
+		} else if (args[0] === 'docx') {
+		replay(mess.wait)
+		Hori.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.docx'}, mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', fileName: 'juz-amma-arab-latin-indonesia.docx'}, {quoted:m})
+		} else if (args[0] === 'pptx') {
+		replay(mess.wait)
+		Hori.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.pptx'}, mimetype: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', fileName: 'juz-amma-arab-latin-indonesia.pptx'}, {quoted:m})
+		} else if (args[0] === 'xlsx') {
+		replay(mess.wait)
+		Hori.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.xlsx'}, mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', fileName: 'juz-amma-arab-latin-indonesia.xlsx'}, {quoted:m})
+		} else {
+		reply(`What format do you want? ? Example : ${prefix + command} pdf
+
+Available formats : pdf, docx, pptx, xlsx`)
+		}
+		}
+		break
+		case 'hadith': case 'hadist': {
+		if (!args[0]) throw `Example:
+${prefix + command} bukhari 1
+${prefix + command} abu-daud 1
+
+Options available:
+abu-daud
+1 - 4590
+ahmad
+1 - 26363
+bukhari
+1 - 7008
+darimi
+1 - 3367
+ibu-majah
+1 - 4331
+nasai
+1 - 5662
+malik
+1 - 1594
+muslim
+1 - 5362`
+		if (!args[1]) throw `Which Hadith??\n\nExample:\n${prefix + command} muslim 1`
+		try {
+		let res = await fetchJson(`https://islamic-api-indonesia.herokuapp.com/api/data/json/hadith/${args[0]}`)
+		let { number, arab, id } = res.find(v => v.number == args[1])
+		reply(`No. ${number}
+
+${arab}
+
+${id}`)
+		} catch (e) {
+		reply(`Hadith not found !`)
+		}
+		}
+		break
+		case 'alquran': {
+		if (!args[0]) throw `Example:\n${prefix + command} 1 2\n\nthen the result is surah Al-Fatihah verse 2 along with the audio, and the verse is just 1`
+		if (!args[1]) throw `Example:\n${prefix + command} 1 2\n\nthen the result is surah Al-Fatihah verse 2 along with the audio, and the verse is just 1`
+		let res = await fetchJson(`https://islamic-api-indonesia.herokuapp.com/api/data/quran?surah=${args[0]}&ayat=${args[1]}`)
+		let txt = `*Arab* : ${res.result.data.text.arab}
+*English* : ${res.result.data.translation.en}
+*Indonesia* : ${res.result.data.translation.id}
+
+( Q.S ${res.result.data.surah.name.transliteration.id} : ${res.result.data.number.inSurah} )`
+		reply(txt)
+		Hori.sendMessage(m.chat, {audio: { url: res.result.data.audio.primary }, mimetype: 'audio/mpeg'}, { quoted : m })
+		}
+		break
+		case 'tafsirsurah': {
+		if (!args[0]) throw `Example:\n${prefix + command} 1 2\n\nthen the result is the interpretation of Surah Al-Fatihah verse 2`
+		if (!args[1]) throw `Example:\n${prefix + command} 1 2\n\nthen the result is the interpretation of Surah Al-Fatihah verse 2`
+		let res = await fetchJson(`https://islamic-api-indonesia.herokuapp.com/api/data/quran?surah=${args[0]}&ayat=${args[1]}`)
+		let txt = `「 *Tafsir Surah*  」
+
+*Short* : ${res.result.data.tafsir.id.short}
+
+*Long* : ${res.result.data.tafsir.id.long}
+
+( Q.S ${res.result.data.surah.name.transliteration.id} : ${res.result.data.number.inSurah} )`
+		reply(txt)
+		}
+		break
+
+		   case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel': case 'supereq': case 'integral': case'whisper': case'vib2': case 'okbye': case 'vibra': case 'tupai':
                 try {
                 let set
                 if (/bass/.test(command)) set = '-af equalizer=f=54:width_type=o:width=2:g=20'
@@ -2265,7 +2357,7 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 
  *Hai, ${pushname} !*
 
- *Creator : Sachu Settan *
+ *Creator : Sachu Settan & Saran *
 
  *Lib : Baileys ^4.0.1* 
 
@@ -2617,11 +2709,6 @@ case 'voicemenu': {
 ╔═══➢《 *Voice Changer Menu* 》═══➢
 ║
 ╟➢ *${prefix}bass
-╟➢ *${prefix}integral
-╟➢ *${prefix}supereq
-╟➢ *${prefix}okbye
-╟➢ *${prefix}whisper
-╟➢ *${prefix}tupai
 ╟➢ *${prefix}blown
 ╟➢ *${prefix}deep
 ╟➢ *${prefix}earrape
@@ -3088,11 +3175,6 @@ break
 ╔═══➢《 *Voice Changer* 》═══➢
 ║
 ╟➢ *${prefix}bass
-╟➢ *${prefix}integral
-╟➢ *${prefix}supereq
-╟➢ *${prefix}okbye
-╟➢ *${prefix}whisper
-╟➢ *${prefix}tupai
 ╟➢ *${prefix}blown
 ╟➢ *${prefix}deep
 ╟➢ *${prefix}earrape
