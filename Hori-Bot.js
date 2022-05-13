@@ -97,7 +97,7 @@ return dDisplay + hDisplay + mDisplay + sDisplay;
         }
         
         const replay = (teks) => {
-            Hori.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": ` Bot's Official Github`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./Media/Hori.jpg`),"sourceUrl": "https://hori-bot.github.io"}}}, { quoted: m})
+            Hori.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": ` Bot's Official Github`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./Media/Hori.jpg`),"sourceUrl": "https://Hori-Web.github.io"}}}, { quoted: m})
         }
         try {
             let isNumber = x => typeof x === 'number' && !isNaN(x)
@@ -2232,11 +2232,9 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
             break
             case 'owner': case 'creator': {
             Hori.sendContact(m.chat, global.owner2, m)
-           const devsound = fs.readFileSync('./Media/Dev.mp3') 
-           Hori.sendMessage(m.chat, { audio: devsound, mimetype: 'audio/mp3', ptt: true, quoted: m })
             }
             break
-                    case 'bug': case 'report': {
+            case 'bug': case 'report': {
                     	if(!text) throw `Enter The Bug Example\n\n${command} Menu Error `
                     	Hori.sendMessage(`919744933034@s.whatsapp.net`, {text: `*Bug Report From:* wa.me/${m.sender.split("@")[0]}
 Report Message: ${text}` })
@@ -2320,7 +2318,7 @@ Please Select Button Below
                             hydratedButtons: [{
                                 urlButton: {
                                     displayText: '🌏 Bot Web 🌏',
-                                    url: 'https://Hori-Bot.github.io'
+                                    url: 'https://Hori-Web.github.io'
                                     }
                                 },{
                                 urlButton: {
@@ -2515,7 +2513,7 @@ case 'grupmenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2564,7 +2562,7 @@ case 'downloadmenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2608,7 +2606,7 @@ case 'downloadmenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2646,7 +2644,7 @@ case 'randommenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2685,7 +2683,7 @@ case 'funmenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2732,7 +2730,7 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2797,7 +2795,7 @@ case 'horoscopemenukcodk': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2842,7 +2840,7 @@ case 'convertmenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2889,7 +2887,7 @@ case 'nocategorymenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2933,7 +2931,7 @@ case 'databasemenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -2972,7 +2970,7 @@ case 'anonymouschatmenu': {
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -3011,7 +3009,7 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -3055,7 +3053,7 @@ break
 	                        hydratedButtons: [{
 		                    urlButton: {
 			                displayText: '🌏 Bot Web 🌏',
-                			url: 'https://Hori-Bot.github.io'
+                			url: 'https://Hori-Web.github.io'
                             }
 		                },{
                             urlButton: {
@@ -3307,7 +3305,7 @@ break
                                 },
                                 urlButton: {
                                     displayText: '🌏 Bot Web 🌏',
-                                    url: 'https://Hori-Bot.github.io'
+                                    url: 'https://Hori-Web.github.io'
                                 }
                             }, {
                                 quickReplyButton: {
