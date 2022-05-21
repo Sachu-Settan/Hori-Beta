@@ -1439,50 +1439,6 @@ case 'antilink':
         })
         }
         break
-	    case 'play': case 'ytplay': {
-                if (!text) throw `Example : ${prefix + command} bts boy with luv`
-                let yts = require("yt-search")
-                let search = await yts(text)
-                let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
-                    ngen = `
-⭔ Title : ${anu.title}
-⭔ Ext : Search
-⭔ ID : ${anu.videoId}
-⭔ Duration : ${anu.timestamp}
-⭔ Viewers : ${anu.views}
-⭔ Uploaded : ${anu.ago}
-⭔ Author : ${anu.author.name}
-⭔ Channel : ${anu.author.url}
-⭔ Description : ${anu.description}
-`
-message = await prepareWAMessageMedia({ image : { url: anu.thumbnail } }, { upload:   Hori.waUploadToServer })
-                template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-                    templateMessage: {
-                        hydratedTemplate: {
-                            imageMessage: message.imageMessage,
-                            hydratedContentText: ngen,
-                            hydratedFooterText: `Playing To ${text}`,
-                            hydratedButtons: [{
-                                urlButton: {
-                                    displayText: '🥬Video Source Link🥬',
-                                    url: `${anu.url}`
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: '🎵 Audio 🎵',
-                                    id: `ytmp3 ${anu.url} 320kbps`
-                                    }
-                                },{quickReplyButton: {
-                                    displayText: '🎥 Video 🎥',
-                                    id: `ytmp4 ${anu.url} 720p`
-                                }
-                            }]
-                        }
-                    }
-                }), { userJid: m.chat, quoted: m })
-                  Hori.relayMessage(m.chat, template.message, { messageId: template.key.id })
-            }
-            break
 	    case 'ytmp3': case 'ytaudio': {
                 let { yta } = require('./lib/y2mate')
                 if (!text) throw `Example : ${prefix + command} https://youtube.com/320kbps`
