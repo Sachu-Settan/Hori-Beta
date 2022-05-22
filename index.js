@@ -92,13 +92,13 @@ Description: ${metadata.desc}
 Welcome To Our Home !`} )
                 } else if (anu.action == 'remove') {
                     Hori.sendMessage(anu.id, { image: Tol, contextInfo: { mentionedJid: [num] }, caption: `
-╔═══════➢ 《 *Bye* 》══════════➢
+╔════➢ 《 *Bye* 》═══➢
 ║
 ╟➢ *Left ${metadata.subject}*
 ╟➢ *Bye @${num.split("@")[0]} *
 ╟➢ *Bot Creator : Sachu Settan *  
 ║
-╚══════════════════════════════➢` })
+╚════════════════════➢` })
                 }
             }
         } catch (err) {
