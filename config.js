@@ -16,9 +16,9 @@ global.APIKeys = {
 	'https://zenzapi.xyz': '805a6c3fa9', 
 }
 
-global.owner = ['919744933034','918547978854'] /* Owner Number */
-global.owner2 = ['919744933034','918547978854'] /* Owner Number */
-global.premium = ['919744933034','918547978854'] /* Premium Number */
+global.owner = ['919744933034'] /* Owner Number */
+global.owner2 = ['919744933034'] /* Owner Number */
+global.premium = ['919744933034','918547978854','919778193762'] /* Premium Number */
 global.botuser = 'Sachu-Settan' /* Bot Username */
 global.botname = 'Hori-Bot-MD' /* Bot Name */
 global.ownername = 'Sachu-Settan & Saran' /* Owner Name */
