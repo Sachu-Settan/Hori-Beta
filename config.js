@@ -22,8 +22,10 @@ global.premium = ['919744933034','918547978854'] /* Premium Number */
 global.botuser = 'Sachu-Settan' /* Bot Username */
 global.botname = 'Hori-Bot-MD' /* Bot Name */
 global.ownername = 'Sachu-Settan & Saran' /* Owner Name */
-global.packname = 'Hori-Bot' /* Sticker Package Name */
-global.author = 'Sachu-Settan & Saran' /* Sticker Pack Author Name */
+global.packname = '💞 ʜᴏʀɪ-ʙᴏᴛ 🍭' /* Sticker Package Name */
+global.author = 'ᴍᴀᴅᴇ ᴡɪᴛʜ ❤️
+
+ʙy ꜱᴀᴄʜᴜ ꜱᴇᴛᴛᴀɴ' /* Sticker Pack Author Name */
 global.sessionName = 'session' /* Session File Name */
 global.prefix = ['.'] /* Prefix */
 global.sp = '⭔' /* Design */
