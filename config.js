@@ -23,9 +23,7 @@ global.botuser = 'Sachu-Settan' /* Bot Username */
 global.botname = 'Hori-Bot-MD' /* Bot Name */
 global.ownername = 'Sachu-Settan & Saran' /* Owner Name */
 global.packname = '💞 ʜᴏʀɪ-ʙᴏᴛ 🍭' /* Sticker Package Name */
-global.author = 'ᴍᴀᴅᴇ ᴡɪᴛʜ ❤️
-
-ʙy ꜱᴀᴄʜᴜ ꜱᴇᴛᴛᴀɴ' /* Sticker Pack Author Name */
+global.author = 'ᴍᴀᴅᴇ ᴡɪᴛʜ ❤️ \n\nʙy ꜱᴀᴄʜᴜ ꜱᴇᴛᴛᴀɴ' /* Sticker Pack Author Name */
 global.sessionName = 'session' /* Session File Name */
 global.prefix = ['.'] /* Prefix */
 global.sp = '⭔' /* Design */
