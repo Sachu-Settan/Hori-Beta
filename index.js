@@ -55,56 +55,6 @@ async function startHori() {
             console.log(err)
         }
     })
-
-    Hori.ev.on('group-participants.update', async (anu) => {
-        console.log(anu)
-        try {
-            let metadata = await Hori.groupMetadata(anu.id)
-            let participants = anu.participants
-            for (let num of participants) {
-                try {
-                    ppuser = await Hori.profilePictureUrl(num, 'image')
-                } catch {
-                /* User Profile Pic */
-                    ppuser = 'https://telegra.ph/file/d66ba35314f3a8adf57e6.jpg'
-                }
-                try {
-                    ppgroup = await Hori.profilePictureUrl(anu.id, 'image')
-                } catch {
-                /* Group Profile Pic */
-                    ppgroup = 'https://telegra.ph/file/d66ba35314f3a8adf57e6.jpg'
-                }
-                
-/* Welcome */
-let nama = await Hori.getName(num)
-memb = metadata.participants.length
-
-Kon = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
-
-/* BYE */
-
-Tol = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
-                if (anu.action == 'add') {
-                    Hori.sendMessage(anu.id, { image: Kon, contextInfo: { mentionedJid: [num] }, caption: `Welcome To ${metadata.subject} @${num.split("@")[0]}
-
-Description: ${metadata.desc}
-
-Welcome To Our Home !`} )
-                } else if (anu.action == 'remove') {
-                    Hori.sendMessage(anu.id, { image: Tol, contextInfo: { mentionedJid: [num] }, caption: `
-╔════➢ 《 *Bye* 》═══➢
-║
-╟➢ *Left ${metadata.subject}*
-╟➢ *Bye @${num.split("@")[0]} *
-╟➢ *Bot Creator : Sachu Settan *  
-║
-╚════════════════════➢` })
-                }
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    })
 	
 /* Settings */
     Hori.decodeJid = (jid) => {
