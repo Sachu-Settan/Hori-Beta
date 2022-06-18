@@ -1662,6 +1662,23 @@ case 'antilink':
                 Hori.sendMessage(m.chat, { audio: cnvrt, mimetype: 'audio/mpeg'}, { quoted: msg })
             }
             break
+	case 'ig':
+            case 'insta': {
+                let igscraper = require('@bochilteam/scraper')
+                if (!text) return reply(`Example : ${prefix + command} https://instagram.com/reel`)
+                let Sachu = await igscraper.instagramdl(args[0])
+                for (let i = 0; i < Sachu.length; i++) 
+                await Hori.sendMessage(m.chat, {
+                    video: {
+                        url: Sachu[i].url
+                    },
+                    mimetype: 'video/mp4',
+                    caption: `Downloaded From Instagram`
+                }, {
+                    quoted: msg
+                })
+            }
+            break
 	        /*
             case 'instagram': case 'ig': case 'igdl': {
                 if (!text) throw 'Enter Query Url!'
