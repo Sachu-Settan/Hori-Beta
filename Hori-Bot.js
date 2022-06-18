@@ -1680,29 +1680,7 @@ case 'antilink':
             }
             break
 		    
-	case 'ig2':
-            case 'igdl2':
-            case 'insta2': {
-                const { igdl } = require('./lib/scraper')
-                if (!text) return reply(`Example : ${prefix + command} https://instagram.com/reel`)
-                igdl(args[0]).then(async res => {
-                    let igdl = JSON.stringify(res)
-                    let json = JSON.parse(igdl)
-                    await reply(mess.wait)
-                    for (let { downloadUrl, type } of json) {
-                        Hori.sendMessage(m.chat, {
-                            audio: {
-                                url: downloadUrl
-                            },
-                            mimetype: 'video/mp4',
-                            caption: `Downloaded From Instagram`
-                        }, {
-                            quoted: m
-                        })
-                    }
-                }
-            }
-            break
+
 		    
 	        /*
             case 'instagram': case 'ig': case 'igdl': {
