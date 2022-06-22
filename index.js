@@ -1,39 +1,74 @@
+/*
+* You Can Recode, Reupload or Copy The Codes/Scripts With Credits To Code Owners ( Sachu-Settan )
+* Licenced Under MIT License
+* Copyright © 2022 Sachu. Rose Mwol-MD
+*/
+
 require('./config')
 const { default: HoriConnect, useSingleFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@adiwajshing/baileys")
 const { state, saveState } = useSingleFileAuthState(`./${sessionName}.json`)
 const pino = require('pino')
+const { Boom } = require('@hapi/boom')
 const fs = require('fs')
+const yargs = require('yargs/yargs')
 const chalk = require('chalk')
-const CFonts  = require('cfonts')
 const FileType = require('file-type')
 const path = require('path')
-const  { Boom } = require('@hapi/boom')
 const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/myfunc')
+
+var low
+try {
+  low = require('lowdb')
+} catch (e) {
+  low = require('./lib/lowdb')
+}
+
+const { Low, JSONFile } = low
+const mongoDB = require('./lib/mongoDB')
 
 global.api = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 
 const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
 
+global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
+global.db = new Low(
+  /https?:\/\//.test(opts['db'] || '') ?
+    new cloudDBAdapter(opts['db']) : /mongodb/.test(opts['db']) ?
+      new mongoDB(opts['db']) :
+      new JSONFile(`database/database.json`)
+)
+global.db.data = {
+    users: {},
+    chats: {},
+    database: {},
+    game: {},
+    settings: {},
+    others: {},
+    sticker: {},
+    ...(global.db.data || {})
+}
+
+if (global.db) setInterval(async () => {
+    if (global.db.data) await global.db.write()
+  }, 30 * 1000)
+
 async function startHori() {
-    let { version, isLatest } = await fetchLatestBaileysVersion()
     const Hori = HoriConnect({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
-        browser: [ 'Rose-Bot', 'Chrome', '3.0' ],
-        auth: state,
-        version
+        browser: ['Hori-Beta','Chrome','11.0'],
+        auth: state
     })
 
     store.bind(Hori.ev)
-
+    
     Hori.ws.on('CB:call', async (json) => {
     const callerId = json.content[0].attrs['call-creator']
     if (json.content[0].tag == 'offer') {
     let pa7rick = await Hori.sendContact(callerId, global.owner)
-    Hori.sendMessage(callerId, { text: `Automatic Block System !\nDon't Call Bot !\nPlease Contact The Owner To Open !`}, { quoted : pa7rick })
-    Hori.sendMessage(`919744933034@s.whatsapp.net`, {text: `*Report Bot:* Someone Called Bot`})
+    Hori.sendMessage(callerId, { text: `Automatic Block System!\nDon't Call Bot!\nPlease Ask Or Contact The Owner To Unblock You!`}, { quoted : pa7rick })
     await sleep(8000)
     await Hori.updateBlockStatus(callerId, "block")
     }
@@ -49,13 +84,33 @@ async function startHori() {
         if (!Hori.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
         if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
         m = smsg(Hori, mek, store)
-        require("./Hori-Bot")(Hori, m, chatUpdate, store)
+        require("./Hori-Beta")(Hori, m, chatUpdate, store)
         } catch (err) {
             console.log(err)
         }
     })
+    
+    Hori.ev.on('groups.update', async pea => {
+       //console.log(pea)
+       try {
+       ppgc = await Hori.profilePictureUrl(pea[0].id, 'image')
+       } catch {
+       ppgc = 'https://shortlink.Horiarridho.my.id/rg1oT'
+       }
+       let wm_fatih = { url : ppgc }
+       if (pea[0].announce == true) {
+       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Closed By Admin, Now Only Admin Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
+       } else if(pea[0].announce == false) {
+       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Opened By Admin, Now Participants Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
+       } else if (pea[0].restrict == true) {
+       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Restricted, Now Only Admin Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
+       } else if (pea[0].restrict == false) {
+       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Opened, Now Participants Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
+       } else {
+       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Subject Has Been Changed To *${pea[0].subject}*`, `Group Settings Change Message`, wm_fatih, [])
+     }
+    })
 	
-/* Settings */
     Hori.decodeJid = (jid) => {
         if (!jid) return jid
         if (/:\d+@/gi.test(jid)) {
@@ -88,17 +143,13 @@ async function startHori() {
             (store.contacts[id] || {})
             return (withoutContact ? '' : v.name) || v.subject || v.verifiedName || PhoneNumber('+' + jid.replace('@s.whatsapp.net', '')).getNumber('international')
     }
-    /* Owner Contact Info */
+    
     Hori.sendContact = async (jid, kon, quoted = '', opts = {}) => {
 	let list = []
 	for (let i of kon) {
 	    list.push({
 	    	displayName: await Hori.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Hori.getName(i + '@s.whatsapp.net')}\nFN:${await Hori.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.ADR;CHARSET=UTF-8;TYPE=HOME:;;;;Kerala;;India
-            \nitem3.URL;CHARSET=UTF-8:https://Sachu-Settan.github.io
-            \nitem4.URL;CHARSET=UTF-8:https://Saran-Kuttan.github.io
-            \nitem5.URL;CHARSET=UTF-8:https://Sachu-Settan.github.io
-            \nEND:VCARD`
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${ownername}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.EMAIL;type=INTERNET:${sc}\nitem2.X-ABLabel:Script\nitem3.URL:${myweb}\nitem3.X-ABLabel:Script\nitem4.ADR:;;${region};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
 	    })
 	}
 	Hori.sendMessage(jid, { contacts: { displayName: `${list.length} Contact`, contacts: list }, ...opts }, { quoted })
@@ -125,36 +176,25 @@ async function startHori() {
 
     Hori.serializeM = (m) => smsg(Hori, m, store)
 
-    CFonts.say('Hori-Beta', {
-		font: 'block',
-    	color: ['#ff9c00'],
-    	align: 'center',
-		})
-	CFonts.say(`WhatsApp Bot Created By Sachu-Settan And Saran`, {
-		font: 'console',
-		align: 'center',
-		gradient: ['red', 'magenta']
-		})
-
     Hori.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update	    
         if (connection === 'close') {
-        let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
-            if (reason === DisconnectReason.badSession) { console.log(`🤖 Bad Session File, Please Delete Session and Scan Again`); process.exit(); }
-            else if (reason === DisconnectReason.connectionClosed) { console.log("🤖 Connection closed, Reconnecting...."); startHori(); }
-            else if (reason === DisconnectReason.connectionLost) { console.log("🤖 Connection Lost from Server, Reconnecting..."); startHori(); }
-            else if (reason === DisconnectReason.connectionReplaced) { console.log("🤖 Connection Replaced, Another New Session Opened, Please Close Current Session First"); process.exit(); }
-            else if (reason === DisconnectReason.loggedOut) { console.log(`🤖 Device Logged Out, Please Delete Session And Scan Again.`); process.exit(); }
-            else if (reason === DisconnectReason.restartRequired) { console.log("🤖 Restart Required, Restarting..."); startHori(); }
-            else if (reason === DisconnectReason.timedOut) { console.log("🤖 Connection Timed Out, Reconnecting..."); startHori(); }
-            else { console.log(`Unknown DisconnectReason: ${reason}|${connection}`) }
+        let reason = new Boom(lastDisconnect?.error)?.output.statusCode
+            if (reason === DisconnectReason.badSession) { console.log(`Bad Session File, Please Delete Session and Scan Again`); Hori.logout(); }
+            else if (reason === DisconnectReason.connectionClosed) { console.log("⚠ Connection closed, reconnecting...."); startHori(); }
+            else if (reason === DisconnectReason.connectionLost) { console.log("⚠ Connection Lost from Server, reconnecting..."); startHori(); }
+            else if (reason === DisconnectReason.connectionReplaced) { console.log("⚠ Connection Replaced, Another New Session Opened, Please Close Current Session First"); Hori.logout(); }
+            else if (reason === DisconnectReason.loggedOut) { console.log(`⚠ Device Logged Out, Please Scan Again And Run.`); Hori.logout(); }
+            else if (reason === DisconnectReason.restartRequired) { console.log("⚠ Restart Required, Restarting..."); startHori(); }
+            else if (reason === DisconnectReason.timedOut) { console.log("⚠ Connection TimedOut, Reconnecting..."); startHori(); }
+            else Hori.end(`⚠ Unknown DisconnectReason: ${reason}|${connection}`)
         }
-        console.log('🤖 Connected...', update)
+        console.log('Connected...', update)
     })
-    
+
     Hori.ev.on('creds.update', saveState)
 
-    /* Add Other */
+    // Add Other
     /** Send Button 5 Image
      *
      * @param {*} jid

@@ -1,8 +1,8 @@
 {
   "name": "Hori-Beta",
-  "description": "Multi Device Whatsapp Bot By Sachu Settan And Saran",
+  "description": "whatsapp md bot build with nodejs",
   "repository": "https://github.com/Sachu-Settan/Hori-Beta",
-  "logo": "https://i.imgur.com/cLTJ9Iq.jpg",
+  "logo": "https://raw.githubusercontent.com/Sachu-Settan/Media/main/image/Hori-Beta.jpg",
   "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
   "buildpacks": [
     {
