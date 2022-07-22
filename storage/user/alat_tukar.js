@@ -1,10 +1,3 @@
-/*
-* You Can Recode, Reupload or Copy The Codes/Scripts With Credits To Code Owners ( Sachu-Settan )
-* Licenced Under MIT License
-* Copyright © 2022 Sachu. Rose Mwol-MD
-*/
-
-
   const fs = require('fs')
   let _inventoryOrang = JSON.parse(fs.readFileSync('./storage/user/inventory.json'))
   let besiAwal = global.rpg.besiawal

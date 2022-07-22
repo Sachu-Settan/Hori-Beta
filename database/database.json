@@ -1,4 +1,16 @@
 {
+  "users": {
+    "919744933034@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": "Infinity"
+    }
+  },
+  "chats": {
+    "919744933034@s.whatsapp.net": {
+      "mute": false
+    }
+  },
   "database": {},
   "game": {
     "tebaklagu": [],
@@ -13,9 +25,15 @@
     "tebakan": []
   },
   "settings": {
-    "919744933034@s.whatsapp.net": {
+    "917907804579@s.whatsapp.net": {
       "status": 0,
-      "autobio": false
+      "autobio": false,
+      "templateImage": false,
+      "templateVideo": false,
+      "templateGif": false,
+      "templateMsg": false,
+      "templateDocument": false,
+      "templateLocation": true
     }
   },
   "others": {

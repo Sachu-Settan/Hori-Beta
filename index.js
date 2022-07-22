@@ -1,429 +1,787 @@
 /*
-* You Can Recode, Reupload or Copy The Codes/Scripts With Credits To Code Owners ( Sachu-Settan )
-* Licenced Under MIT License
-* Copyright © 2022 Sachu. Rose Mwol-MD
-*/
+ * You Can Recode, Reupload or Copy The Codes/Scripts With Credits To Code Owners ( Sachu-Settan )
+ * Licenced Under MIT License
+ * Copyright © 2022 Sachu. Hori Mwol-MD
+ */
 
 require('./config')
-const { default: HoriConnect, useSingleFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@adiwajshing/baileys")
-const { state, saveState } = useSingleFileAuthState(`./${sessionName}.json`)
+const {
+	default: HoriBetaConnect,
+	useSingleFileAuthState,
+	DisconnectReason,
+	fetchLatestBaileysVersion,
+	generateForwardMessageContent,
+	prepareWAMessageMedia,
+	generateWAMessageFromContent,
+	generateMessageID,
+	downloadContentFromMessage,
+	makeInMemoryStore,
+	jidDecode,
+	proto
+} = require("@adiwajshing/baileys")
+const {
+	state,
+	saveState
+} = useSingleFileAuthState(`./${sessionfilename}.json`)
 const pino = require('pino')
-const { Boom } = require('@hapi/boom')
+const {
+	Boom
+} = require('@hapi/boom')
 const fs = require('fs')
 const yargs = require('yargs/yargs')
 const chalk = require('chalk')
+const CFonts = require('cfonts')
 const FileType = require('file-type')
 const path = require('path')
 const PhoneNumber = require('awesome-phonenumber')
-const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
-const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/myfunc')
+const {
+	imageToWebp,
+	videoToWebp,
+	writeExifImg,
+	writeExifVid
+} = require('./lib/exif')
+const {
+	smsg,
+	isUrl,
+	generateMessageTag,
+	getBuffer,
+	getSizeMedia,
+	fetchJson,
+	await,
+	sleep
+} = require('./lib/myfunc')
+const moment = require('moment-timezone')
 
 var low
 try {
-  low = require('lowdb')
+	low = require('lowdb')
 } catch (e) {
-  low = require('./lib/lowdb')
+	low = require('./lib/lowdb')
 }
 
-const { Low, JSONFile } = low
+const {
+	Low,
+	JSONFile
+} = low
 const mongoDB = require('./lib/mongoDB')
 
-global.api = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
+global.api = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({
+	...query,
+	...(apikeyqueryname ? {
+		[apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name]
+	} : {})
+})) : '')
 
-const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
+const store = makeInMemoryStore({
+	logger: pino().child({
+		level: 'silent',
+		stream: 'store'
+	})
+})
 
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 global.db = new Low(
-  /https?:\/\//.test(opts['db'] || '') ?
-    new cloudDBAdapter(opts['db']) : /mongodb/.test(opts['db']) ?
-      new mongoDB(opts['db']) :
-      new JSONFile(`database/database.json`)
+	/https?:\/\//.test(opts['db'] || '') ?
+	new cloudDBAdapter(opts['db']) : /mongodb/.test(opts['db']) ?
+	new mongoDB(opts['db']) :
+	new JSONFile(`database/database.json`)
 )
 global.db.data = {
-    users: {},
-    chats: {},
-    database: {},
-    game: {},
-    settings: {},
-    others: {},
-    sticker: {},
-    ...(global.db.data || {})
+	users: {},
+	chats: {},
+	database: {},
+	game: {},
+	settings: {},
+	others: {},
+	sticker: {},
+	...(global.db.data || {})
 }
 
 if (global.db) setInterval(async () => {
-    if (global.db.data) await global.db.write()
-  }, 30 * 1000)
+	if (global.db.data) await global.db.write()
+}, 30 * 1000)
 
-async function startHori() {
-    const Hori = HoriConnect({
-        logger: pino({ level: 'silent' }),
-        printQRInTerminal: true,
-        browser: ['Hori-Beta','Chrome','11.0'],
-        auth: state
-    })
+async function startHoriBeta() {
+	const HoriBeta = HoriBetaConnect({
+		logger: pino({
+			level: 'silent'
+		}),
+		printQRInTerminal: true,
+		browser: ['Hori-Beta-MD', 'Chrome', '3.0'],
+		auth: state
+	})
 
-    store.bind(Hori.ev)
-    
-    Hori.ws.on('CB:call', async (json) => {
-    const callerId = json.content[0].attrs['call-creator']
-    if (json.content[0].tag == 'offer') {
-    let pa7rick = await Hori.sendContact(callerId, global.owner)
-    Hori.sendMessage(callerId, { text: `Automatic Block System!\nDon't Call Bot!\nPlease Ask Or Contact The Owner To Unblock You!`}, { quoted : pa7rick })
-    await sleep(8000)
-    await Hori.updateBlockStatus(callerId, "block")
-    }
-    })
+	CFonts.say('Hori-Beta', {
+		font: 'block',
+		color: ['#ff9c00'],
+		align: 'center',
+	})
+	CFonts.say(`Multi Device WhatsApp Bot Created By Sachu-Settan | Hori Mwol Is Startingg...`, {
+		font: 'console',
+		align: 'center',
+		gradient: ['red', 'magenta']
+	})
 
-    Hori.ev.on('messages.upsert', async chatUpdate => {
-        //console.log(JSON.stringify(chatUpdate, undefined, 2))
-        try {
-        mek = chatUpdate.messages[0]
-        if (!mek.message) return
-        mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
-        if (mek.key && mek.key.remoteJid === 'status@broadcast') return
-        if (!Hori.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
-        if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
-        m = smsg(Hori, mek, store)
-        require("./Hori-Beta")(Hori, m, chatUpdate, store)
-        } catch (err) {
-            console.log(err)
-        }
-    })
-    
-    Hori.ev.on('groups.update', async pea => {
-       //console.log(pea)
-       try {
-       ppgc = await Hori.profilePictureUrl(pea[0].id, 'image')
-       } catch {
-       ppgc = 'https://shortlink.Horiarridho.my.id/rg1oT'
-       }
-       let wm_fatih = { url : ppgc }
-       if (pea[0].announce == true) {
-       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Closed By Admin, Now Only Admin Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
-       } else if(pea[0].announce == false) {
-       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Opened By Admin, Now Participants Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
-       } else if (pea[0].restrict == true) {
-       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Restricted, Now Only Admin Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
-       } else if (pea[0].restrict == false) {
-       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Opened, Now Participants Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
-       } else {
-       Hori.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Subject Has Been Changed To *${pea[0].subject}*`, `Group Settings Change Message`, wm_fatih, [])
-     }
-    })
-	
-    Hori.decodeJid = (jid) => {
-        if (!jid) return jid
-        if (/:\d+@/gi.test(jid)) {
-            let decode = jidDecode(jid) || {}
-            return decode.user && decode.server && decode.user + '@' + decode.server || jid
-        } else return jid
-    }
-    
-    Hori.ev.on('contacts.update', update => {
-        for (let contact of update) {
-            let id = Hori.decodeJid(contact.id)
-            if (store && store.contacts) store.contacts[id] = { id, name: contact.notify }
-        }
-    })
+	store.bind(HoriBeta.ev)
 
-    Hori.getName = (jid, withoutContact  = false) => {
-        id = Hori.decodeJid(jid)
-        withoutContact = Hori.withoutContact || withoutContact 
-        let v
-        if (id.endsWith("@g.us")) return new Promise(async (resolve) => {
-            v = store.contacts[id] || {}
-            if (!(v.name || v.subject)) v = Hori.groupMetadata(id) || {}
-            resolve(v.name || v.subject || PhoneNumber('+' + id.replace('@s.whatsapp.net', '')).getNumber('international'))
-        })
-        else v = id === '0@s.whatsapp.net' ? {
-            id,
-            name: 'WhatsApp'
-        } : id === Hori.decodeJid(Hori.user.id) ?
-            Hori.user :
-            (store.contacts[id] || {})
-            return (withoutContact ? '' : v.name) || v.subject || v.verifiedName || PhoneNumber('+' + jid.replace('@s.whatsapp.net', '')).getNumber('international')
-    }
-    
-    Hori.sendContact = async (jid, kon, quoted = '', opts = {}) => {
-	let list = []
-	for (let i of kon) {
-	    list.push({
-	    	displayName: await Hori.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${ownername}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click To Chat\nitem2.EMAIL;type=INTERNET:${sc}\nitem2.X-ABLabel:Script\nitem3.URL:${myweb}\nitem3.X-ABLabel:Script\nitem4.ADR:;;${region};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
-	    })
+	HoriBeta.ws.on('CB:call', async (json) => {
+		const callerId = json.content[0].attrs['call-creator']
+		if (json.content[0].tag == 'offer') {
+			let fek = await HoriBeta.sendContact(callerId, global.owner)
+			HoriBeta.sendMessage(callerId, {
+				text: `Automatic Block System!\nDon't Call Bot!\nPlease Ask Or Contact The Owner To Unblock You!`
+			}, {
+				quoted: fek
+			})
+			await sleep(8000)
+			await HoriBeta.updateBlockStatus(callerId, "block")
+		}
+	})
+
+	HoriBeta.ev.on('messages.upsert', async chatUpdate => {
+		//console.log(JSON.stringify(chatUpdate, undefined, 2))
+		try {
+			mek = chatUpdate.messages[0]
+			if (!mek.message) return
+			mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
+			if (mek.key && mek.key.remoteJid === 'status@broadcast') return
+			if (!HoriBeta.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
+			if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
+			m = smsg(HoriBeta, mek, store)
+			require("./Hori-Beta-MD")(HoriBeta, m, chatUpdate, store)
+		} catch (err) {
+			console.log(err)
+		}
+	})
+
+	HoriBeta.ev.on('groups.update', async pea => {
+		try {
+			ppgc = await HoriBeta.profilePictureUrl(pea[0].id, 'image')
+		} catch {
+			ppgc = 'https://telegra.ph/file/65d5c3a0691ac0d6a77d6.png'
+		}
+		let lol = {
+			url: ppgc
+		}
+		if (pea[0].announce == true) {
+			HoriBeta.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Closed By Admin, Now Only Admin Can Send Messages !`, `${botname}`, lol, [])
+		} else if (pea[0].announce == false) {
+			HoriBeta.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Opened By Admin, Now Participants Can Send Messages !`, `${botname}`, lol, [])
+		} else if (pea[0].restrict == true) {
+			HoriBeta.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Restricted, Now Only Admin Can Edit Group Info !`, `${botname}`, lol, [])
+		} else if (pea[0].restrict == false) {
+			HoriBeta.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Opened, Now Participants Can Edit Group Info !`, `${botname}`, lol, [])
+		} else {
+			HoriBeta.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Subject Has Been Changed To *${pea[0].subject}*`, `${botname}`, lol, [])
+		}
+	})
+
+	function pickRandom(list) {
+		return list[Math.floor(list.length * Math.random())]
 	}
-	Hori.sendMessage(jid, { contacts: { displayName: `${list.length} Contact`, contacts: list }, ...opts }, { quoted })
-    }
-    
-    Hori.setStatus = (status) => {
-        Hori.query({
-            tag: 'iq',
-            attrs: {
-                to: '@s.whatsapp.net',
-                type: 'set',
-                xmlns: 'status',
-            },
-            content: [{
-                tag: 'status',
-                attrs: {},
-                content: Buffer.from(status, 'utf-8')
-            }]
-        })
-        return status
-    }
-	
-    Hori.public = true
+	let documents = [doc1, doc2, doc3, doc4, doc5, doc6]
+	let docs = pickRandom(documents)
 
-    Hori.serializeM = (m) => smsg(Hori, m, store)
+	HoriBeta.ev.on('group-participants.update', async (anu) => {
+		console.log(anu)
+		try {
+			let metadata = await HoriBeta.groupMetadata(anu.id)
+			let participants = anu.participants
+			for (let num of participants) {
+				try {
+					ppuser = await HoriBeta.profilePictureUrl(num, 'image')
+				} catch {
+					ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+				}
+				try {
+					ppgroup = await HoriBeta.profilePictureUrl(anu.id, 'image')
+				} catch {
+					ppgroup = 'https://telegra.ph/file/65d5c3a0691ac0d6a77d6.png'
+				}
 
-    Hori.ev.on('connection.update', async (update) => {
-        const { connection, lastDisconnect } = update	    
-        if (connection === 'close') {
-        let reason = new Boom(lastDisconnect?.error)?.output.statusCode
-            if (reason === DisconnectReason.badSession) { console.log(`Bad Session File, Please Delete Session and Scan Again`); Hori.logout(); }
-            else if (reason === DisconnectReason.connectionClosed) { console.log("⚠ Connection closed, reconnecting...."); startHori(); }
-            else if (reason === DisconnectReason.connectionLost) { console.log("⚠ Connection Lost from Server, reconnecting..."); startHori(); }
-            else if (reason === DisconnectReason.connectionReplaced) { console.log("⚠ Connection Replaced, Another New Session Opened, Please Close Current Session First"); Hori.logout(); }
-            else if (reason === DisconnectReason.loggedOut) { console.log(`⚠ Device Logged Out, Please Scan Again And Run.`); Hori.logout(); }
-            else if (reason === DisconnectReason.restartRequired) { console.log("⚠ Restart Required, Restarting..."); startHori(); }
-            else if (reason === DisconnectReason.timedOut) { console.log("⚠ Connection TimedOut, Reconnecting..."); startHori(); }
-            else Hori.end(`⚠ Unknown DisconnectReason: ${reason}|${connection}`)
-        }
-        console.log('Connected...', update)
-    })
+				let nama = await HoriBeta.getName(num)
+				memb = metadata.participants.length
+				Wlcm = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+				Lft = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+				if (anu.action == 'add') {
+					const buffer = await getBuffer(ppuser)
+					let Name = num
+					const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+					const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+					const xmembers = metadata.participants.length
+					let unicorndoc = {
+						key: {
+							fromMe: false,
+							"participant": "0@s.whatsapp.net",
+							"remoteJid": "919744933034-1604595598@g.us"
+						},
+						"message": {
+							orderMessage: {
+								itemCount: 9999999,
+								status: 200,
+								thumbnail: Wlcm,
+								surface: 200,
+								message: `${metadata.subject}`,
+								orderTitle: '',
+								sellerJid: '0@s.whatsapp.net'
+							}
+						},
+						contextInfo: {
+							"forwardingScore": 999,
+							"isForwarded": true
+						},
+						sendEphemeral: true
+					}
+					body = `┌─❖
+│「 𝗛𝗶 👋 」
+└┬❖ 「 @${Name.split("@")[0]}  」
+   │✑  𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 
+   │✑  ${metadata.subject}
+   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
+   │✑ ${xmembers}th
+   │✑  𝗝𝗼𝗶𝗻𝗲𝗱 : 
+   │✑ ${xtime} ${xdate}
+   └───────────────┈ ⳹`
 
-    Hori.ev.on('creds.update', saveState)
+					let buttons = [{
+						buttonId: `wkwwk`,
+						buttonText: {
+							displayText: 'Welcome 💐'
+						},
+						type: 1
+					}]
+					let buttonMessage = {
+						document: fs.readFileSync('./Media/file/Hori.xlsx'),
+						mimetype: docs,
+						jpegThumbnail: Wlcm,
+						mentions: [num],
+						fileName: `${metadata.subject}`,
+						fileLength: 99999999999999,
+						caption: body,
+						footer: `${botname}`,
+						buttons: buttons,
+						headerType: 4,
+						contextInfo: {
+							externalAdReply: {
+								title: `${ownername}`,
+								body: `Don't forget to read group description`,
+								mediaType: 2,
+								thumbnail: Wlcm,
+								sourceUrl: `${websitex}`,
+								mediaUrl: `${websitex}`
+							}
+						}
+					}
+					HoriBeta.sendMessage(anu.id, buttonMessage, {
+						quoted: unicorndoc
+					})
+				} else if (anu.action == 'remove') {
+					const buffer = await getBuffer(ppuser)
+					const time = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+					const date = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+					let Name = num
+					const members = metadata.participants.length
+					let unicorndoc = {
+						key: {
+							fromMe: false,
+							"participant": "0@s.whatsapp.net",
+							"remoteJid": "919744933034-1604595598@g.us"
+						},
+						"message": {
+							orderMessage: {
+								itemCount: 9999999,
+								status: 200,
+								thumbnail: buffer,
+								surface: 200,
+								message: `${metadata.subject}`,
+								orderTitle: '',
+								sellerJid: '0@s.whatsapp.net'
+							}
+						},
+						contextInfo: {
+							"forwardingScore": 999,
+							"isForwarded": true
+						},
+						sendEphemeral: true
+					}
+					body = `┌─❖
+│「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
+└┬❖ 「 @${Name.split("@")[0]}  」
+   │✑  𝗟𝗲𝗳𝘁 
+   │✑ ${metadata.subject}
+   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
+   │✑ ${members}th
+   │✑  𝗧𝗶𝗺𝗲 : 
+   │✑  ${time} ${date}
+   └───────────────┈ ⳹`
+					let buttons = [{
+						buttonId: `wkwkwk`,
+						buttonText: {
+							displayText: 'Sayonara 🥀'
+						},
+						type: 1
+					}]
+					let buttonMessage = {
+						document: fs.readFileSync('./Media/file/Hori.xlsx'),
+						mimetype: docs,
+						jpegThumbnail: Lft,
+						mentions: [num],
+						fileName: `${metadata.subject}`,
+						fileLength: 99999999999999,
+						caption: body,
+						footer: `${botname}`,
+						buttons: buttons,
+						headerType: 4,
+						contextInfo: {
+							externalAdReply: {
+								title: `${ownername}`,
+								body: `Bye! my friend, take care.`,
+								mediaType: 2,
+								thumbnail: Lft,
+								sourceUrl: `${websitex}`,
+								mediaUrl: `${websitex}`
+							}
+						}
+					}
+					HoriBeta.sendMessage(anu.id, buttonMessage, {
+						quoted: unicorndoc
+					})
+				}
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	})
 
-    // Add Other
-    /** Send Button 5 Image
-     *
-     * @param {*} jid
-     * @param {*} text
-     * @param {*} footer
-     * @param {*} image
-     * @param [*] button
-     * @param {*} options
-     * @returns
-     */
-    Hori.send5ButImg = async (jid , text = '' , footer = '', img, but = [], options = {}) =>{
-        let message = await prepareWAMessageMedia({ image: img }, { upload: Hori.waUploadToServer })
-        var template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-        templateMessage: {
-        hydratedTemplate: {
-        imageMessage: message.imageMessage,
-               "hydratedContentText": text,
-               "hydratedFooterText": footer,
-               "hydratedButtons": but
-            }
-            }
-            }), options)
-            Hori.relayMessage(jid, template.message, { messageId: template.key.id })
-    }
-
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} buttons 
-     * @param {*} caption 
-     * @param {*} footer 
-     * @param {*} quoted 
-     * @param {*} options 
-     */
-    Hori.sendButtonText = (jid, buttons = [], text, footer, quoted = '', options = {}) => {
-        let buttonMessage = {
-            text,
-            footer,
-            buttons,
-            headerType: 2,
-            ...options
-        }
-        Hori.sendMessage(jid, buttonMessage, { quoted, ...options })
-    }
-    
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} text 
-     * @param {*} quoted 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendText = (jid, text, quoted = '', options) => Hori.sendMessage(jid, { text: text, ...options }, { quoted })
-
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} path 
-     * @param {*} caption 
-     * @param {*} quoted 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendImage = async (jid, path, caption = '', quoted = '', options) => {
-	let buffer = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-        return await Hori.sendMessage(jid, { image: buffer, caption: caption, ...options }, { quoted })
-    }
-
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} path 
-     * @param {*} caption 
-     * @param {*} quoted 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendVideo = async (jid, path, caption = '', quoted = '', gif = false, options) => {
-        let buffer = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-        return await Hori.sendMessage(jid, { video: buffer, caption: caption, gifPlayback: gif, ...options }, { quoted })
-    }
-
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} path 
-     * @param {*} quoted 
-     * @param {*} mime 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendAudio = async (jid, path, quoted = '', ptt = false, options) => {
-        let buffer = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-        return await Hori.sendMessage(jid, { audio: buffer, ptt: ptt, ...options }, { quoted })
-    }
-
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} text 
-     * @param {*} quoted 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendTextWithMentions = async (jid, text, quoted, options = {}) => Hori.sendMessage(jid, { text: text, contextInfo: { mentionedJid: [...text.matchAll(/@(\d{0,16})/g)].map(v => v[1] + '@s.whatsapp.net') }, ...options }, { quoted })
-
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} path 
-     * @param {*} quoted 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendImageAsSticker = async (jid, path, quoted, options = {}) => {
-        let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-        let buffer
-        if (options && (options.packname || options.author)) {
-            buffer = await writeExifImg(buff, options)
-        } else {
-            buffer = await imageToWebp(buff)
-        }
-
-        await Hori.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted })
-        return buffer
-    }
-
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} path 
-     * @param {*} quoted 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendVideoAsSticker = async (jid, path, quoted, options = {}) => {
-        let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-        let buffer
-        if (options && (options.packname || options.author)) {
-            buffer = await writeExifVid(buff, options)
-        } else {
-            buffer = await videoToWebp(buff)
-        }
-
-        await Hori.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted })
-        return buffer
-    }
-	
-    /**
-     * 
-     * @param {*} message 
-     * @param {*} filename 
-     * @param {*} attachExtension 
-     * @returns 
-     */
-    Hori.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => {
-        let quoted = message.msg ? message.msg : message
-        let mime = (message.msg || message).mimetype || ''
-        let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
-        const stream = await downloadContentFromMessage(quoted, messageType)
-        let buffer = Buffer.from([])
-        for await(const chunk of stream) {
-            buffer = Buffer.concat([buffer, chunk])
-        }
-	let type = await FileType.fromBuffer(buffer)
-        trueFileName = attachExtension ? (filename + '.' + type.ext) : filename
-        // save to file
-        await fs.writeFileSync(trueFileName, buffer)
-        return trueFileName
-    }
-
-    Hori.downloadMediaMessage = async (message) => {
-        let mime = (message.msg || message).mimetype || ''
-        let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
-        const stream = await downloadContentFromMessage(message, messageType)
-        let buffer = Buffer.from([])
-        for await(const chunk of stream) {
-            buffer = Buffer.concat([buffer, chunk])
+	//Setting\\
+	HoriBeta.decodeJid = (jid) => {
+		if (!jid) return jid
+		if (/:\d+@/gi.test(jid)) {
+			let decode = jidDecode(jid) || {}
+			return decode.user && decode.server && decode.user + '@' + decode.server || jid
+		} else return jid
 	}
-        
-	return buffer
-     } 
-    
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} path 
-     * @param {*} filename
-     * @param {*} caption
-     * @param {*} quoted 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.sendMedia = async (jid, path, fileName = '', caption = '', quoted = '', options = {}) => {
-        let types = await Hori.getFile(path, true)
-           let { mime, ext, res, data, filename } = types
-           if (res && res.status !== 200 || file.length <= 65536) {
-               try { throw { json: JSON.parse(file.toString()) } }
-               catch (e) { if (e.json) throw e.json }
-           }
-       let type = '', mimetype = mime, pathFile = filename
-       if (options.asDocument) type = 'document'
-       if (options.asSticker || /webp/.test(mime)) {
-        let { writeExif } = require('./lib/exif')
-        let media = { mimetype: mime, data }
-        pathFile = await writeExif(media, { packname: options.packname ? options.packname : global.packname, author: options.author ? options.author : global.author, categories: options.categories ? options.categories : [] })
-        await fs.promises.unlink(filename)
-        type = 'sticker'
-        mimetype = 'image/webp'
-        }
-       else if (/image/.test(mime)) type = 'image'
-       else if (/video/.test(mime)) type = 'video'
-       else if (/audio/.test(mime)) type = 'audio'
-       else type = 'document'
-       await Hori.sendMessage(jid, { [type]: { url: pathFile }, caption, mimetype, fileName, ...options }, { quoted, ...options })
-       return fs.promises.unlink(pathFile)
-       }
 
-    /**
-     * 
-     * @param {*} jid 
-     * @param {*} message 
-     * @param {*} forceForward 
-     * @param {*} options 
-     * @returns 
-     */
-    Hori.copyNForward = async (jid, message, forceForward = false, options = {}) => {
-        let vtype
+	HoriBeta.ev.on('contacts.update', update => {
+		for (let contact of update) {
+			let id = HoriBeta.decodeJid(contact.id)
+			if (store && store.contacts) store.contacts[id] = {
+				id,
+				name: contact.notify
+			}
+		}
+	})
+
+	HoriBeta.getName = (jid, withoutContact = false) => {
+		id = HoriBeta.decodeJid(jid)
+		withoutContact = HoriBeta.withoutContact || withoutContact
+		let v
+		if (id.endsWith("@g.us")) return new Promise(async (resolve) => {
+			v = store.contacts[id] || {}
+			if (!(v.name || v.subject)) v = HoriBeta.groupMetadata(id) || {}
+			resolve(v.name || v.subject || PhoneNumber('+' + id.replace('@s.whatsapp.net', '')).getNumber('international'))
+		})
+		else v = id === '0@s.whatsapp.net' ? {
+				id,
+				name: 'WhatsApp'
+			} : id === HoriBeta.decodeJid(HoriBeta.user.id) ?
+			HoriBeta.user :
+			(store.contacts[id] || {})
+		return (withoutContact ? '' : v.name) || v.subject || v.verifiedName || PhoneNumber('+' + jid.replace('@s.whatsapp.net', '')).getNumber('international')
+	}
+
+	HoriBeta.sendContact = async (jid, kon, quoted = '', opts = {}) => {
+		let list = []
+		for (let i of kon) {
+			list.push({
+				displayName: await HoriBeta.getName(i + '@s.whatsapp.net'),
+				vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await HoriBeta.getName(i + '@s.whatsapp.net')}\nFN:${global.ownername}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click here to chat\nitem2.EMAIL;type=INTERNET:${global.ytname}\nitem2.X-ABLabel:YouTube\nitem3.URL:${global.socialm}\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${global.location};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+			})
+		}
+		HoriBeta.sendMessage(jid, {
+			contacts: {
+				displayName: `${list.length} Contact`,
+				contacts: list
+			},
+			...opts
+		}, {
+			quoted
+		})
+	}
+
+	HoriBeta.setStatus = (status) => {
+		HoriBeta.query({
+			tag: 'iq',
+			attrs: {
+				to: '@s.whatsapp.net',
+				type: 'set',
+				xmlns: 'status',
+			},
+			content: [{
+				tag: 'status',
+				attrs: {},
+				content: Buffer.from(status, 'utf-8')
+			}]
+		})
+		return status
+	}
+
+	HoriBeta.public = true
+
+	HoriBeta.serializeM = (m) => smsg(HoriBeta, m, store)
+
+	HoriBeta.ev.on('connection.update', async (update) => {
+		const {
+			connection,
+			lastDisconnect
+		} = update
+		if (connection === 'close') {
+			let reason = new Boom(lastDisconnect?.error)?.output.statusCode
+			if (reason === DisconnectReason.badSession) {
+				console.log(`Bad Session File, Please Delete Session and Scan Again`);
+				HoriBeta.logout();
+			} else if (reason === DisconnectReason.connectionClosed) {
+				console.log("✔ Connection closed, reconnecting....");
+				startHoriBeta();
+			} else if (reason === DisconnectReason.connectionLost) {
+				console.log("✔ Connection Lost from Server, reconnecting...");
+				startHoriBeta();
+			} else if (reason === DisconnectReason.connectionReplaced) {
+				console.log("✔ Connection Replaced, Another New Session Opened, Please Close Current Session First");
+				HoriBeta.logout();
+			} else if (reason === DisconnectReason.loggedOut) {
+				console.log(`✔ Device Logged Out, Please Scan Again And Run.`);
+				HoriBeta.logout();
+			} else if (reason === DisconnectReason.restartRequired) {
+				console.log("✔ Restart Required, Restarting...");
+				startHoriBeta();
+			} else if (reason === DisconnectReason.timedOut) {
+				console.log("✔ Connection Timed Out, Reconnecting....");
+				startHoriBeta();
+			} else HoriBeta.end(`✔ Unknown Disconnect Reason: ${reason}|${connection}`)
+		}
+		console.log('Connected...', update)
+	})
+
+	HoriBeta.ev.on('creds.update', saveState)
+
+	// Add Other
+	/** Send Button 5 Image
+	 *
+	 * @param {*} jid
+	 * @param {*} text
+	 * @param {*} footer
+	 * @param {*} image
+	 * @param [*] button
+	 * @param {*} options
+	 * @returns
+	 */
+	HoriBeta.send5ButImg = async (jid, text = '', footer = '', img, but = [], options = {}) => {
+		let message = await prepareWAMessageMedia({
+			image: img
+		}, {
+			upload: HoriBeta.waUploadToServer
+		})
+		var template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+			templateMessage: {
+				hydratedTemplate: {
+					imageMessage: message.imageMessage,
+					"hydratedContentText": text,
+					"hydratedFooterText": footer,
+					"hydratedButtons": but
+				}
+			}
+		}), options)
+		HoriBeta.relayMessage(jid, template.message, {
+			messageId: template.key.id
+		})
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} buttons 
+	 * @param {*} caption 
+	 * @param {*} footer 
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 */
+	HoriBeta.sendButtonText = (jid, buttons = [], text, footer, quoted = '', options = {}) => {
+		let buttonMessage = {
+			text,
+			footer,
+			buttons,
+			headerType: 2,
+			...options
+		}
+		HoriBeta.sendMessage(jid, buttonMessage, {
+			quoted,
+			...options
+		})
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} text 
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendText = (jid, text, quoted = '', options) => HoriBeta.sendMessage(jid, {
+		text: text,
+		...options
+	}, {
+		quoted
+	})
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} path 
+	 * @param {*} caption 
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendImage = async (jid, path, caption = '', quoted = '', options) => {
+		let buffer = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
+		return await HoriBeta.sendMessage(jid, {
+			image: buffer,
+			caption: caption,
+			...options
+		}, {
+			quoted
+		})
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} path 
+	 * @param {*} caption 
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendVideo = async (jid, path, caption = '', quoted = '', gif = false, options) => {
+		let buffer = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
+		return await HoriBeta.sendMessage(jid, {
+			video: buffer,
+			caption: caption,
+			gifPlayback: gif,
+			...options
+		}, {
+			quoted
+		})
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} path 
+	 * @param {*} quoted 
+	 * @param {*} mime 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendAudio = async (jid, path, quoted = '', ptt = false, options) => {
+		let buffer = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
+		return await HoriBeta.sendMessage(jid, {
+			audio: buffer,
+			ptt: ptt,
+			...options
+		}, {
+			quoted
+		})
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} text 
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendTextWithMentions = async (jid, text, quoted, options = {}) => HoriBeta.sendMessage(jid, {
+		text: text,
+		contextInfo: {
+			mentionedJid: [...text.matchAll(/@(\d{0,16})/g)].map(v => v[1] + '@s.whatsapp.net')
+		},
+		...options
+	}, {
+		quoted
+	})
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} path 
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendImageAsSticker = async (jid, path, quoted, options = {}) => {
+		let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
+		let buffer
+		if (options && (options.packname || options.author)) {
+			buffer = await writeExifImg(buff, options)
+		} else {
+			buffer = await imageToWebp(buff)
+		}
+
+		await HoriBeta.sendMessage(jid, {
+			sticker: {
+				url: buffer
+			},
+			...options
+		}, {
+			quoted
+		})
+		return buffer
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} path 
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendVideoAsSticker = async (jid, path, quoted, options = {}) => {
+		let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
+		let buffer
+		if (options && (options.packname || options.author)) {
+			buffer = await writeExifVid(buff, options)
+		} else {
+			buffer = await videoToWebp(buff)
+		}
+
+		await HoriBeta.sendMessage(jid, {
+			sticker: {
+				url: buffer
+			},
+			...options
+		}, {
+			quoted
+		})
+		return buffer
+	}
+
+	/**
+	 * 
+	 * @param {*} message 
+	 * @param {*} filename 
+	 * @param {*} attachExtension 
+	 * @returns 
+	 */
+	HoriBeta.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => {
+		let quoted = message.msg ? message.msg : message
+		let mime = (message.msg || message).mimetype || ''
+		let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
+		const stream = await downloadContentFromMessage(quoted, messageType)
+		let buffer = Buffer.from([])
+		for await (const chunk of stream) {
+			buffer = Buffer.concat([buffer, chunk])
+		}
+		let type = await FileType.fromBuffer(buffer)
+		trueFileName = attachExtension ? (filename + '.' + type.ext) : filename
+		// save to file
+		await fs.writeFileSync(trueFileName, buffer)
+		return trueFileName
+	}
+
+	HoriBeta.downloadMediaMessage = async (message) => {
+		let mime = (message.msg || message).mimetype || ''
+		let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
+		const stream = await downloadContentFromMessage(message, messageType)
+		let buffer = Buffer.from([])
+		for await (const chunk of stream) {
+			buffer = Buffer.concat([buffer, chunk])
+		}
+
+		return buffer
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} path 
+	 * @param {*} filename
+	 * @param {*} caption
+	 * @param {*} quoted 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.sendMedia = async (jid, path, fileName = '', caption = '', quoted = '', options = {}) => {
+		let types = await HoriBeta.getFile(path, true)
+		let {
+			mime,
+			ext,
+			res,
+			data,
+			filename
+		} = types
+		if (res && res.status !== 200 || file.length <= 65536) {
+			try {
+				throw {
+					json: JSON.parse(file.toString())
+				}
+			} catch (e) {
+				if (e.json) throw e.json
+			}
+		}
+		let type = '',
+			mimetype = mime,
+			pathFile = filename
+		if (options.asDocument) type = 'document'
+		if (options.asSticker || /webp/.test(mime)) {
+			let {
+				writeExif
+			} = require('./lib/exif')
+			let media = {
+				mimetype: mime,
+				data
+			}
+			pathFile = await writeExif(media, {
+				packname: options.packname ? options.packname : global.packname,
+				author: options.author ? options.author : global.author,
+				categories: options.categories ? options.categories : []
+			})
+			await fs.promises.unlink(filename)
+			type = 'sticker'
+			mimetype = 'image/webp'
+		} else if (/image/.test(mime)) type = 'image'
+		else if (/video/.test(mime)) type = 'video'
+		else if (/audio/.test(mime)) type = 'audio'
+		else type = 'document'
+		await HoriBeta.sendMessage(jid, {
+			[type]: {
+				url: pathFile
+			},
+			caption,
+			mimetype,
+			fileName,
+			...options
+		}, {
+			quoted,
+			...options
+		})
+		return fs.promises.unlink(pathFile)
+	}
+
+	/**
+	 * 
+	 * @param {*} jid 
+	 * @param {*} message 
+	 * @param {*} forceForward 
+	 * @param {*} options 
+	 * @returns 
+	 */
+	HoriBeta.copyNForward = async (jid, message, forceForward = false, options = {}) => {
+		let vtype
 		if (options.readViewOnce) {
 			message.message = message.message && message.message.ephemeralMessage && message.message.ephemeralMessage.message ? message.message.ephemeralMessage.message : (message.message || undefined)
 			vtype = Object.keys(message.message.viewOnceMessage.message)[0]
@@ -434,85 +792,182 @@ async function startHori() {
 			}
 		}
 
-        let mtype = Object.keys(message.message)[0]
-        let content = await generateForwardMessageContent(message, forceForward)
-        let ctype = Object.keys(content)[0]
+		let mtype = Object.keys(message.message)[0]
+		let content = await generateForwardMessageContent(message, forceForward)
+		let ctype = Object.keys(content)[0]
 		let context = {}
-        if (mtype != "conversation") context = message.message[mtype].contextInfo
-        content[ctype].contextInfo = {
-            ...context,
-            ...content[ctype].contextInfo
-        }
-        const waMessage = await generateWAMessageFromContent(jid, content, options ? {
-            ...content[ctype],
-            ...options,
-            ...(options.contextInfo ? {
-                contextInfo: {
-                    ...content[ctype].contextInfo,
-                    ...options.contextInfo
-                }
-            } : {})
-        } : {})
-        await Hori.relayMessage(jid, waMessage.message, { messageId:  waMessage.key.id })
-        return waMessage
-    }
+		if (mtype != "conversation") context = message.message[mtype].contextInfo
+		content[ctype].contextInfo = {
+			...context,
+			...content[ctype].contextInfo
+		}
+		const waMessage = await generateWAMessageFromContent(jid, content, options ? {
+			...content[ctype],
+			...options,
+			...(options.contextInfo ? {
+				contextInfo: {
+					...content[ctype].contextInfo,
+					...options.contextInfo
+				}
+			} : {})
+		} : {})
+		await HoriBeta.relayMessage(jid, waMessage.message, {
+			messageId: waMessage.key.id
+		})
+		return waMessage
+	}
 
-    Hori.cMod = (jid, copy, text = '', sender = Hori.user.id, options = {}) => {
-        //let copy = message.toJSON()
+	HoriBeta.cMod = (jid, copy, text = '', sender = HoriBeta.user.id, options = {}) => {
+		//let copy = message.toJSON()
 		let mtype = Object.keys(copy.message)[0]
 		let isEphemeral = mtype === 'ephemeralMessage'
-        if (isEphemeral) {
-            mtype = Object.keys(copy.message.ephemeralMessage.message)[0]
-        }
-        let msg = isEphemeral ? copy.message.ephemeralMessage.message : copy.message
+		if (isEphemeral) {
+			mtype = Object.keys(copy.message.ephemeralMessage.message)[0]
+		}
+		let msg = isEphemeral ? copy.message.ephemeralMessage.message : copy.message
 		let content = msg[mtype]
-        if (typeof content === 'string') msg[mtype] = text || content
+		if (typeof content === 'string') msg[mtype] = text || content
 		else if (content.caption) content.caption = text || content.caption
 		else if (content.text) content.text = text || content.text
 		if (typeof content !== 'string') msg[mtype] = {
 			...content,
 			...options
-        }
-        if (copy.key.participant) sender = copy.key.participant = sender || copy.key.participant
+		}
+		if (copy.key.participant) sender = copy.key.participant = sender || copy.key.participant
 		else if (copy.key.participant) sender = copy.key.participant = sender || copy.key.participant
 		if (copy.key.remoteJid.includes('@s.whatsapp.net')) sender = sender || copy.key.remoteJid
 		else if (copy.key.remoteJid.includes('@broadcast')) sender = sender || copy.key.remoteJid
 		copy.key.remoteJid = jid
-		copy.key.fromMe = sender === Hori.user.id
+		copy.key.fromMe = sender === HoriBeta.user.id
 
-        return proto.WebMessageInfo.fromObject(copy)
-    }
+		return proto.WebMessageInfo.fromObject(copy)
+	}
 
 
-    /**
-     * 
-     * @param {*} path 
-     * @returns 
-     */
-    Hori.getFile = async (PATH, save) => {
-        let res
-        let data = Buffer.isBuffer(PATH) ? PATH : /^data:.*?\/.*?;base64,/i.test(PATH) ? Buffer.from(PATH.split`,`[1], 'base64') : /^https?:\/\//.test(PATH) ? await (res = await getBuffer(PATH)) : fs.existsSync(PATH) ? (filename = PATH, fs.readFileSync(PATH)) : typeof PATH === 'string' ? PATH : Buffer.alloc(0)
-        //if (!Buffer.isBuffer(data)) throw new TypeError('Result is not a buffer')
-        let type = await FileType.fromBuffer(data) || {
-            mime: 'application/octet-stream',
-            ext: '.bin'
-        }
-        filename = path.join(__filename, '../src/' + new Date * 1 + '.' + type.ext)
-        if (data && save) fs.promises.writeFile(filename, data)
-        return {
-            res,
-            filename,
-	    size: await getSizeMedia(data),
-            ...type,
-            data
-        }
+	HoriBeta.send5ButImg = async (jid, text = '', footer = '', img, but = [], thumb, options = {}) => {
+		let message = await prepareWAMessageMedia({
+			image: img,
+			jpegThumbnail: thumb
+		}, {
+			upload: HoriBeta.waUploadToServer
+		})
+		var template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+			templateMessage: {
+				hydratedTemplate: {
+					imageMessage: message.imageMessage,
+					"hydratedContentText": text,
+					"hydratedFooterText": footer,
+					"hydratedButtons": but
+				}
+			}
+		}), options)
+		HoriBeta.relayMessage(jid, template.message, {
+			messageId: template.key.id
+		})
+	}
 
-    }
 
-    return Hori
+
+	HoriBeta.send5ButVid = async (jid, text = '', footer = '', vid, but = [], options = {}) => {
+		let message = await prepareWAMessageMedia({
+			video: vid
+		}, {
+			upload: HoriBeta.waUploadToServer
+		})
+		var template = generateWAMessageFromContent(jid, proto.Message.fromObject({
+			templateMessage: {
+				hydratedTemplate: {
+					videoMessage: message.videoMessage,
+					"hydratedContentText": text,
+					"hydratedFooterText": footer,
+					"hydratedButtons": but
+				}
+			}
+		}), options)
+		HoriBeta.relayMessage(jid, template.message, {
+			messageId: template.key.id
+		})
+	}
+
+
+	HoriBeta.send5ButMsg = (jid, text = '', footer = '', but = []) => {
+		let templateButtons = but
+		var templateMessage = {
+			text: text,
+			footer: footer,
+			templateButtons: templateButtons
+		}
+		HoriBeta.sendMessage(jid, templateMessage)
+	}
+
+
+
+	HoriBeta.sendListMsg = (jid, text = '', footer = '', title = '', butText = '', sects = [], quoted) => {
+		let sections = sects
+		var listMes = {
+			text: text,
+			footer: footer,
+			title: title,
+			buttonText: butText,
+			sections
+		}
+		HoriBeta.sendMessage(jid, listMes, {
+			quoted: quoted
+		})
+	}
+
+	HoriBeta.send5ButGif = async (jid, text = '', footer = '', gif, but = [], options = {}) => {
+		let message = await prepareWAMessageMedia({
+			video: gif,
+			gifPlayback: true
+		}, {
+			upload: HoriBeta.waUploadToServer
+		})
+		var template = generateWAMessageFromContent(jid, proto.Message.fromObject({
+			templateMessage: {
+				hydratedTemplate: {
+					videoMessage: message.videoMessage,
+					"hydratedContentText": text,
+					"hydratedFooterText": footer,
+					"hydratedButtons": but
+				}
+			}
+		}), options)
+		HoriBeta.relayMessage(jid, template.message, {
+			messageId: template.key.id
+		})
+	}
+
+
+	/**
+	 * 
+	 * @param {*} path 
+	 * @returns 
+	 */
+	HoriBeta.getFile = async (PATH, save) => {
+		let res
+		let data = Buffer.isBuffer(PATH) ? PATH : /^data:.*?\/.*?;base64,/i.test(PATH) ? Buffer.from(PATH.split`,` [1], 'base64') : /^https?:\/\//.test(PATH) ? await (res = await getBuffer(PATH)) : fs.existsSync(PATH) ? (filename = PATH, fs.readFileSync(PATH)) : typeof PATH === 'string' ? PATH : Buffer.alloc(0)
+		//if (!Buffer.isBuffer(data)) throw new TypeError('Result is not a buffer')
+		let type = await FileType.fromBuffer(data) || {
+			mime: 'application/octet-stream',
+			ext: '.bin'
+		}
+		filename = path.join(__filename, '../src/' + new Date * 1 + '.' + type.ext)
+		if (data && save) fs.promises.writeFile(filename, data)
+		return {
+			res,
+			filename,
+			size: await getSizeMedia(data),
+			...type,
+			data
+		}
+
+	}
+
+	return HoriBeta
 }
 
-startHori()
+startHoriBeta()
 
 
 let file = require.resolve(__filename)

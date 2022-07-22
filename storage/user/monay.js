@@ -1,10 +1,4 @@
-/*
-* You Can Recode, Reupload or Copy The Codes/Scripts With Credits To Code Owners ( Sachu-Settan )
-* Licenced Under MIT License
-* Copyright © 2022 Sachu. Rose Mwol-MD
-*/
-
-const fs = require('fs')
+  const fs = require('fs')
   let _monayOrg = JSON.parse(fs.readFileSync('./storage/user/monay.json'))
   let monayAwal = global.limitawal.monayawal
   const addInventoriMonay = (sender) => {
